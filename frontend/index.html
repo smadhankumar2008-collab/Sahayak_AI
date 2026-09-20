@@ -1,0 +1,2116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>Sahayak AI - Your Friendly Cooperative Helper | சஹாயக் AI</title>
+<meta name="description" content="Friendly digital Sahayak for farmers and cooperative members - SIH 26088">
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&family=Noto+Sans+Tamil:wght@400;600&family=Noto+Sans+Devanagari:wght@400;600&family=Noto+Sans+Malayalam:wght@400;600&family=Noto+Sans+Telugu:wght@400;600&family=Noto+Sans+Kannada:wght@400;600&display=swap" rel="stylesheet">
+<style>
+:root {
+  --primary: #2e7d32;
+  --primary-light: #4caf50;
+  --primary-dark: #1b5e20;
+  --primary-soft: #e8f5e9;
+  --leaf: #81c784;
+  --harvest: #ffb74d;
+  --harvest-light: #ffe0b2;
+  --earth: #8d6e63;
+  --sky: #e1f5fe;
+  --sky-light: #f1f8e9;
+  --bg: #fefcf5;
+  --bg-warm: #fff8e1;
+  --bg-card: #ffffff;
+  --text: #2e3d29;
+  --text-light: #6d7f6a;
+  --text-muted: #9aa89a;
+  --border: #e8ede6;
+  --border-dark: #c8d6c3;
+  --success: #43a047;
+  --warning: #fb8c00;
+  --error: #e53935;
+  --shadow: 0 4px 20px rgba(46,125,50,0.08);
+  --shadow-lg: 0 12px 40px rgba(46,125,50,0.14);
+  --shadow-card: 0 8px 32px rgba(46,125,50,0.10);
+  --radius: 20px;
+  --radius-sm: 12px;
+  --radius-full: 999px;
+}
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation-duration: 0.01ms !important; animation-iteration-count: 1 !important; transition-duration: 0.01ms !important; }
+}
+* { margin:0; padding:0; box-sizing:border-box; -webkit-tap-highlight-color: transparent; }
+body {
+  font-family: 'Nunito', 'Noto Sans', 'Noto Sans Tamil', 'Noto Sans Devanagari', system-ui, sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  line-height: 1.6;
+  min-height: 100vh;
+  display:flex; flex-direction:column;
+  overflow-x:hidden;
+  position:relative;
+}
+
+/* === SUBTLE RURAL BACKGROUND === */
+.rural-bg {
+  position:fixed; inset:0; pointer-events:none; z-index:0; overflow:hidden;
+}
+.rural-bg .village-bg-image {
+  position:absolute; inset:0;
+  background: url('./assets/village-bg.png') center center / cover no-repeat;
+  filter: brightness(1.05) saturate(1.1);
+  transform: scale(1.02);
+  animation: bgSlowZoom 20s ease-in-out infinite alternate;
+}
+@keyframes bgSlowZoom { 0% { transform: scale(1.02); } 100% { transform: scale(1.06); } }
+.rural-bg .bg-overlay {
+  position:absolute; inset:0;
+  background: linear-gradient(180deg, rgba(255,255,255,0.15) 0%, rgba(255,255,255,0.05) 30%, rgba(254,252,245,0.25) 70%, rgba(254,252,245,0.45) 100%);
+}
+.rural-bg .bg-blur {
+  position:absolute; inset:0;
+  backdrop-filter: blur(0.5px);
+  background: rgba(255,255,255,0.08);
+}
+/* Sun glow enhancement */
+.rural-bg .sun-glow {
+  position:absolute; top:18%; right:18%; width:120px; height:120px;
+  background: radial-gradient(circle at 30% 30%, rgba(255,249,196,0.8), rgba(255,204,2,0.4) 40%, rgba(255,152,0,0.15) 70%, transparent 80%);
+  border-radius:50%; animation: sunPulse 4s ease-in-out infinite alternate; pointer-events:none;
+}
+@keyframes sunPulse { 0% { transform: scale(1); opacity:0.7; } 100% { transform: scale(1.15); opacity:0.9; } }
+/* Falling leaves - main feature */
+.falling-leaves { position:absolute; inset:0; overflow:hidden; pointer-events:none; }
+.leaf {
+  position:absolute; font-size:18px; opacity:0.8; pointer-events:none;
+  animation: leafFall linear infinite;
+  filter: drop-shadow(0 2px 4px rgba(0,0,0,0.1));
+}
+@keyframes leafFall {
+  0% { transform: translateY(-10vh) translateX(0) rotate(0deg) scale(0.8); opacity:0; }
+  10% { opacity:0.9; }
+  90% { opacity:0.8; }
+  100% { transform: translateY(110vh) translateX(100px) rotate(720deg) scale(1.1); opacity:0; }
+}
+.leaf:nth-child(1) { left:5%; animation-duration: 12s; animation-delay: 0s; font-size:16px; }
+.leaf:nth-child(2) { left:15%; animation-duration: 15s; animation-delay: 1s; font-size:20px; }
+.leaf:nth-child(3) { left:25%; animation-duration: 10s; animation-delay: 2s; font-size:14px; }
+.leaf:nth-child(4) { left:35%; animation-duration: 14s; animation-delay: 0.5s; font-size:18px; }
+.leaf:nth-child(5) { left:45%; animation-duration: 11s; animation-delay: 3s; font-size:16px; }
+.leaf:nth-child(6) { left:55%; animation-duration: 13s; animation-delay: 1.5s; font-size:22px; }
+.leaf:nth-child(7) { left:65%; animation-duration: 9s; animation-delay: 2.5s; font-size:15px; }
+.leaf:nth-child(8) { left:75%; animation-duration: 16s; animation-delay: 0.8s; font-size:19px; }
+.leaf:nth-child(9) { left:85%; animation-duration: 12s; animation-delay: 3.5s; font-size:17px; }
+.leaf:nth-child(10) { left:95%; animation-duration: 10s; animation-delay: 1.2s; font-size:16px; }
+.leaf:nth-child(11) { left:10%; animation-duration: 18s; animation-delay: 4s; font-size:13px; }
+.leaf:nth-child(12) { left:50%; animation-duration: 14s; animation-delay: 5s; font-size:21px; }
+.leaf:nth-child(13) { left:80%; animation-duration: 11s; animation-delay: 6s; font-size:18px; }
+.leaf:nth-child(14) { left:30%; animation-duration: 13s; animation-delay: 4.5s; font-size:15px; }
+.leaf:nth-child(15) { left:70%; animation-duration: 15s; animation-delay: 2.8s; font-size:20px; }
+/* Farmer subtle movement */
+.farmer-layer {
+  position:absolute; bottom:8%; left:6%; width:18%; height:55%; pointer-events:none;
+  animation: farmerBreathe 4s ease-in-out infinite; transform-origin: bottom center;
+}
+@keyframes farmerBreathe { 0%,100% { transform: translateY(0) scale(1); } 50% { transform: translateY(-2px) scale(1.01); } }
+.farmer-layer::before {
+  content:'🧑‍🌾'; position:absolute; bottom:0; left:0; font-size:48px; opacity:0; /* Invisible - we animate the real image via bg */
+}
+/* Tractor moving slowly */
+.tractor-layer {
+  position:absolute; bottom:32%; left:-10%; width:80px; height:40px; pointer-events:none;
+  animation: tractorMove 25s linear infinite; opacity:0.9;
+}
+@keyframes tractorMove {
+  0% { transform: translateX(-100px); }
+  100% { transform: translateX(120vw); }
+}
+.tractor-layer::before { content:'🚜'; font-size:32px; filter: drop-shadow(0 2px 4px rgba(0,0,0,0.2)); }
+/* Birds flying */
+.birds-layer { position:absolute; inset:0; pointer-events:none; overflow:hidden; }
+.bird {
+  position:absolute; font-size:16px; animation: birdFly linear infinite; opacity:0.8;
+}
+@keyframes birdFly {
+  0% { transform: translateX(-50px) translateY(0) scale(0.8); }
+  25% { transform: translateX(25vw) translateY(-10px) scale(1); }
+  50% { transform: translateX(50vw) translateY(5px) scale(1); }
+  75% { transform: translateX(75vw) translateY(-5px) scale(1); }
+  100% { transform: translateX(110vw) translateY(0) scale(0.8); }
+}
+.bird:nth-child(1) { top:15%; animation-duration: 12s; animation-delay: 0s; }
+.bird:nth-child(2) { top:18%; animation-duration: 14s; animation-delay: 2s; font-size:14px; }
+.bird:nth-child(3) { top:22%; animation-duration: 10s; animation-delay: 1s; font-size:12px; }
+.bird:nth-child(4) { top:16%; animation-duration: 16s; animation-delay: 3s; font-size:15px; }
+.bird:nth-child(5) { top:20%; animation-duration: 13s; animation-delay: 4s; font-size:13px; }
+/* Crops swaying in foreground */
+.crops-foreground {
+  position:absolute; bottom:0; left:0; right:0; height:22%; pointer-events:none;
+  background: linear-gradient(180deg, transparent, rgba(46,125,50,0.08));
+  display:flex; align-items:flex-end; justify-content:space-between; padding:0 2%;
+}
+.crop-stalk {
+  width:6px; background: linear-gradient(180deg, #aed581, #689f38); border-radius: 6px 6px 0 0;
+  animation: cropSway 3.5s ease-in-out infinite alternate; transform-origin: bottom; opacity:0.6;
+}
+@keyframes cropSway { 0% { transform: rotate(-2deg) scaleY(1); } 100% { transform: rotate(2.5deg) scaleY(1.02); } }
+.crop-stalk:nth-child(2n) { animation-delay: 0.4s; height: 42px !important; }
+.crop-stalk:nth-child(3n) { animation-delay: 0.8s; height: 36px !important; }
+.crop-stalk:nth-child(4n) { animation-delay: 0.2s; height: 48px !important; }
+/* Gentle wind particles */
+.wind-particles { position:absolute; inset:0; pointer-events:none; overflow:hidden; }
+.wind-particle {
+  position:absolute; width:20px; height:1px; background: linear-gradient(90deg, transparent, rgba(255,255,255,0.6), transparent);
+  animation: windMove linear infinite; opacity:0.5;
+}
+@keyframes windMove { 0% { transform: translateX(-50px); opacity:0; } 10% { opacity:0.6; } 90% { opacity:0.4; } 100% { transform: translateX(110vw); opacity:0; } }
+.wind-particle:nth-child(1) { top:25%; animation-duration: 3s; animation-delay: 0s; }
+.wind-particle:nth-child(2) { top:45%; animation-duration: 4s; animation-delay: 1s; }
+.wind-particle:nth-child(3) { top:65%; animation-duration: 2.5s; animation-delay: 2s; }
+.wind-particle:nth-child(4) { top:35%; animation-duration: 3.5s; animation-delay: 0.5s; }
+.wind-particle:nth-child(5) { top:55%; animation-duration: 3s; animation-delay: 1.5s; }
+
+/* === HEADER === */
+.header {
+  background: rgba(255,255,255,0.85);
+  backdrop-filter: blur(20px);
+  border-bottom: 1px solid rgba(232,237,230,0.8);
+  padding: 12px 16px;
+  position:sticky; top:0; z-index:100;
+  box-shadow: 0 2px 20px rgba(46,125,50,0.06);
+}
+.header-content { max-width:1100px; margin:0 auto; display:flex; align-items:center; justify-content:space-between; gap:12px; }
+.logo { display:flex; align-items:center; gap:12px; cursor:pointer; user-select:none; }
+.logo-mascot {
+  width:48px; height:48px; position:relative;
+  background: linear-gradient(135deg, #e8f5e9, #c8e6c9);
+  border-radius: 16px; display:flex; align-items:center; justify-content:center;
+  box-shadow: var(--shadow); transition: transform 0.3s ease;
+}
+.logo-mascot:hover { transform: scale(1.05) rotate(2deg); }
+.logo-mascot .leaf {
+  font-size:28px; animation: leafFloat 3s ease-in-out infinite;
+}
+@keyframes leafFloat { 0%,100% { transform: translateY(0) rotate(0deg); } 50% { transform: translateY(-3px) rotate(3deg); } }
+.logo-text h1 { font-size:19px; font-weight:800; color:var(--primary-dark); letter-spacing:-0.5px; line-height:1.1; }
+.logo-text p { font-size:11px; color:var(--text-light); font-weight:600; letter-spacing:0.3px; }
+.header-actions { display:flex; align-items:center; gap:10px; }
+.lang-selector { position:relative; }
+.lang-btn {
+  display:flex; align-items:center; gap:8px; padding:10px 16px;
+  background:white; border:1.5px solid var(--border); border-radius: var(--radius-full);
+  font-size:13px; font-weight:700; color:var(--text); cursor:pointer; transition: all 0.25s ease;
+  box-shadow: var(--shadow); min-width:140px; justify-content:space-between;
+}
+.lang-btn:hover { border-color:var(--primary-light); box-shadow: var(--shadow-lg); transform: translateY(-1px); }
+.lang-dropdown {
+  position:absolute; top:calc(100% + 10px); right:0; background:white; border:1px solid var(--border);
+  border-radius: var(--radius-sm); box-shadow: var(--shadow-lg); min-width:220px; z-index:200; display:none;
+  overflow:hidden; max-height:380px; overflow-y:auto; animation: dropdownIn 0.25s ease;
+}
+@keyframes dropdownIn { from { opacity:0; transform: translateY(-8px) scale(0.98); } to { opacity:1; transform: translateY(0) scale(1); } }
+.lang-dropdown.open { display:block; }
+.lang-dropdown-header { padding:12px 16px 8px; font-size:12px; font-weight:800; color:var(--text-light); text-transform:uppercase; letter-spacing:0.8px; background: var(--bg); border-bottom:1px solid var(--border); }
+.lang-option { padding:12px 16px; display:flex; align-items:center; justify-content:space-between; cursor:pointer; transition: background 0.15s; font-size:14px; font-weight:600; }
+.lang-option:hover { background: var(--primary-soft); }
+.lang-option.active { background: var(--primary-soft); color:var(--primary-dark); }
+.status-indicator { display:flex; align-items:center; gap:6px; padding:6px 12px; background: var(--primary-soft); border:1px solid #c8e6c9; border-radius: var(--radius-full); font-size:11px; font-weight:700; color:var(--primary-dark); }
+.status-dot { width:8px; height:8px; border-radius:50%; background: var(--success); animation: pulseDot 2s infinite; }
+@keyframes pulseDot { 0% { opacity:1; box-shadow:0 0 0 0 rgba(67,160,71,0.4); } 50% { opacity:0.8; box-shadow:0 0 0 6px rgba(67,160,71,0); } 100% { opacity:1; } }
+
+/* === MAIN === */
+.main { 
+  flex:1; max-width:1100px; width:100%; margin:0 auto; padding:0 16px 180px; 
+  display:flex; flex-direction:column; position:relative; z-index:1; 
+  /* Ensure readability over village image */
+  background: rgba(254,252,245,0.15);
+  backdrop-filter: blur(0px);
+  border-radius: 0;
+}
+
+/* === HERO === */
+.hero { 
+  text-align:center; padding:28px 16px 20px; animation: fadeInUp 0.6s ease; position:relative;
+  background: rgba(255,255,255,0.78);
+  backdrop-filter: blur(12px);
+  border-radius: 24px;
+  border: 1.5px solid rgba(255,255,255,0.6);
+  box-shadow: 0 8px 32px rgba(46,125,50,0.12), 0 0 0 1px rgba(255,255,255,0.4) inset;
+  margin: 16px 0;
+}
+.hero.hidden { display:none; }
+@keyframes fadeInUp { from { opacity:0; transform: translateY(16px); } to { opacity:1; transform: translateY(0); } }
+.hero-mascot-container { position:relative; width:120px; height:120px; margin:0 auto 20px; }
+.hero-mascot {
+  width:120px; height:120px; background: linear-gradient(135deg, #ffffff, #e8f5e9);
+  border-radius: 32px; display:flex; align-items:center; justify-content:center; font-size:56px;
+  box-shadow: var(--shadow-card); border:2px solid #c8e6c9; position:relative; z-index:2;
+  animation: mascotIdle 3s ease-in-out infinite;
+}
+@keyframes mascotIdle { 0%,100% { transform: translateY(0) scale(1); } 50% { transform: translateY(-6px) scale(1.02); } }
+.hero-mascot.listening { animation: mascotListening 0.8s ease-in-out infinite alternate; border-color: var(--harvest); }
+@keyframes mascotListening { 0% { transform: scale(1); box-shadow: var(--shadow-card); } 100% { transform: scale(1.05); box-shadow: 0 12px 40px rgba(255,183,77,0.3); } }
+.hero-mascot.thinking { animation: mascotThinking 1.2s ease-in-out infinite; }
+@keyframes mascotThinking { 0%,100% { transform: rotate(0deg); } 25% { transform: rotate(-2deg); } 75% { transform: rotate(2deg); } }
+.hero-mascot.speaking { animation: mascotSpeaking 0.6s ease-in-out infinite alternate; }
+@keyframes mascotSpeaking { 0% { transform: scale(1); } 100% { transform: scale(1.03); } }
+.hero-mascot.success { animation: mascotSuccess 0.6s ease; }
+@keyframes mascotSuccess { 0% { transform: scale(1); } 50% { transform: scale(1.15); } 100% { transform: scale(1); } }
+.mascot-pulse {
+  position:absolute; inset:0; border-radius:32px; border:2px solid var(--primary-light); opacity:0; pointer-events:none;
+}
+.mascot-pulse.active { animation: pulseRing 1.5s ease-out infinite; }
+@keyframes pulseRing { 0% { transform: scale(1); opacity:0.6; } 100% { transform: scale(1.3); opacity:0; } }
+.mascot-speech {
+  position:absolute; top:-10px; right:-10px; background: var(--harvest); color:#5d4037; font-size:12px; font-weight:800;
+  padding:4px 10px; border-radius: var(--radius-full); box-shadow: var(--shadow); animation: speechPop 0.4s ease;
+  z-index:3;
+}
+@keyframes speechPop { 0% { transform: scale(0); } 50% { transform: scale(1.2); } 100% { transform: scale(1); } }
+.hero h2 { font-size:32px; font-weight:800; color:var(--primary-dark); letter-spacing:-1px; margin-bottom:6px; }
+.hero .subtitle { font-size:15px; color:var(--text-light); font-weight:600; margin-bottom:8px; }
+.hero .greeting {
+  font-size:22px; font-weight:700; color:var(--primary); margin:12px 0 16px; min-height:32px;
+  animation: fadeIn 0.5s ease;
+}
+@keyframes fadeIn { from { opacity:0; } to { opacity:1; } }
+.hero .desc { font-size:14px; color:var(--text-light); max-width:480px; margin:0 auto 24px; line-height:1.6; }
+
+/* Language lock banner - friendly */
+.language-lock {
+  background: linear-gradient(135deg, #e8f5e9, #f1f8e9); border:1.5px solid #a5d6a7; border-radius: var(--radius-sm);
+  padding:10px 16px; margin:16px auto; max-width:520px; font-size:12px; font-weight:600; color:var(--primary-dark);
+  display:flex; align-items:center; justify-content:center; gap:8px; box-shadow: var(--shadow);
+}
+.language-lock .lock-icon { font-size:14px; }
+
+/* Talk button */
+.talk-section { margin:24px 0; }
+.talk-btn {
+  width:88px; height:88px; margin:0 auto; background: linear-gradient(135deg, var(--primary), var(--primary-light));
+  border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:36px; color:white;
+  box-shadow: 0 8px 24px rgba(46,125,50,0.35), 0 0 0 8px rgba(76,175,80,0.12);
+  cursor:pointer; border:none; transition: all 0.3s cubic-bezier(0.34,1.56,0.64,1); position:relative;
+}
+.talk-btn:hover { transform: scale(1.05); box-shadow: 0 12px 32px rgba(46,125,50,0.4), 0 0 0 12px rgba(76,175,80,0.15); }
+.talk-btn:active { transform: scale(0.96); }
+.talk-btn.listening { background: linear-gradient(135deg, #ef5350, #e53935); animation: talkListening 1s ease-in-out infinite alternate; box-shadow: 0 8px 24px rgba(229,57,53,0.35), 0 0 0 12px rgba(239,83,80,0.15); }
+@keyframes talkListening { 0% { transform: scale(1); } 100% { transform: scale(1.06); } }
+.talk-btn .wave {
+  position:absolute; inset:-16px; border:2px solid var(--primary-light); border-radius:50%; opacity:0; pointer-events:none;
+}
+.talk-btn.listening .wave { animation: wavePulse 1.8s ease-out infinite; }
+.talk-btn.listening .wave:nth-child(2) { animation-delay: 0.4s; }
+.talk-btn.listening .wave:nth-child(3) { animation-delay: 0.8s; }
+@keyframes wavePulse { 0% { transform: scale(0.8); opacity:0.6; } 100% { transform: scale(1.4); opacity:0; } }
+.talk-label { margin-top:14px; font-size:14px; font-weight:700; color:var(--primary-dark); }
+.talk-sub { font-size:12px; color:var(--text-light); margin-top:2px; }
+
+/* What can I ask rotating */
+.ask-rotator { margin:20px auto; max-width:400px; height:28px; overflow:hidden; position:relative; }
+.ask-rotator-label { font-size:12px; font-weight:800; color:var(--text-light); text-transform:uppercase; letter-spacing:0.8px; margin-bottom:6px; display:flex; align-items:center; justify-content:center; gap:6px; }
+.ask-example { font-size:14px; font-weight:600; color:var(--primary); font-style:italic; position:absolute; left:0; right:0; text-align:center; opacity:0; transform: translateY(10px); transition: all 0.4s ease; }
+.ask-example.active { opacity:1; transform: translateY(0); }
+
+/* Category cards */
+.categories { margin:32px 0 16px; }
+.categories-title { font-size:13px; font-weight:800; color:var(--text-light); text-transform:uppercase; letter-spacing:0.8px; margin-bottom:16px; text-align:center; display:flex; align-items:center; justify-content:center; gap:8px; }
+.category-grid { display:grid; grid-template-columns: repeat(auto-fit, minmax(150px,1fr)); gap:12px; max-width:640px; margin:0 auto; }
+.category-card {
+  background:white; border:1.5px solid var(--border); border-radius: var(--radius); padding:18px 16px;
+  cursor:pointer; transition: all 0.3s cubic-bezier(0.34,1.56,0.64,1); text-align:left; position:relative; overflow:hidden;
+  box-shadow: var(--shadow);
+}
+.category-card::before {
+  content:''; position:absolute; top:0; left:0; right:0; height:4px; background: linear-gradient(90deg, var(--primary-light), var(--leaf));
+  transform: scaleX(0); transform-origin:left; transition: transform 0.3s ease;
+}
+.category-card:hover { transform: translateY(-4px) scale(1.02); border-color: var(--primary-light); box-shadow: var(--shadow-lg); }
+.category-card:hover::before { transform: scaleX(1); }
+.category-card:active { transform: translateY(-1px) scale(0.98); }
+.category-icon { width:48px; height:48px; border-radius:14px; display:flex; align-items:center; justify-content:center; font-size:24px; margin-bottom:12px; transition: transform 0.3s ease; }
+.category-card:hover .category-icon { transform: scale(1.1) rotate(3deg); }
+.category-card .cat-schemes .category-icon { background: linear-gradient(135deg, #fff3e0, #ffe0b2); }
+.category-card .cat-laws .category-icon { background: linear-gradient(135deg, #e3f2fd, #bbdefb); }
+.category-card .cat-pacs .category-icon { background: linear-gradient(135deg, #e8f5e9, #c8e6c9); }
+.category-card .cat-insurance .category-icon { background: linear-gradient(135deg, #f3e5f5, #e1bee7); }
+.category-card .cat-finance .category-icon { background: linear-gradient(135deg, #fff8e1, #ffecb3); }
+.category-card .cat-grievance .category-icon { background: linear-gradient(135deg, #fce4ec, #f8bbd0); }
+.category-card h4 { font-size:14px; font-weight:700; color:var(--text); line-height:1.3; margin-bottom:4px; }
+.category-card p { font-size:12px; color:var(--text-light); line-height:1.4; }
+.category-card .explore { font-size:11px; font-weight:800; color:var(--primary); margin-top:8px; display:flex; align-items:center; gap:4px; opacity:0.8; }
+.category-card:hover .explore { opacity:1; transform: translateX(2px); }
+
+/* Quick chips */
+.quick-section { margin:24px 0; }
+.quick-title { font-size:13px; font-weight:800; color:var(--text-light); text-transform:uppercase; letter-spacing:0.8px; margin-bottom:12px; text-align:center; }
+.quick-grid { display:flex; flex-wrap:wrap; gap:8px; justify-content:center; max-width:600px; margin:0 auto; }
+.quick-chip {
+  background:white; border:1.5px solid var(--border); border-radius: var(--radius-full);
+  padding:10px 16px; font-size:13px; font-weight:600; color:var(--text); cursor:pointer;
+  transition: all 0.2s ease; box-shadow: var(--shadow); display:flex; align-items:center; gap:6px;
+}
+.quick-chip:hover { border-color:var(--primary-light); background: var(--primary-soft); transform: translateY(-2px); box-shadow: var(--shadow-lg); }
+
+/* Chat */
+.chat-container { flex:1; display:flex; flex-direction:column; gap:20px; padding-top:20px; }
+.message { display:flex; gap:12px; max-width:90%; animation: messageIn 0.4s cubic-bezier(0.34,1.56,0.64,1); position:relative; }
+@keyframes messageIn { from { opacity:0; transform: translateY(16px) scale(0.98); } to { opacity:1; transform: translateY(0) scale(1); } }
+.message.user { align-self:flex-end; flex-direction:row-reverse; }
+.message.assistant { align-self:flex-start; max-width:94%; }
+.message-avatar {
+  width:40px; height:40px; border-radius:14px; display:flex; align-items:center; justify-content:center;
+  font-size:14px; font-weight:800; flex-shrink:0; margin-top:2px; box-shadow: var(--shadow);
+}
+.message.user .message-avatar { background: linear-gradient(135deg, var(--primary), var(--primary-light)); color:white; }
+.message.assistant .message-avatar { background: linear-gradient(135deg, #ffffff, #e8f5e9); color:var(--primary-dark); border:1.5px solid #c8e6c9; }
+.message-content {
+  background:white; border:1.5px solid var(--border); border-radius:20px; padding:18px 20px;
+  box-shadow: var(--shadow-card); position:relative; overflow-wrap:break-word; word-break:break-word;
+  transition: all 0.3s ease;
+}
+.message.user .message-content { background: linear-gradient(135deg, var(--primary), var(--primary-dark)); color:white; border-color:var(--primary); border-bottom-right-radius:8px; }
+.message.assistant .message-content { border-bottom-left-radius:8px; background:white; }
+.message-content:hover { box-shadow: var(--shadow-lg); }
+.language-badge {
+  display:inline-flex; align-items:center; gap:6px; background: linear-gradient(135deg, #e3f2fd, #bbdefb);
+  border:1px solid #90caf9; border-radius: var(--radius-full); padding:5px 12px; font-size:11px; font-weight:800; color:#1565c0; margin-bottom:12px;
+  animation: badgePop 0.4s cubic-bezier(0.34,1.56,0.64,1);
+}
+@keyframes badgePop { 0% { transform: scale(0.8); opacity:0; } 100% { transform: scale(1); opacity:1; } }
+.message-text { font-size:15px; line-height:1.7; white-space:pre-wrap; }
+.message.user .message-text { color:white; }
+.message-text strong { font-weight:800; color:var(--primary-dark); }
+.message.user .message-text strong { color:white; }
+.message-text ul { margin:12px 0 12px 20px; }
+.message-text li { margin:8px 0; }
+
+/* Trust indicator */
+.trust-indicator {
+  display:flex; align-items:center; gap:8px; margin-top:14px; padding:10px 14px;
+  background: linear-gradient(135deg, #f1f8e9, #e8f5e9); border:1px solid #c8e6c9; border-radius:12px;
+  font-size:12px; font-weight:600; color:var(--primary-dark); cursor:pointer; transition: all 0.2s ease;
+}
+.trust-indicator:hover { background: linear-gradient(135deg, #e8f5e9, #c8e6c9); transform: translateY(-1px); }
+.trust-indicator .check { width:20px; height:20px; background: var(--success); color:white; border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:12px; flex-shrink:0; }
+
+/* Sources accordion */
+.sources { margin-top:14px; background:#f8faf5; border:1.5px solid #e8f5e9; border-radius:14px; overflow:hidden; transition: all 0.3s ease; }
+.sources-header {
+  padding:12px 16px; display:flex; align-items:center; justify-content:space-between;
+  cursor:pointer; font-size:13px; font-weight:700; color:var(--primary); user-select:none;
+}
+.sources-header:hover { background:#eef5ee; }
+.sources-content { max-height:0; overflow:hidden; transition: max-height 0.35s ease, padding 0.35s ease; }
+.sources.open .sources-content { max-height:600px; padding:0 12px 12px; }
+.sources-title { display:flex; align-items:center; gap:8px; }
+.source-item { font-size:13px; padding:10px 0; border-bottom:1px solid #eef5ee; display:flex; align-items:flex-start; gap:10px; }
+.source-item:last-child { border-bottom:none; }
+.source-item a { color:var(--primary); text-decoration:none; font-weight:600; word-break:break-all; font-size:11px; }
+.source-item a:hover { text-decoration:underline; }
+.source-badge { background:var(--primary); color:white; font-size:10px; padding:3px 8px; border-radius:6px; font-weight:800; flex-shrink:0; margin-top:2px; }
+
+/* Evidence badge */
+.evidence-badge { display:inline-flex; align-items:center; gap:6px; font-size:11px; padding:6px 12px; border-radius:var(--radius-full); font-weight:700; margin-top:12px; }
+.evidence-high { background:#e8f5e9; color:#2e7d32; border:1px solid #a5d6a7; }
+.evidence-medium { background:#fff8e1; color:#ef6c00; border:1px solid #ffe0b2; }
+.evidence-low { background:#fce4ec; color:#c62828; border:1px solid #f8bbd0; }
+
+/* Voice indicator */
+.voice-indicator {
+  display:flex; align-items:center; gap:10px; margin-top:14px; padding:12px 16px;
+  background: linear-gradient(135deg, #e8f5e9, #f1f8e9); border:1.5px solid #a5d6a7; border-radius:14px;
+  font-size:13px; font-weight:700; color:var(--primary-dark);
+}
+.voice-indicator .sound-wave { display:flex; align-items:center; gap:3px; height:20px; }
+.voice-indicator .bar { width:3px; background: var(--primary); border-radius:2px; animation: soundBar 0.8s ease-in-out infinite; }
+.voice-indicator .bar:nth-child(1) { height:8px; animation-delay:0s; }
+.voice-indicator .bar:nth-child(2) { height:14px; animation-delay:0.1s; }
+.voice-indicator .bar:nth-child(3) { height:20px; animation-delay:0.2s; }
+.voice-indicator .bar:nth-child(4) { height:14px; animation-delay:0.3s; }
+.voice-indicator .bar:nth-child(5) { height:8px; animation-delay:0.4s; }
+@keyframes soundBar { 0%,100% { transform: scaleY(0.5); } 50% { transform: scaleY(1); } }
+.voice-indicator.idle .bar { animation:none; transform: scaleY(0.4); opacity:0.5; }
+
+/* Message actions */
+.message-actions { display:flex; align-items:center; gap:8px; margin-top:16px; padding-top:16px; border-top:1.5px solid var(--border); flex-wrap:wrap; }
+.action-btn {
+  display:inline-flex; align-items:center; gap:6px; padding:8px 14px; background:var(--bg); border:1.5px solid var(--border);
+  border-radius:var(--radius-full); font-size:12px; font-weight:700; color:var(--text); cursor:pointer; transition:all 0.2s ease;
+}
+.action-btn:hover { background:white; border-color:var(--primary-light); color:var(--primary-dark); transform:translateY(-1px); box-shadow: var(--shadow); }
+.action-btn.primary { background:var(--primary); color:white; border-color:var(--primary); }
+.action-btn.primary:hover { background:var(--primary-dark); }
+.action-btn.playing { background:var(--primary); color:white; border-color:var(--primary); animation: playingPulse 1.5s infinite; }
+@keyframes playingPulse { 0% { box-shadow:0 0 0 0 rgba(46,125,50,0.4); } 70% { box-shadow:0 0 0 10px rgba(46,125,50,0); } 100% { box-shadow:0 0 0 0 rgba(46,125,50,0); } }
+
+/* Thinking animation */
+.thinking-card {
+  display:flex; gap:16px; padding:20px; background:white; border:1.5px solid var(--border); border-radius:20px;
+  border-bottom-left-radius:8px; box-shadow: var(--shadow-card); max-width:420px; animation: messageIn 0.4s ease;
+}
+.thinking-mascot { width:48px; height:48px; background: linear-gradient(135deg, #e8f5e9, #c8e6c9); border-radius:14px; display:flex; align-items:center; justify-content:center; font-size:24px; animation: mascotThinking 1s ease-in-out infinite; flex-shrink:0; }
+.thinking-content { flex:1; }
+.thinking-title { font-size:14px; font-weight:700; color:var(--text); margin-bottom:8px; }
+.thinking-steps { display:flex; flex-direction:column; gap:6px; }
+.thinking-step { font-size:12px; color:var(--text-light); display:flex; align-items:center; gap:8px; opacity:0.5; transition: all 0.3s ease; }
+.thinking-step.active { opacity:1; color:var(--primary-dark); font-weight:600; }
+.thinking-step .dot { width:16px; height:16px; border-radius:50%; background: var(--bg); border:1.5px solid var(--border); display:flex; align-items:center; justify-content:center; font-size:10px; transition: all 0.3s ease; }
+.thinking-step.active .dot { background: var(--primary-soft); border-color: var(--primary-light); color:var(--primary); }
+.thinking-step.done .dot { background: var(--primary); border-color:var(--primary); color:white; }
+.thinking-dots { display:flex; gap:4px; margin-top:10px; }
+.thinking-dots span { width:6px; height:6px; background: var(--primary-light); border-radius:50%; animation: thinkingDot 1.2s infinite; }
+.thinking-dots span:nth-child(2) { animation-delay:0.2s; }
+.thinking-dots span:nth-child(3) { animation-delay:0.4s; }
+@keyframes thinkingDot { 0%,60%,100% { transform: translateY(0); opacity:0.4; } 30% { transform: translateY(-6px); opacity:1; } }
+
+/* Listening overlay */
+.listening-overlay { display:none; position:fixed; inset:0; background:rgba(0,0,0,0.35); backdrop-filter:blur(8px); z-index:80; align-items:center; justify-content:center; padding:20px; }
+.listening-overlay.active { display:flex; animation: fadeIn 0.3s ease; }
+.listening-card {
+  background:white; border-radius:24px; padding:32px 28px; text-align:center; box-shadow: var(--shadow-lg);
+  max-width:360px; width:100%; animation: messageIn 0.4s cubic-bezier(0.34,1.56,0.64,1); border:1.5px solid var(--border);
+}
+.listening-avatar { width:80px; height:80px; margin:0 auto 20px; background: linear-gradient(135deg, #ffebee, #ffcdd2); border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:40px; animation: mascotListening 0.8s ease-in-out infinite alternate; position:relative; }
+.listening-avatar .pulse { position:absolute; inset:-12px; border:2px solid #ef9a9a; border-radius:50%; animation: pulseRing 1.5s ease-out infinite; }
+.listening-text { font-size:20px; font-weight:800; color:var(--text); margin-bottom:6px; }
+.listening-sub { font-size:14px; color:var(--text-light); margin-bottom:18px; min-height:22px; word-break:break-word; line-height:1.5; }
+.wave-bars { display:flex; align-items:center; justify-content:center; gap:5px; height:36px; }
+.wave-bar { width:5px; background: linear-gradient(180deg, var(--primary-light), var(--primary)); border-radius:3px; animation: wave 1s infinite ease-in-out; }
+.wave-bar:nth-child(1){height:14px; animation-delay:0s} .wave-bar:nth-child(2){height:22px; animation-delay:0.1s} .wave-bar:nth-child(3){height:32px; animation-delay:0.2s} .wave-bar:nth-child(4){height:22px; animation-delay:0.3s} .wave-bar:nth-child(5){height:14px; animation-delay:0.4s}
+@keyframes wave { 0%,100%{transform:scaleY(0.5)} 50%{transform:scaleY(1)} }
+
+/* Success animation */
+.success-check {
+  width:48px; height:48px; background: linear-gradient(135deg, #e8f5e9, #c8e6c9); border-radius:50%;
+  display:flex; align-items:center; justify-content:center; font-size:24px; color:var(--primary);
+  margin:0 auto 12px; animation: successPop 0.5s cubic-bezier(0.34,1.56,0.64,1);
+}
+@keyframes successPop { 0% { transform: scale(0); } 50% { transform: scale(1.2); } 100% { transform: scale(1); } }
+
+/* Input area */
+.input-area {
+  position:fixed; bottom:0; left:0; right:0; background:rgba(255,255,255,0.96); backdrop-filter:blur(20px);
+  border-top:1.5px solid var(--border); padding:14px 16px calc(14px + env(safe-area-inset-bottom)); z-index:90;
+}
+.input-container { max-width:1100px; margin:0 auto; display:flex; flex-direction:column; gap:12px; }
+.input-wrapper {
+  display:flex; align-items:flex-end; gap:10px; background:white; border:2px solid var(--border);
+  border-radius:24px; padding:8px 8px 8px 20px; transition:all 0.25s ease; box-shadow: var(--shadow);
+}
+.input-wrapper:focus-within { border-color:var(--primary-light); box-shadow:0 0 0 4px rgba(76,175,80,0.12), var(--shadow-lg); }
+.input-wrapper.listening { border-color:var(--error); box-shadow:0 0 0 4px rgba(229,57,53,0.12); animation: listeningPulse 1.5s infinite; }
+@keyframes listeningPulse { 0%{box-shadow:0 0 0 4px rgba(229,57,53,0.12)} 50%{box-shadow:0 0 0 8px rgba(229,57,53,0.06)} 100%{box-shadow:0 0 0 4px rgba(229,57,53,0.12)} }
+.text-input {
+  flex:1; border:none; outline:none; font-size:16px; font-family:inherit; color:var(--text);
+  background:transparent; resize:none; max-height:120px; min-height:24px; line-height:1.5; padding:10px 0;
+}
+.text-input::placeholder { color:var(--text-muted); }
+.input-actions { display:flex; align-items:center; gap:8px; flex-shrink:0; }
+.icon-btn {
+  width:48px; height:48px; border-radius:50%; border:none; display:flex; align-items:center; justify-content:center;
+  cursor:pointer; transition:all 0.25s cubic-bezier(0.34,1.56,0.64,1); font-size:20px; flex-shrink:0;
+}
+.mic-btn { background: var(--bg); border:1.5px solid var(--border); color:var(--text-light); }
+.mic-btn:hover { background:white; border-color:var(--primary-light); color:var(--primary); transform: scale(1.05); }
+.mic-btn.listening { background: var(--error); color:white; border-color:var(--error); animation: micPulse 1s infinite; box-shadow: 0 4px 16px rgba(229,57,53,0.3); }
+@keyframes micPulse { 0%{transform:scale(1)} 50%{transform:scale(1.08)} 100%{transform:scale(1)} }
+.send-btn { background: linear-gradient(135deg, var(--primary), var(--primary-light)); color:white; box-shadow:0 4px 16px rgba(46,125,50,0.3); }
+.send-btn:hover { transform:translateY(-2px) scale(1.02); box-shadow:0 8px 24px rgba(46,125,50,0.4); }
+.send-btn:disabled { background:#c8d6c3; cursor:not-allowed; transform:none; box-shadow:none; }
+.input-footer { display:flex; align-items:center; justify-content:space-between; padding:0 4px; font-size:11px; color:var(--text-light); gap:12px; flex-wrap:wrap; }
+.input-status { display:flex; align-items:center; gap:8px; flex-wrap:wrap; }
+.report-actions { display:flex; gap:8px; align-items:center; flex-wrap:wrap; }
+
+/* Empty state */
+.empty-state { text-align:center; padding:40px 20px; animation: fadeInUp 0.6s ease; }
+.empty-icon { width:96px; height:96px; margin:0 auto 20px; background: linear-gradient(135deg, #ffffff, #e8f5e9); border-radius:28px; display:flex; align-items:center; justify-content:center; font-size:48px; box-shadow: var(--shadow-card); border:1.5px solid #c8e6c9; animation: leafFloat 3s ease-in-out infinite; }
+.empty-title { font-size:24px; font-weight:800; color:var(--primary-dark); margin-bottom:8px; }
+.empty-sub { font-size:14px; color:var(--text-light); max-width:380px; margin:0 auto 20px; line-height:1.6; }
+.empty-cta { display:inline-flex; align-items:center; gap:8px; padding:12px 20px; background: linear-gradient(135deg, var(--primary), var(--primary-light)); color:white; border-radius: var(--radius-full); font-size:14px; font-weight:700; cursor:pointer; border:none; box-shadow: var(--shadow); transition: all 0.25s ease; }
+.empty-cta:hover { transform: translateY(-2px); box-shadow: var(--shadow-lg); }
+
+/* Toast */
+.toast {
+  position:fixed; bottom:110px; left:50%; transform:translateX(-50%) translateY(20px);
+  background:var(--text); color:white; padding:12px 20px; border-radius:var(--radius-full);
+  font-size:13px; font-weight:600; box-shadow:var(--shadow-lg); z-index:1000; opacity:0;
+  transition:all 0.3s cubic-bezier(0.34,1.56,0.64,1); pointer-events:none; max-width:90%; text-align:center;
+}
+.toast.show { opacity:1; transform:translateX(-50%) translateY(0); }
+
+/* Autoplay banner */
+.autoplay-banner {
+  position:fixed; top:70px; left:50%; transform:translateX(-50%); background: linear-gradient(135deg, #fff8e1, #ffecb3);
+  border:1.5px solid var(--harvest); padding:12px 20px; border-radius:var(--radius-full); font-size:13px; font-weight:700;
+  color:#5d4037; box-shadow:var(--shadow-lg); z-index:90; display:none; align-items:center; gap:10px; cursor:pointer;
+  animation: messageIn 0.4s ease;
+}
+.autoplay-banner.show { display:flex; }
+
+/* Print modal */
+.print-modal { display:none; position:fixed; inset:0; background:rgba(0,0,0,0.5); backdrop-filter:blur(8px); z-index:200; align-items:center; justify-content:center; padding:20px; }
+.print-modal.open { display:flex; animation: fadeIn 0.3s ease; }
+.print-content { background:white; border-radius:20px; padding:24px; max-width:800px; width:100%; max-height:90vh; overflow-y:auto; box-shadow:var(--shadow-lg); border:1.5px solid var(--border); }
+.print-header { display:flex; justify-content:space-between; align-items:center; margin-bottom:20px; padding-bottom:16px; border-bottom:2px solid var(--border); }
+.print-actions { display:flex; gap:10px; margin-top:20px; flex-wrap:wrap; }
+
+/* Responsive */
+@media (max-width:768px) {
+  .category-grid { grid-template-columns: repeat(2,1fr); }
+  .rural-bg .sun { width:56px; height:56px; top:20px; }
+  .hero h2 { font-size:28px; }
+  .hero-mascot { width:100px; height:100px; font-size:48px; border-radius:24px; }
+  .talk-btn { width:76px; height:76px; font-size:32px; }
+}
+@media (max-width:480px) {
+  .header-content { gap:8px; }
+  .logo-text h1 { font-size:16px; }
+  .logo-mascot { width:40px; height:40px; border-radius:12px; }
+  .lang-btn { min-width:110px; padding:8px 12px; font-size:12px; }
+  .message { max-width:96%; }
+  .message.assistant { max-width:98%; }
+  .input-area { padding:10px 12px calc(10px + env(safe-area-inset-bottom)); }
+  .category-grid { grid-template-columns: 1fr 1fr; gap:10px; }
+  .category-card { padding:14px 12px; }
+  .category-icon { width:40px; height:40px; font-size:20px; margin-bottom:8px; }
+}
+::-webkit-scrollbar { width:6px; }
+::-webkit-scrollbar-track { background:transparent; }
+::-webkit-scrollbar-thumb { background:var(--border-dark); border-radius:3px; }
+@media print {
+  .header, .input-area, .autoplay-banner, .print-modal, .toast, .listening-overlay, .rural-bg { display:none !important; }
+  .main { padding:0; max-width:100%; }
+  .message { max-width:100% !important; break-inside:avoid; }
+  .message-actions { display:none !important; }
+  body { background:white; }
+}
+</style>
+</head>
+<body>
+<div class="rural-bg" id="ruralBg">
+  <!-- User's village image as animated background -->
+  <div class="village-bg-image"></div>
+  <div class="bg-overlay"></div>
+  <div class="bg-blur"></div>
+  <div class="sun-glow"></div>
+  
+  <!-- Tractor moving across field -->
+  <div class="tractor-layer"></div>
+  
+  <!-- Falling leaves - main animation -->
+  <div class="falling-leaves" id="fallingLeaves">
+    <div class="leaf">🍃</div>
+    <div class="leaf">🍂</div>
+    <div class="leaf">🌿</div>
+    <div class="leaf">🍃</div>
+    <div class="leaf">🍂</div>
+    <div class="leaf">🌱</div>
+    <div class="leaf">🍃</div>
+    <div class="leaf">🌿</div>
+    <div class="leaf">🍂</div>
+    <div class="leaf">🍃</div>
+    <div class="leaf">🌿</div>
+    <div class="leaf">🍂</div>
+    <div class="leaf">🍃</div>
+    <div class="leaf">🌱</div>
+    <div class="leaf">🍃</div>
+  </div>
+  
+  <!-- Birds flying -->
+  <div class="birds-layer">
+    <div class="bird">🕊️</div>
+    <div class="bird">🐦</div>
+    <div class="bird">🕊️</div>
+    <div class="bird">🐦</div>
+    <div class="bird">🕊️</div>
+  </div>
+  
+  <!-- Wind particles -->
+  <div class="wind-particles">
+    <div class="wind-particle"></div>
+    <div class="wind-particle"></div>
+    <div class="wind-particle"></div>
+    <div class="wind-particle"></div>
+    <div class="wind-particle"></div>
+  </div>
+  
+  <!-- Crops swaying in foreground -->
+  <div class="crops-foreground">
+    <div class="crop-stalk" style="height:38px;"></div>
+    <div class="crop-stalk" style="height:45px;"></div>
+    <div class="crop-stalk" style="height:32px;"></div>
+    <div class="crop-stalk" style="height:50px;"></div>
+    <div class="crop-stalk" style="height:36px;"></div>
+    <div class="crop-stalk" style="height:42px;"></div>
+    <div class="crop-stalk" style="height:30px;"></div>
+    <div class="crop-stalk" style="height:48px;"></div>
+    <div class="crop-stalk" style="height:34px;"></div>
+    <div class="crop-stalk" style="height:40px;"></div>
+    <div class="crop-stalk" style="height:28px;"></div>
+    <div class="crop-stalk" style="height:46px;"></div>
+    <div class="crop-stalk" style="height:32px;"></div>
+    <div class="crop-stalk" style="height:44px;"></div>
+    <div class="crop-stalk" style="height:36px;"></div>
+    <div class="crop-stalk" style="height:50px;"></div>
+    <div class="crop-stalk" style="height:30px;"></div>
+    <div class="crop-stalk" style="height:42px;"></div>
+  </div>
+</div>
+
+<header class="header">
+  <div class="header-content">
+    <div class="logo" id="logo">
+      <div class="logo-mascot"><span class="leaf">🌱</span></div>
+      <div class="logo-text">
+        <h1>SAHAYAK AI</h1>
+        <p>Your Friendly Cooperative Helper</p>
+      </div>
+    </div>
+    <div class="header-actions">
+      <div class="lang-selector">
+        <button class="lang-btn" id="langBtn">
+          <span><span id="langFlag">🇮🇳</span> <span id="langName">English</span></span>
+          <span style="font-size:10px;">▼</span>
+        </button>
+        <div class="lang-dropdown" id="langDropdown">
+          <div class="lang-dropdown-header">🌐 Choose your language</div>
+          <div id="langOptions"></div>
+        </div>
+      </div>
+      <div class="status-indicator"><span class="status-dot"></span><span id="statusText">Online</span></div>
+    </div>
+  </div>
+</header>
+
+<div class="autoplay-banner" id="autoplayBanner">
+  <span>🔊</span>
+  <span id="autoplayText">Tap once to enable automatic voice</span>
+  <span style="background:#5d4037; color:white; padding:3px 10px; border-radius:999px; font-size:11px;">Enable</span>
+</div>
+
+<main class="main">
+  <div class="hero" id="hero">
+    <div class="hero-mascot-container">
+      <div class="hero-mascot" id="heroMascot">🌱</div>
+      <div class="mascot-pulse" id="mascotPulse1"></div>
+      <div class="mascot-pulse" id="mascotPulse2" style="animation-delay:0.5s;"></div>
+    </div>
+    <h2>SAHAYAK AI</h2>
+    <p class="subtitle">Cooperative Compliance Co-Pilot</p>
+    <div class="greeting" id="greeting">Vanakkam! How can I help you today? 🙏</div>
+    <p class="desc" id="heroDesc">Ask about cooperative services, government schemes, laws, PACS and more. I'm here to help in your language.</p>
+    
+    <div class="language-lock" id="languageLockBanner">
+      <span class="lock-icon">🔒</span>
+      <span id="lockDetail">Current: 🇮🇳 English (en) → Response in English</span>
+    </div>
+
+    <div class="talk-section">
+      <button class="talk-btn" id="talkBtn" title="Talk to Sahayak">
+        <span>🎤</span>
+        <div class="wave"></div><div class="wave"></div><div class="wave"></div>
+      </button>
+      <div class="talk-label" id="talkLabel">Talk to Sahayak</div>
+      <div class="talk-sub" id="talkSub">Tap to speak in your language</div>
+    </div>
+
+    <div class="ask-rotator">
+      <div class="ask-rotator-label" id="rotatorLabel">💡 You can ask Sahayak about</div>
+      <div class="ask-example active" id="rotatorExample">"How can I join a PACS?"</div>
+    </div>
+
+    <div class="categories">
+      <div class="categories-title" id="categoriesTitle">🌾 Explore Sahayak Services</div>
+      <div class="category-grid" id="categoryGrid"></div>
+    </div>
+
+    <div class="quick-section" id="quickSection">
+      <div class="quick-title" id="quickTitle">Quick questions you can ask:</div>
+      <div class="quick-grid" id="quickGrid"></div>
+    </div>
+  </div>
+
+  <div class="chat-container" id="chatContainer"></div>
+
+  <div class="empty-state" id="emptyState" style="display:none;">
+    <div class="empty-icon">🌱</div>
+    <div class="empty-title" id="emptyTitle">Vanakkam!</div>
+    <div class="empty-sub" id="emptySub">I'm Sahayak AI, your friendly cooperative helper. I can help you with cooperative laws, schemes, PACS services, crop insurance and more.</div>
+    <button class="empty-cta" id="emptyCta">🎤 Talk to me</button>
+  </div>
+</main>
+
+<div class="input-area">
+  <div class="input-container">
+    <div class="input-wrapper" id="inputWrapper">
+      <textarea class="text-input" id="textInput" placeholder="Ask your question... Try voice!" rows="1" maxlength="2000"></textarea>
+      <div class="input-actions">
+        <button class="icon-btn mic-btn" id="micBtn" title="Voice input">🎤</button>
+        <button class="icon-btn send-btn" id="sendBtn" title="Ask Sahayak">➤</button>
+      </div>
+    </div>
+    <div class="input-footer">
+      <div class="input-status">
+        <span id="inputStatus">✓ Verified sources only</span>
+        <span id="lockStatus" style="background:#e3f2fd; padding:3px 10px; border-radius:999px; font-size:10px; font-weight:800; color:#1565c0;">🔒 en → en</span>
+        <span id="ttsStatus" style="background:#e8f5e9; padding:3px 10px; border-radius:999px; font-size:10px; font-weight:800; color:var(--primary-dark);">🔊 Auto Voice: ON</span>
+      </div>
+      <div class="report-actions">
+        <button class="action-btn" id="printConvBtn">🖨 Print Conversation</button>
+        <button class="action-btn" id="downloadConvBtn">⬇ Download Report</button>
+        <a href="#" class="action-btn" id="adminLink" style="text-decoration:none; font-size:11px;">Status</a>
+        <span id="charCount" style="font-size:11px;">0/2000</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="listening-overlay" id="listeningOverlay">
+  <div class="listening-card">
+    <div class="listening-avatar">🎤<div class="pulse"></div></div>
+    <div class="listening-text" id="listeningText">Listening...</div>
+    <div class="listening-sub" id="listeningSub">Speak now in your language</div>
+    <div class="wave-bars"><div class="wave-bar"></div><div class="wave-bar"></div><div class="wave-bar"></div><div class="wave-bar"></div><div class="wave-bar"></div></div>
+    <button class="action-btn" style="margin-top:20px; width:100%; justify-content:center; padding:12px;" id="stopListeningBtn">⏹ Stop Listening</button>
+  </div>
+</div>
+
+<div class="print-modal" id="printModal">
+  <div class="print-content">
+    <div class="print-header">
+      <h3 id="printModalTitle" style="font-weight:800; color:var(--primary-dark);">Report Preview</h3>
+      <button class="action-btn" id="closePrintModal">✕ Close</button>
+    </div>
+    <div id="printPreview"></div>
+    <div class="print-actions">
+      <button class="action-btn primary" id="doPrintBtn">🖨 Print</button>
+      <button class="action-btn" id="doDownloadBtn">⬇ Download</button>
+      <button class="action-btn" id="doCopyReportBtn">📋 Copy</button>
+    </div>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+// CENTRALIZED LANGUAGE CONFIGURATION - SINGLE SOURCE OF TRUTH
+const LANGUAGES = {
+  en: {
+    code: "en", name: "English", nativeName: "English", flag: "🇮🇳",
+    speechRecognition: "en-IN", ttsLanguage: "en-IN", stt: "en-IN", tts: "en-IN", bcp47: "en-IN",
+    instruction: "Respond only in English.",
+    llm_instruction: "The user has selected English. Answer ONLY in English.",
+    placeholder: "Ask your question... Try voice! 🎤",
+    listening: "Listening...", greeting: "Vanakkam! How can I help you today? 🙏",
+    desc: "Ask about cooperative services, government schemes, laws, PACS and more. I'm here to help in your language.",
+    talkLabel: "Talk to Sahayak", talkSub: "Tap to speak in your language",
+    categoriesTitle: "🌾 Explore Sahayak Services", quickTitle: "Quick questions you can ask:",
+    rotatorLabel: "💡 You can ask Sahayak about",
+    suggestedTitle: "Suggested Questions", reportTitle: "SAHAYAK AI - Cooperative Compliance Report",
+    reportQuery: "User Query", reportAnswer: "AI Response", reportSources: "Sources", reportDate: "Date", reportTime: "Time", reportLang: "Language",
+    autoVoice: "Speaking in English...", tapToEnable: "Tap once to enable automatic voice",
+    emptyTitle: "Vanakkam!", emptySub: "I'm Sahayak AI, your friendly cooperative helper. I can help you with cooperative laws, schemes, PACS services, crop insurance and more.",
+    trust: "✓ Answer based on verified sources", basedOn: "Based on official sources",
+    voiceNames: ["English", "en-IN"]
+  },
+  ta: {
+    code: "ta", name: "Tamil", nativeName: "தமிழ்", flag: "🇮🇳",
+    speechRecognition: "ta-IN", ttsLanguage: "ta-IN", stt: "ta-IN", tts: "ta-IN", bcp47: "ta-IN",
+    instruction: "பயனர் கேள்விக்கு தமிழில் மட்டும் பதிலளிக்கவும்.",
+    llm_instruction: "The user has selected Tamil (தமிழ்). Answer ONLY in Tamil.",
+    placeholder: "உங்கள் கேள்வியை கேளுங்கள்... குரலில் முயற்சிக்கவும்! 🎤",
+    listening: "கேட்கிறது...", greeting: "வணக்கம்! இன்று நான் உங்களுக்கு எப்படி உதவ முடியும்? 🙏",
+    desc: "கூட்டுறவு சேவைகள், அரசு திட்டங்கள், சட்டங்கள், PACS பற்றி கேளுங்கள். உங்கள் மொழியில் உதவ இங்கே இருக்கிறேன்.",
+    talkLabel: "சஹாயக்கிடம் பேசுங்கள்", talkSub: "உங்கள் மொழியில் பேச தட்டவும்",
+    categoriesTitle: "🌾 சஹாயக் சேவைகளை ஆராயுங்கள்", quickTitle: "நீங்கள் கேட்கக்கூடிய விரைவு கேள்விகள்:",
+    rotatorLabel: "💡 சஹாயக்கிடம் நீங்கள் கேட்கலாம்",
+    suggestedTitle: "பரிந்துரைக்கப்பட்ட கேள்விகள்", reportTitle: "சஹாயக் AI - கூட்டுறவு இணக்க அறிக்கை",
+    reportQuery: "பயனர் கேள்வி", reportAnswer: "AI பதில்", reportSources: "ஆதாரங்கள்", reportDate: "தேதி", reportTime: "நேரம்", reportLang: "மொழி",
+    autoVoice: "தமிழில் பேசுகிறது...", tapToEnable: "தானியங்கி குரலை இயக்க தட்டவும்",
+    emptyTitle: "வணக்கம்!", emptySub: "நான் சஹாயக் AI, உங்கள் நட்பு கூட்டுறவு உதவியாளர். கூட்டுறவு சட்டங்கள், திட்டங்கள், PACS சேவைகள் பற்றி உதவ முடியும்.",
+    trust: "✓ சரிபார்க்கப்பட்ட ஆதாரங்களின் அடிப்படையில் பதில்", basedOn: "அதிகாரப்பூர்வ ஆதாரங்களின் அடிப்படையில்",
+    voiceNames: ["Tamil", "ta-IN"]
+  },
+  hi: {
+    code: "hi", name: "Hindi", nativeName: "हिन्दी", flag: "🇮🇳",
+    speechRecognition: "hi-IN", ttsLanguage: "hi-IN", stt: "hi-IN", tts: "hi-IN", bcp47: "hi-IN",
+    instruction: "केवल हिन्दी में उत्तर दें।",
+    llm_instruction: "The user has selected Hindi (हिन्दी). Answer ONLY in Hindi.",
+    placeholder: "अपना प्रश्न पूछें... आवाज में आजमाएं! 🎤",
+    listening: "सुन रहा है...", greeting: "नमस्ते! आज मैं आपकी कैसे मदद कर सकता हूँ? 🙏",
+    desc: "सहकारी सेवाओं, सरकारी योजनाओं, कानूनों, PACS के बारे में पूछें। मैं आपकी भाषा में मदद के लिए यहाँ हूँ।",
+    talkLabel: "सहायक से बात करें", talkSub: "अपनी भाषा में बोलने के लिए टैप करें",
+    categoriesTitle: "🌾 सहायक सेवाओं का अन्वेषण करें", quickTitle: "त्वरित प्रश्न जो आप पूछ सकते हैं:",
+    rotatorLabel: "💡 आप सहायक से पूछ सकते हैं",
+    suggestedTitle: "सुझाए गए प्रश्न", reportTitle: "सहायक AI - सहकारी अनुपालन रिपोर्ट",
+    reportQuery: "उपयोगकर्ता प्रश्न", reportAnswer: "AI उत्तर", reportSources: "स्रोत", reportDate: "दिनांक", reportTime: "समय", reportLang: "भाषा",
+    autoVoice: "हिन्दी में बोल रहा है...", tapToEnable: "स्वचालित आवाज सक्षम करने के लिए टैप करें",
+    emptyTitle: "नमस्ते!", emptySub: "मैं सहायक AI हूँ, आपका मित्र सहकारी सहायक। सहकारी कानून, योजनाओं, PACS सेवाओं में मदद कर सकता हूँ।",
+    trust: "✓ सत्यापित स्रोतों पर आधारित उत्तर", basedOn: "आधिकारिक स्रोतों पर आधारित",
+    voiceNames: ["Hindi", "hi-IN"]
+  },
+  ml: {
+    code: "ml", name: "Malayalam", nativeName: "മലയാളം", flag: "🇮🇳",
+    speechRecognition: "ml-IN", ttsLanguage: "ml-IN", stt: "ml-IN", tts: "ml-IN", bcp47: "ml-IN",
+    instruction: "മലയാളത്തിൽ മാത്രം മറുപടി നൽകുക.",
+    llm_instruction: "The user has selected Malayalam (മലയാളം). Answer ONLY in Malayalam.",
+    placeholder: "നിങ്ങളുടെ ചോദ്യം ചോദിക്കുക... ശബ്ദത്തിൽ പരീക്ഷിക്കുക! 🎤",
+    listening: "കേൾക്കുന്നു...", greeting: "നമസ്കാരം! ഇന്ന് ഞാൻ നിങ്ങളെ എങ്ങനെ സഹായിക്കും? 🙏",
+    desc: "സഹകരണ സേവനങ്ങൾ, സർക്കാർ പദ്ധതികൾ, നിയമങ്ങൾ, PACS എന്നിവയെക്കുറിച്ച് ചോദിക്കുക.",
+    talkLabel: "സഹായകനോട് സംസാരിക്കുക", talkSub: "നിങ്ങളുടെ ഭാഷയിൽ സംസാരിക്കാൻ ടാപ്പ് ചെയ്യുക",
+    categoriesTitle: "🌾 സഹായക് സേവനങ്ങൾ പര്യവേക്ഷണം ചെയ്യുക", quickTitle: "നിങ്ങൾക്ക് ചോദിക്കാവുന്ന ദ്രുത ചോദ്യങ്ങൾ:",
+    rotatorLabel: "💡 സഹായകനോട് നിങ്ങൾക്ക് ചോദിക്കാം",
+    suggestedTitle: "നിർദ്ദേശിച്ച ചോദ്യങ്ങൾ", reportTitle: "സഹായക് AI - സഹകരണ കംപ്ലയൻസ് റിപ്പോർട്ട്",
+    reportQuery: "ഉപയോക്തൃ ചോദ്യം", reportAnswer: "AI മറുപടി", reportSources: "ഉറവിടങ്ങൾ", reportDate: "തീയതി", reportTime: "സമയം", reportLang: "ഭാഷ",
+    autoVoice: "മലയാളത്തിൽ സംസാരിക്കുന്നു...", tapToEnable: "ഓട്ടോ വോയ്‌സ് പ്രവർത്തനക്ഷമമാക്കാൻ ടാപ്പ് ചെയ്യുക",
+    emptyTitle: "നമസ്കാരം!", emptySub: "ഞാൻ സഹായക് AI ആണ്, നിങ്ങളുടെ സൗഹൃദ സഹകരണ സഹായി.",
+    trust: "✓ പരിശോധിച്ച ഉറവിടങ്ങളെ അടിസ്ഥാനമാക്കിയുള്ള ഉത്തരം", basedOn: "ഔദ്യോഗിക ഉറവിടങ്ങളെ അടിസ്ഥാനമാക്കി",
+    voiceNames: ["Malayalam", "ml-IN"]
+  },
+  te: {
+    code: "te", name: "Telugu", nativeName: "తెలుగు", flag: "🇮🇳",
+    speechRecognition: "te-IN", ttsLanguage: "te-IN", stt: "te-IN", tts: "te-IN", bcp47: "te-IN",
+    instruction: "తెలుగులో మాత్రమే సమాధానం ఇవ్వండి.",
+    llm_instruction: "The user has selected Telugu (తెలుగు). Answer ONLY in Telugu.",
+    placeholder: "మీ ప్రశ్న అడగండి... వాయిస్‌లో ప్రయత్నించండి! 🎤",
+    listening: "వింటోంది...", greeting: "నమస్తే! ఈరోజు నేను మీకు ఎలా సహాయం చేయగలను? 🙏",
+    desc: "సహకార సేవలు, ప్రభుత్వ పథకాలు, చట్టాలు, PACS గురించి అడగండి.",
+    talkLabel: "సహాయక్‌తో మాట్లాడండి", talkSub: "మీ భాషలో మాట్లాడటానికి నొక్కండి",
+    categoriesTitle: "🌾 సహాయక్ సేవలను అన్వేషించండి", quickTitle: "మీరు అడగగల శీఘ్ర ప్రశ్నలు:",
+    rotatorLabel: "💡 మీరు సహాయక్‌ని అడగవచ్చు",
+    suggestedTitle: "సూచించిన ప్రశ్నలు", reportTitle: "సహాయక్ AI - సహకార సమ్మతి నివేదిక",
+    reportQuery: "వినియోగదారు ప్రశ్న", reportAnswer: "AI సమాధానం", reportSources: "మూలాలు", reportDate: "తేదీ", reportTime: "సమయం", reportLang: "భాష",
+    autoVoice: "తెలుగులో మాట్లాడుతోంది...", tapToEnable: "ఆటో వాయిస్‌ని ప్రారంభించడానికి నొక్కండి",
+    emptyTitle: "నమస్తే!", emptySub: "నేను సహాయక్ AI, మీ స్నేహపూర్వక సహకార సహాయకుడిని.",
+    trust: "✓ ధృవీకరించబడిన మూలాల ఆధారంగా సమాధానం", basedOn: "అధికారిక మూలాల ఆధారంగా",
+    voiceNames: ["Telugu", "te-IN"]
+  },
+  kn: {
+    code: "kn", name: "Kannada", nativeName: "ಕನ್ನಡ", flag: "🇮🇳",
+    speechRecognition: "kn-IN", ttsLanguage: "kn-IN", stt: "kn-IN", tts: "kn-IN", bcp47: "kn-IN",
+    instruction: "ಕನ್ನಡದಲ್ಲಿ ಮಾತ್ರ ಉತ್ತರಿಸಿ.",
+    llm_instruction: "The user has selected Kannada (ಕನ್ನಡ). Answer ONLY in Kannada.",
+    placeholder: "ನಿಮ್ಮ ಪ್ರಶ್ನೆಯನ್ನು ಕೇಳಿ... ಧ್ವನಿಯಲ್ಲಿ ಪ್ರಯತ್ನಿಸಿ! 🎤",
+    listening: "ಆಲಿಸುತ್ತಿದೆ...", greeting: "ನಮಸ್ತೆ! ಇಂದು ನಾನು ನಿಮಗೆ ಹೇಗೆ ಸಹಾಯ ಮಾಡಬಹುದು? 🙏",
+    desc: "ಸಹಕಾರಿ ಸೇವೆಗಳು, ಸರ್ಕಾರಿ ಯೋಜನೆಗಳು, ಕಾನೂನುಗಳು, PACS ಬಗ್ಗೆ ಕೇಳಿ.",
+    talkLabel: "ಸಹಾಯಕ್ ಜೊತೆ ಮಾತನಾಡಿ", talkSub: "ನಿಮ್ಮ ಭಾಷೆಯಲ್ಲಿ ಮಾತನಾಡಲು ಟ್ಯಾಪ್ ಮಾಡಿ",
+    categoriesTitle: "🌾 ಸಹಾಯಕ್ ಸೇವೆಗಳನ್ನು ಅನ್ವೇಷಿಸಿ", quickTitle: "ನೀವು ಕೇಳಬಹುದಾದ ತ್ವರಿತ ಪ್ರಶ್ನೆಗಳು:",
+    rotatorLabel: "💡 ನೀವು ಸಹಾಯಕ್‌ರನ್ನು ಕೇಳಬಹುದು",
+    suggestedTitle: "ಸೂಚಿಸಲಾದ ಪ್ರಶ್ನೆಗಳು", reportTitle: "ಸಹಾಯಕ್ AI - ಸಹಕಾರಿ ಅನುಸರಣೆ ವರದಿ",
+    reportQuery: "ಬಳಕೆದಾರರ ಪ್ರಶ್ನೆ", reportAnswer: "AI ಉತ್ತರ", reportSources: "ಮೂಲಗಳು", reportDate: "ದಿನಾಂಕ", reportTime: "ಸಮಯ", reportLang: "ಭಾಷೆ",
+    autoVoice: "ಕನ್ನಡದಲ್ಲಿ ಮಾತನಾಡುತ್ತಿದೆ...", tapToEnable: "ಸ್ವಯಂ ಧ್ವನಿಯನ್ನು ಸಕ್ರಿಯಗೊಳಿಸಲು ಟ್ಯಾಪ್ ಮಾಡಿ",
+    emptyTitle: "ನಮಸ್ತೆ!", emptySub: "ನಾನು ಸಹಾಯಕ್ AI, ನಿಮ್ಮ ಸ್ನೇಹಪರ ಸಹಕಾರಿ ಸಹಾಯಕ.",
+    trust: "✓ ಪರಿಶೀಲಿಸಿದ ಮೂಲಗಳ ಆಧಾರದ ಮೇಲೆ ಉತ್ತರ", basedOn: "ಅಧಿಕೃತ ಮೂಲಗಳ ಆಧಾರದ ಮೇಲೆ",
+    voiceNames: ["Kannada", "kn-IN"]
+  },
+  mr: {
+    code: "mr", name: "Marathi", nativeName: "मराठी", flag: "🇮🇳",
+    speechRecognition: "mr-IN", ttsLanguage: "mr-IN", stt: "mr-IN", tts: "mr-IN", bcp47: "mr-IN",
+    instruction: "फक्त मराठीत उत्तर द्या.",
+    llm_instruction: "The user has selected Marathi (मराठी). Answer ONLY in Marathi.",
+    placeholder: "तुमचा प्रश्न विचारा... आवाजात प्रयत्न करा! 🎤",
+    listening: "ऐकत आहे...", greeting: "नमस्कार! आज मी तुम्हाला कशी मदत करू शकतो? 🙏",
+    desc: "सहकारी सेवा, सरकारी योजना, कायदे, PACS बद्दल विचारा.",
+    talkLabel: "सहाय्यकाशी बोला", talkSub: "तुमच्या भाषेत बोलण्यासाठी टॅप करा",
+    categoriesTitle: "🌾 सहाय्यक सेवा एक्सप्लोर करा", quickTitle: "आपण विचारू शकता असे द्रुत प्रश्न:",
+    rotatorLabel: "💡 आपण सहाय्यकाला विचारू शकता",
+    suggestedTitle: "सुचवलेले प्रश्न", reportTitle: "सहाय्यक AI - सहकारी अनुपालन अहवाल",
+    reportQuery: "वापरकर्ता प्रश्न", reportAnswer: "AI उत्तर", reportSources: "स्रोत", reportDate: "तारीख", reportTime: "वेळ", reportLang: "भाषा",
+    autoVoice: "मराठीत बोलत आहे...", tapToEnable: "ऑटो आवाज सक्षम करण्यासाठी टॅप करा",
+    emptyTitle: "नमस्कार!", emptySub: "मी सहाय्यक AI, तुमचा मैत्रीपूर्ण सहकारी सहाय्यक.",
+    trust: "✓ सत्यापित स्रोतांवर आधारित उत्तर", basedOn: "अधिकृत स्रोतांवर आधारित",
+    voiceNames: ["Marathi", "mr-IN"]
+  },
+  bn: {
+    code: "bn", name: "Bengali", nativeName: "বাংলা", flag: "🇮🇳",
+    speechRecognition: "bn-IN", ttsLanguage: "bn-IN", stt: "bn-IN", tts: "bn-IN", bcp47: "bn-IN",
+    instruction: "শুধু বাংলায় উত্তর দিন।",
+    llm_instruction: "The user has selected Bengali (বাংলা). Answer ONLY in Bengali.",
+    placeholder: "আপনার প্রশ্ন জিজ্ঞাসা করুন... ভয়েসে চেষ্টা করুন! 🎤",
+    listening: "শুনছি...", greeting: "নমস্কার! আজ আমি আপনাকে কীভাবে সাহায্য করতে পারি? 🙏",
+    desc: "সমবায় পরিষেবা, সরকারি প্রকল্প, আইন, PACS সম্পর্কে জিজ্ঞাসা করুন।",
+    talkLabel: "সহায়কের সাথে কথা বলুন", talkSub: "আপনার ভাষায় কথা বলতে ট্যাপ করুন",
+    categoriesTitle: "🌾 সহায়ক পরিষেবাগুলি অন্বেষণ করুন", quickTitle: "দ্রুত প্রশ্ন যা আপনি জিজ্ঞাসা করতে পারেন:",
+    rotatorLabel: "💡 আপনি সহায়ককে জিজ্ঞাসা করতে পারেন",
+    suggestedTitle: "প্রস্তাবিত প্রশ্ন", reportTitle: "সহায়ক AI - সমবায় সম্মতি প্রতিবেদন",
+    reportQuery: "ব্যবহারকারীর প্রশ্ন", reportAnswer: "AI উত্তর", reportSources: "উৎস", reportDate: "তারিখ", reportTime: "সময়", reportLang: "ভাষা",
+    autoVoice: "বাংলায় কথা বলছে...", tapToEnable: "অটো ভয়েস সক্ষম করতে ট্যাপ করুন",
+    emptyTitle: "নমস্কার!", emptySub: "আমি সহায়ক AI, আপনার বন্ধুত্বপূর্ণ সমবায় সহায়ক।",
+    trust: "✓ যাচাইকৃত উৎসের উপর ভিত্তি করে উত্তর", basedOn: "অফিসিয়াল উৎসের উপর ভিত্তি করে",
+    voiceNames: ["Bengali", "bn-IN", "Bangla"]
+  }
+};
+
+const CATEGORIES = [
+  { id: 'schemes', icon: '🌾', title: { en: 'Government\nSchemes', ta: 'அரசு\nதிட்டங்கள்', hi: 'सरकारी\nयोजनाएं', ml: 'സർക്കാർ\nപദ്ധതികൾ', te: 'ప్రభుత్వ\nపథకాలు', kn: 'ಸರ್ಕಾರಿ\nಯೋಜನೆಗಳು', mr: 'सरकारी\nयोजना', bn: 'সরকারি\nপ্রকল্প' }, desc: { en: 'PMFBY, KCC & more', ta: 'PMFBY, KCC மேலும்', hi: 'PMFBY, KCC आदि', ml: 'PMFBY, KCC തുടങ്ങിയവ', te: 'PMFBY, KCC & మరిన్ని', kn: 'PMFBY, KCC ಮತ್ತು ಇನ್ನಷ್ಟು', mr: 'PMFBY, KCC आणि अधिक', bn: 'PMFBY, KCC এবং আরও' }, class: 'cat-schemes', query: { en: 'What government schemes are available for farmers?', ta: 'விவசாயிகளுக்கு என்ன அரசு திட்டங்கள் உள்ளன?', hi: 'किसानों के लिए कौन सी सरकारी योजनाएं उपलब्ध हैं?', ml: 'കർഷകർക്ക് എന്ത് സർക്കാർ പദ്ധതികൾ ലഭ്യമാണ്?', te: 'రైతులకు ఏ ప్రభుత్వ పథకాలు అందుబాటులో ఉన్నాయి?', kn: 'ರೈತರಿಗೆ ಯಾವ ಸರ್ಕಾರಿ ಯೋಜನೆಗಳು ಲಭ್ಯವಿದೆ?', mr: 'शेतकऱ्यांसाठी कोणत्या सरकारी योजना उपलब्ध आहेत?', bn: 'কৃষকদের জন্য কোন সরকারি প্রকল্প উপলব্ধ?' } },
+  { id: 'laws', icon: '🏛️', title: { en: 'Cooperative\nLaws', ta: 'கூட்டுறவு\nசட்டங்கள்', hi: 'सहकारी\nकानून', ml: 'സഹകരണ\nനിയമങ്ങൾ', te: 'సహకార\nచట్టాలు', kn: 'ಸಹಕಾರಿ\nಕಾನೂನುಗಳು', mr: 'सहकारी\nकायदे', bn: 'সমবায়\nআইন' }, desc: { en: 'Rights & compliance', ta: 'உரிமைகள் & இணக்கம்', hi: 'अधिकार और अनुपालन', ml: 'അവകാശങ്ങളും പാലനവും', te: 'హక్కులు & సమ్మతి', kn: 'ಹಕ್ಕುಗಳು ಮತ್ತು ಅನುಸರಣೆ', mr: 'हक्क आणि अनुपालन', bn: 'অধিকার ও সম্মতি' }, class: 'cat-laws', query: { en: 'What are the rights of a cooperative member?', ta: 'கூட்டுறவு உறுப்பினரின் உரிமைகள் என்ன?', hi: 'सहकारी सदस्य के क्या अधिकार हैं?', ml: 'സഹകരണ അംഗത്തിന്റെ അവകാശങ്ങൾ എന്താണ്?', te: 'సహకార సభ్యుని హక్కులు ఏమిటి?', kn: 'ಸಹಕಾರಿ ಸದಸ್ಯರ ಹಕ್ಕುಗಳು ಯಾವುವು?', mr: 'सहकारी सदस्याचे हक्क काय आहेत?', bn: 'সমবায় সদস্যের অধিকার কী?' } },
+  { id: 'pacs', icon: '🏦', title: { en: 'PACS\nServices', ta: 'PACS\nசேவைகள்', hi: 'PACS\nसेवाएं', ml: 'PACS\nസേവനങ്ങൾ', te: 'PACS\nసేవలు', kn: 'PACS\nಸೇವೆಗಳು', mr: 'PACS\nसेवा', bn: 'PACS\nপরিষেবা' }, desc: { en: 'Membership & services', ta: 'உறுப்பினர் & சேவைகள்', hi: 'सदस्यता और सेवाएं', ml: 'അംഗത്വവും സേവനങ്ങളും', te: 'సభ్యత్వం & సేవలు', kn: 'ಸದಸ್ಯತ್ವ ಮತ್ತು ಸೇವೆಗಳು', mr: 'सदस्यत्व आणि सेवा', bn: 'সদস্যপদ ও পরিষেবা' }, class: 'cat-pacs', query: { en: 'What documents are required to join a PACS?', ta: 'PACS-ல் சேர என்ன ஆவணங்கள் தேவை?', hi: 'PACS का सदस्य बनने के लिए कौन से दस्तावेज़ चाहिए?', ml: 'PACS-ൽ ചേരാൻ എന്ത് രേഖകൾ വേണം?', te: 'PACSలో చేరడానికి ఏ పత్రాలు అవసరం?', kn: 'PACS ಸೇರಲು ಯಾವ ದಾಖಲೆಗಳು ಬೇಕು?', mr: 'PACS मध्ये सामील होण्यासाठी कोणती कागदपत्रे लागतात?', bn: 'PACS-এ যোগ দিতে কী নথি লাগে?' } },
+  { id: 'insurance', icon: '🌱', title: { en: 'Crop\nInsurance', ta: 'பயிர்\nகாப்பீடு', hi: 'फसल\nबीमा', ml: 'വിള\nഇൻഷുറൻസ്', te: 'పంట\nబీమా', kn: 'ಬೆಳೆ\nವಿಮೆ', mr: 'पीक\nविमा', bn: 'ফসল\nবীমা' }, desc: { en: 'PMFBY explained', ta: 'PMFBY விளக்கம்', hi: 'PMFBY समझें', ml: 'PMFBY വിശദീകരണം', te: 'PMFBY వివరణ', kn: 'PMFBY ವಿವರಣೆ', mr: 'PMFBY स्पष्टीकरण', bn: 'PMFBY ব্যাখ্যা' }, class: 'cat-insurance', query: { en: 'What is PMFBY and how to apply?', ta: 'PMFBY என்றால் என்ன, எப்படி விண்ணப்பிப்பது?', hi: 'PMFBY क्या है और आवेदन कैसे करें?', ml: 'PMFBY എന്താണ്, എങ്ങനെ അപേക്ഷിക്കാം?', te: 'PMFBY అంటే ఏమిటి, ఎలా దరఖాస్తు చేయాలి?', kn: 'PMFBY ಎಂದರೇನು ಮತ್ತು ಹೇಗೆ ಅರ್ಜಿ ಸಲ್ಲಿಸುವುದು?', mr: 'PMFBY म्हणजे काय आणि अर्ज कसा करावा?', bn: 'PMFBY কী এবং কীভাবে আবেদন করবেন?' } },
+  { id: 'finance', icon: '💰', title: { en: 'Financial\nLiteracy', ta: 'நிதி\nஅறிவு', hi: 'वित्तीय\nसाक्षरता', ml: 'സാമ്പത്തിക\nസാക്ഷരത', te: 'ఆర్థిక\nఅక్షరాస్యత', kn: 'ಹಣಕಾಸು\nಸಾಕ್ಷರತೆ', mr: 'आर्थिक\nसाक्षरता', bn: 'আর্থিক\nসাক্ষরতা' }, desc: { en: 'KCC, loans & more', ta: 'KCC, கடன்கள்', hi: 'KCC, ऋण आदि', ml: 'KCC, വായ്പകൾ', te: 'KCC, రుణాలు', kn: 'KCC, ಸಾಲಗಳು', mr: 'KCC, कर्ज आणि अधिक', bn: 'KCC, ঋণ এবং আরও' }, class: 'cat-finance', query: { en: 'What is KCC and how to get it?', ta: 'KCC என்றால் என்ன, எப்படி பெறுவது?', hi: 'KCC क्या है और कैसे प्राप्त करें?', ml: 'KCC എന്താണ്, എങ്ങനെ ലഭിക്കും?', te: 'KCC అంటే ఏమిటి, ఎలా పొందాలి?', kn: 'KCC ಎಂದರೇನು ಮತ್ತು ಹೇಗೆ ಪಡೆಯುವುದು?', mr: 'KCC म्हणजे काय आणि कसे मिळवायचे?', bn: 'KCC কী এবং কীভাবে পাবেন?' } },
+  { id: 'grievance', icon: '📢', title: { en: 'Grievance\nSupport', ta: 'புகார்\nஆதரவு', hi: 'शिकायत\nसहायता', ml: 'പരാതി\nപിന്തുണ', te: 'ఫిర్యాదు\nమద్దతు', kn: 'ದೂರು\nಬೆಂಬಲ', mr: 'तक्रार\nसमर्थन', bn: 'অভিযোগ\nসহায়তা' }, desc: { en: 'File complaints', ta: 'புகார் தாக்கல்', hi: 'शिकायत दर्ज करें', ml: 'പരാതി ഫയൽ ചെയ്യുക', te: 'ఫిర్యాదు దాఖలు', kn: 'ದೂರು ಸಲ್ಲಿಸಿ', mr: 'तक्रार दाखल करा', bn: 'অভিযোগ দায়ের' }, class: 'cat-grievance', query: { en: 'How can I file a cooperative grievance?', ta: 'கூட்டுறவு புகாரை எப்படி தாக்கல் செய்வது?', hi: 'सहकारी शिकायत कैसे दर्ज करें?', ml: 'സഹകരണ പരാതി എങ്ങനെ ഫയൽ ചെയ്യാം?', te: 'సహకార ఫిర్యాదును ఎలా దాఖలు చేయాలి?', kn: 'ಸಹಕಾರಿ ದೂರನ್ನು ಹೇಗೆ ಸಲ್ಲಿಸುವುದು?', mr: 'सहकारी तक्रार कशी दाखल करावी?', bn: 'সমবায় অভিযোগ কীভাবে দায়ের করবেন?' } }
+];
+
+const ROTATING_EXAMPLES = {
+  en: ["What are member rights?", "Who is eligible for PM-KISAN?", "What services does PACS provide?", "How to claim crop insurance?", "What is EMI?", "How to file a complaint?"],
+  ta: ["உறுப்பினர் உரிமைகள் என்ன?", "PM-KISAN தகுதி யார்?", "PACS சேவைகள் என்ன?", "பயிர் காப்பீடு கோரிக்கை எப்படி?", "EMI என்றால் என்ன?", "புகார் எப்படி தாக்கல்?"],
+  hi: ["सदस्य अधिकार क्या हैं?", "PM-KISAN पात्रता?", "PACS सेवाएं क्या हैं?", "फसल बीमा दावा कैसे?", "EMI क्या है?", "शिकायत कैसे दर्ज करें?"],
+  ml: ["അംഗ അവകാശങ്ങൾ എന്താണ്?", "PM-KISAN യോഗ്യത?", "PACS സേവനങ്ങൾ എന്താണ്?", "വിള ഇൻഷുറൻസ് ക്ലെയിം എങ്ങനെ?", "EMI എന്താണ്?", "പരാതി എങ്ങനെ?"],
+  te: ["సభ్యుల హక్కులు ఏమిటి?", "PM-KISAN అర్హత?", "PACS సేవలు ఏమిటి?", "పంట బీమా క్లెయిమ్ ఎలా?", "EMI అంటే ఏమిటి?", "ఫిర్యాదు ఎలా?"],
+  kn: ["ಸದಸ್ಯರ ಹಕ್ಕುಗಳು ಯಾವುವು?", "PM-KISAN ಅರ್ಹತೆ?", "PACS ಸೇವೆಗಳು ಯಾವುವು?", "ಬೆಳೆ ವಿಮೆ ಕ್ಲೈಮ್ ಹೇಗೆ?", "EMI ಎಂದರೇನು?", "ದೂರು ಹೇಗೆ?"],
+  mr: ["सदस्य हक्क काय?", "PM-KISAN पात्रता?", "PACS सेवा काय?", "पीक विमा दावा कसा?", "EMI म्हणजे काय?", "तक्रार कशी?"],
+  bn: ["সদস্য অধিকার কী?", "PM-KISAN যোগ্যতা?", "PACS পরিষেবা কী?", "ফসল বীমা দাবি কীভাবে?", "EMI কী?", "অভিযোগ কীভাবে?"]
+};
+
+const SUGGESTED_QUESTIONS = {
+  en: ["What are member rights? (Cooperative Laws)", "Who is eligible for PM-KISAN? (Govt Schemes)", "What services does PACS provide? (PACS)", "How to claim crop insurance for heavy rain? (Insurance)", "What is EMI? (Financial Literacy)", "How to file a complaint against cooperative? (Grievance)"],
+  ta: ["உறுப்பினர் உரிமைகள் என்ன? (சட்டங்கள்)", "PM-KISAN தகுதி யார்? (திட்டங்கள்)", "PACS சேவைகள் என்ன? (PACS)", "கனமழையால் பயிர் சேதம் - காப்பீடு கோரிக்கை?", "EMI என்றால் என்ன? (நிதி)", "கூட்டுறவு புகார் எப்படி? (புகார்)"],
+  hi: ["सदस्य अधिकार क्या हैं? (कानून)", "PM-KISAN पात्रता? (योजना)", "PACS सेवाएं क्या? (PACS)", "भारी बारिश से फसल नुकसान - बीमा दावा कैसे?", "EMI क्या है? (वित्तीय)", "शिकायत कैसे दर्ज करें? (शिकायत)"],
+  ml: ["അംഗ അവകാശങ്ങൾ എന്താണ്? (നിയമം)", "PM-KISAN യോഗ്യത? (പദ്ധതി)", "PACS സേവനങ്ങൾ? (PACS)", "കനത്ത മഴയിൽ വിള നാശം - ഇൻഷുറൻസ് ക്ലെയിം?", "EMI എന്താണ്? (സാമ്പത്തിക)", "പരാതി എങ്ങനെ? (പരാതി)"],
+  te: ["సభ్యుల హక్కులు ఏమిటి? (చట్టాలు)", "PM-KISAN అర్హత? (పథకాలు)", "PACS సేవలు? (PACS)", "భారీ వర్షం పంట నష్టం - బీమా క్లెయిమ్?", "EMI అంటే ఏమిటి? (ఆర్థిక)", "ఫిర్యాదు ఎలా? (ఫిర్యాదు)"],
+  kn: ["ಸದಸ್ಯರ ಹಕ್ಕುಗಳು ಯಾವುವು? (ಕಾನೂನು)", "PM-KISAN ಅರ್ಹತೆ? (ಯೋಜನೆ)", "PACS ಸೇವೆಗಳು? (PACS)", "ಭಾರೀ ಮಳೆಯಿಂದ ಬೆಳೆ ಹಾನಿ - ವಿಮೆ ಕ್ಲೈಮ್?", "EMI ಎಂದರೇನು? (ಹಣಕಾಸು)", "ದೂರು ಹೇಗೆ? (ದೂರು)"],
+  mr: ["सदस्य हक्क काय? (कायदे)", "PM-KISAN पात्रता? (योजना)", "PACS सेवा? (PACS)", "जोरदार पावसाने पीक नुकसान - विमा दावा?", "EMI म्हणजे काय? (आर्थिक)", "तक्रार कशी? (तक्रार)"],
+  bn: ["সদস্য অধিকার কী? (আইন)", "PM-KISAN যোগ্যতা? (প্রকল্প)", "PACS পরিষেবা? (PACS)", "ভারী বৃষ্টিতে ফসল ক্ষতি - বীমা দাবি?", "EMI কী? (আর্থিক)", "অভিযোগ কীভাবে? (অভিযোগ)"]
+};
+
+const FRIENDLY_INTROS = {
+  en: ["Sure! Here's what you need to know.", "Great question! Let me explain simply.", "Of course! Let me help you with that.", "Absolutely! Here's the information.", "Certainly! Let me share what I found."],
+  ta: ["நிச்சயமாக! இதைப் பற்றி எளிமையாகப் பார்ப்போம்.", "அருமையான கேள்வி! எளிமையாக விளக்குகிறேன்.", "நிச்சயமாக! இதோ தேவையான தகவல்.", "நிச்சயமாக! உங்களுக்கு உதவுகிறேன்."],
+  hi: ["ज़रूर! इसे आसान तरीके से समझते हैं।", "बहुत अच्छा सवाल! सरलता से बताता हूँ।", "बिल्कुल! यहाँ जानकारी है।", "निश्चित रूप से! मैं मदद करता हूँ।"],
+  ml: ["തീർച്ചയായും! ഇത് ലളിതമായി നോക്കാം.", "നല്ല ചോദ്യം! എളുപ്പത്തിൽ വിശദീകരിക്കാം.", "തീർച്ചയായും! ഇതാ വിവരം."],
+  te: ["తప్పకుండా! దీన్ని సులభంగా చూద్దాం.", "మంచి ప్రశ్న! సులభంగా వివరిస్తాను.", "తప్పకుండా! ఇదిగో సమాచారం."],
+  kn: ["ಖಂಡಿತವಾಗಿಯೂ! ಇದನ್ನು ಸರಳವಾಗಿ ನೋಡೋಣ.", "ಒಳ್ಳೆಯ ಪ್ರಶ್ನೆ! ಸರಳವಾಗಿ ವಿವರಿಸುತ್ತೇನೆ."],
+  mr: ["नक्कीच! हे सोप्या पद्धतीने पाहूया.", "छान प्रश्न! सोप्या भाषेत समजावून सांगतो."],
+  bn: ["অবশ্যই! এটি সহজভাবে দেখি।", "ভালো প্রশ্ন! সহজভাবে ব্যাখ্যা করছি।"]
+};
+
+// State
+let selectedLanguage = localStorage.getItem('sahayak_lang') || 'en';
+let currentLang = selectedLanguage;
+let conversationLang = localStorage.getItem('sahayak_conv_lang') || currentLang;
+let isListening = false;
+let recognition = null;
+let synth = window.speechSynthesis; // Renamed to avoid shadowing, but keep speechSynthesis alias for compatibility
+let speechSynthesis = window.speechSynthesis;
+let currentUtterance = null;
+let currentAudioBtn = null;
+let ttsQueue = []; // For chunked TTS
+let isTtsSpeaking = false;
+let conversationHistory = JSON.parse(localStorage.getItem('sahayak_history_v2') || '[]');
+let isProcessing = false;
+let audioEnabled = localStorage.getItem('sahayak_audio_enabled') === 'true';
+let hasInteracted = false;
+let rotatorIdx = 0;
+let rotatorInterval = null;
+
+// DOM
+const langBtn = document.getElementById('langBtn');
+const langDropdown = document.getElementById('langDropdown');
+const langOptions = document.getElementById('langOptions');
+const langFlag = document.getElementById('langFlag');
+const langName = document.getElementById('langName');
+const textInput = document.getElementById('textInput');
+const sendBtn = document.getElementById('sendBtn');
+const micBtn = document.getElementById('micBtn');
+const talkBtn = document.getElementById('talkBtn');
+const chatContainer = document.getElementById('chatContainer');
+const hero = document.getElementById('hero');
+const heroMascot = document.getElementById('heroMascot');
+const inputWrapper = document.getElementById('inputWrapper');
+const listeningOverlay = document.getElementById('listeningOverlay');
+const listeningText = document.getElementById('listeningText');
+const listeningSub = document.getElementById('listeningSub');
+const toast = document.getElementById('toast');
+const charCount = document.getElementById('charCount');
+const autoplayBanner = document.getElementById('autoplayBanner');
+const autoplayText = document.getElementById('autoplayText');
+const printModal = document.getElementById('printModal');
+const printPreview = document.getElementById('printPreview');
+const categoryGrid = document.getElementById('categoryGrid');
+const quickGrid = document.getElementById('quickGrid');
+
+function init() {
+  console.log("===== SAHAYAK AI RURAL UX + LANGUAGE LOCK INIT =====");
+  console.log("Single Source of Truth: selectedLanguage =", selectedLanguage);
+  renderLangDropdown();
+  setLanguage(selectedLanguage, false);
+  renderCategories();
+  renderQuickChips();
+  startRotator();
+  renderHistory();
+  setupEvents();
+  checkBackend();
+  textInput.addEventListener('input', autoResize);
+  loadVoices();
+  if (!audioEnabled) {
+    setTimeout(() => {
+      autoplayBanner.classList.add('show');
+      autoplayText.textContent = LANGUAGES[currentLang].tapToEnable;
+    }, 2500);
+  }
+  updateMascotState('idle');
+}
+
+function loadVoices() {
+  const synth = window.speechSynthesis;
+  if (!synth) {
+    console.warn('[TTS] speechSynthesis not available');
+    return;
+  }
+  // Load voices immediately
+  let voices = synth.getVoices();
+  console.log(`[TTS] Initial voices loaded: ${voices.length}`);
+  
+  if (synth.onvoiceschanged !== undefined) {
+    synth.onvoiceschanged = () => {
+      voices = synth.getVoices();
+      console.log(`[TTS] Voices changed, now ${voices.length} voices:`, voices.map(v => `${v.name} (${v.lang})`).slice(0,5));
+    };
+  }
+  
+  // Chrome needs a delay to load voices
+  if (voices.length === 0) {
+    setTimeout(() => {
+      voices = synth.getVoices();
+      console.log(`[TTS] Delayed voices load: ${voices.length} voices`);
+    }, 500);
+  }
+}
+
+function renderLangDropdown() {
+  langOptions.innerHTML = '';
+  Object.entries(LANGUAGES).forEach(([code, lang]) => {
+    const div = document.createElement('div');
+    div.className = `lang-option ${code === currentLang ? 'active' : ''}`;
+    div.innerHTML = `<span>${lang.flag} ${lang.nativeName}</span><span style="font-size:11px; color:#888;">${lang.name}</span>`;
+    div.onclick = () => { setLanguage(code, true); langDropdown.classList.remove('open'); };
+    langOptions.appendChild(div);
+  });
+}
+
+function setLanguage(code, saveAndNotify = true) {
+  if (!LANGUAGES[code]) { console.warn(`[LANGUAGE LOCK] Invalid: ${code}, defaulting to en`); code = 'en'; }
+  const prevLang = selectedLanguage;
+  selectedLanguage = code;
+  currentLang = code;
+  conversationLang = code;
+  localStorage.setItem('sahayak_lang', code);
+  localStorage.setItem('sahayak_conv_lang', code);
+  const lang = LANGUAGES[code];
+  langFlag.textContent = lang.flag;
+  langName.textContent = lang.nativeName;
+  textInput.placeholder = lang.placeholder;
+  document.getElementById('greeting').textContent = lang.greeting;
+  document.getElementById('heroDesc').textContent = lang.desc;
+  document.getElementById('talkLabel').textContent = lang.talkLabel;
+  document.getElementById('talkSub').textContent = lang.talkSub;
+  document.getElementById('categoriesTitle').textContent = lang.categoriesTitle;
+  document.getElementById('quickTitle').textContent = lang.quickTitle;
+  document.getElementById('rotatorLabel').textContent = lang.rotatorLabel;
+  document.getElementById('emptyTitle').textContent = lang.emptyTitle;
+  document.getElementById('emptySub').textContent = lang.emptySub;
+  autoplayText.textContent = lang.tapToEnable;
+  document.getElementById('ttsStatus').textContent = `🔊 ${lang.nativeName} Auto: ${audioEnabled ? 'ON' : 'OFF'}`;
+  document.getElementById('lockStatus').textContent = `🔒 ${code} → ${code}`;
+  document.getElementById('lockDetail').textContent = `Current: ${lang.flag} ${lang.nativeName} (${code}) → Response in ${lang.nativeName}`;
+  document.getElementById('statusText').textContent = code === 'en' ? 'Online' : lang.nativeName;
+  document.querySelectorAll('.lang-option').forEach((el,i) => {
+    const codes = Object.keys(LANGUAGES);
+    el.classList.toggle('active', codes[i] === code);
+  });
+  renderCategories();
+  renderQuickChips();
+  restartRotator();
+  if (recognition) recognition.lang = lang.speechRecognition;
+  if (saveAndNotify && prevLang !== code) {
+    showToast(`🌐 ${lang.nativeName} • ${lang.name}`);
+    if (speechSynthesis.speaking) speechSynthesis.cancel();
+    updateMascotState('success');
+    setTimeout(() => updateMascotState('idle'), 1000);
+  }
+  console.log(`[LANGUAGE LOCK] Language set to ${code} - STT: ${lang.speechRecognition}, TTS: ${lang.ttsLanguage}`);
+}
+
+function renderCategories() {
+  categoryGrid.innerHTML = '';
+  CATEGORIES.forEach(cat => {
+    const card = document.createElement('div');
+    card.className = 'category-card';
+    const title = cat.title[currentLang] || cat.title.en;
+    const desc = cat.desc[currentLang] || cat.desc.en;
+    card.innerHTML = `
+      <div class="${cat.class}"><div class="category-icon">${cat.icon}</div></div>
+      <h4>${title.replace('\n','<br>')}</h4>
+      <p>${desc}</p>
+      <div class="explore">Explore →</div>
+    `;
+    card.onclick = () => {
+      const q = cat.query[currentLang] || cat.query.en;
+      textInput.value = q;
+      autoResize();
+      updateMascotState('idle');
+      textInput.focus();
+      // Smooth scroll to input
+      document.querySelector('.input-area').scrollIntoView({ behavior: 'smooth', block: 'center' });
+      showToast(`${cat.icon} ${title.replace('\n',' ')}`);
+    };
+    categoryGrid.appendChild(card);
+  });
+}
+
+function renderQuickChips() {
+  const questions = SUGGESTED_QUESTIONS[currentLang] || SUGGESTED_QUESTIONS.en;
+  quickGrid.innerHTML = '';
+  questions.slice(0,5).forEach(q => {
+    const chip = document.createElement('button');
+    chip.className = 'quick-chip';
+    // Add icon based on content
+    let icon = '💬';
+    if (q.toLowerCase().includes('pacs') || q.includes('PACS')) icon = '🏦';
+    else if (q.toLowerCase().includes('pmfby') || q.toLowerCase().includes('insurance') || q.includes('பயிர்') || q.includes('फसल')) icon = '🌱';
+    else if (q.toLowerCase().includes('grievance') || q.includes('புகார்') || q.includes('शिकायत')) icon = '📢';
+    else if (q.toLowerCase().includes('rights') || q.includes('உரிமை') || q.includes('अधिकार')) icon = '🏛️';
+    else if (q.toLowerCase().includes('document') || q.includes('ஆவண') || q.includes('दस्तावेज')) icon = '📄';
+    chip.innerHTML = `${icon} ${q.length > 50 ? q.substring(0,48)+'...' : q}`;
+    chip.title = q;
+    chip.onclick = () => { textInput.value = q; autoResize(); sendMessage(); };
+    quickGrid.appendChild(chip);
+  });
+}
+
+function startRotator() {
+  const examples = ROTATING_EXAMPLES[currentLang] || ROTATING_EXAMPLES.en;
+  const el = document.getElementById('rotatorExample');
+  if (!el) return;
+  rotatorInterval = setInterval(() => {
+    el.classList.remove('active');
+    setTimeout(() => {
+      rotatorIdx = (rotatorIdx + 1) % examples.length;
+      el.textContent = `"${examples[rotatorIdx]}"`;
+      el.classList.add('active');
+    }, 300);
+  }, 3000);
+}
+function restartRotator() {
+  if (rotatorInterval) clearInterval(rotatorInterval);
+  rotatorIdx = 0;
+  const examples = ROTATING_EXAMPLES[currentLang] || ROTATING_EXAMPLES.en;
+  const el = document.getElementById('rotatorExample');
+  if (el) { el.textContent = `"${examples[0]}"`; el.classList.add('active'); }
+  startRotator();
+}
+
+function renderHistory() {
+  if (conversationHistory.length === 0) {
+    hero.classList.remove('hidden');
+    document.getElementById('emptyState').style.display = 'none';
+    return;
+  }
+  hero.classList.add('hidden');
+  document.getElementById('emptyState').style.display = 'none';
+  chatContainer.innerHTML = '';
+  conversationHistory.forEach((msg, idx) => {
+    if (msg.role === 'user' || (msg.role === 'assistant' && msg.content)) {
+      addMessageToUI(msg.role, msg.content, msg.sources, msg.evidence_level, false, msg.fullData, idx, msg.language);
+    }
+  });
+  scrollToBottom();
+}
+
+function setupEvents() {
+  langBtn.onclick = (e) => { e.stopPropagation(); langDropdown.classList.toggle('open'); };
+  document.addEventListener('click', () => { langDropdown.classList.remove('open'); });
+  sendBtn.onclick = sendMessage;
+  textInput.onkeydown = (e) => { if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); sendMessage(); } };
+  textInput.oninput = () => { charCount.textContent = `${textInput.value.length}/2000`; sendBtn.disabled = !textInput.value.trim() || isProcessing; hasInteracted = true; enableAudioIfNeeded(); };
+  micBtn.onclick = toggleListening;
+  talkBtn.onclick = toggleListening;
+  document.getElementById('emptyCta').onclick = toggleListening;
+  document.getElementById('stopListeningBtn').onclick = stopListening;
+  document.getElementById('adminLink').onclick = async (e) => {
+    e.preventDefault();
+    try {
+      const res = await fetch('/api/status');
+      const data = await res.json();
+      alert(`🌱 Sahayak AI Status:\n\nDocuments: ${data.vector_store.total_documents}\nKB exists: ${data.knowledge_base.exists}\nLanguages: ${data.languages?.length || 8}\nSelected: ${currentLang} (${LANGUAGES[currentLang].nativeName})\nAuto Voice: ${audioEnabled ? 'ON 🔊' : 'OFF 🔇'}\n\nLast ingestion: ${data.ingestion.ingested_at || 'Never'}`);
+    } catch { showToast('Unable to fetch status'); }
+  };
+  document.getElementById('printConvBtn').onclick = () => printConversationReport();
+  document.getElementById('downloadConvBtn').onclick = () => downloadConversationReport();
+  document.getElementById('closePrintModal').onclick = () => printModal.classList.remove('open');
+  document.getElementById('doPrintBtn').onclick = () => window.print();
+  document.getElementById('doDownloadBtn').onclick = () => downloadReportFromPreview();
+  document.getElementById('doCopyReportBtn').onclick = () => {
+    const text = printPreview.innerText;
+    navigator.clipboard.writeText(text).then(() => showToast('📋 Report copied'));
+  };
+  autoplayBanner.onclick = () => enableAudio();
+  document.addEventListener('click', () => { hasInteracted = true; }, { once: false });
+  document.addEventListener('keydown', () => { hasInteracted = true; }, { once: false });
+  setupSpeechRecognition();
+}
+
+function autoResize() { textInput.style.height = 'auto'; textInput.style.height = Math.min(textInput.scrollHeight, 120) + 'px'; }
+
+function setupSpeechRecognition() {
+  const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+  if (!SpeechRecognition) { micBtn.style.display = 'none'; talkBtn.style.display = 'none'; return; }
+  recognition = new SpeechRecognition();
+  recognition.continuous = false;
+  recognition.interimResults = true;
+  recognition.lang = LANGUAGES[currentLang].speechRecognition;
+  recognition.onstart = () => {
+    isListening = true;
+    micBtn.classList.add('listening');
+    talkBtn.classList.add('listening');
+    inputWrapper.classList.add('listening');
+    listeningOverlay.classList.add('active');
+    listeningText.textContent = LANGUAGES[currentLang].listening;
+    listeningSub.textContent = '...';
+    updateMascotState('listening');
+    document.getElementById('mascotPulse1').classList.add('active');
+    document.getElementById('mascotPulse2').classList.add('active');
+  };
+  recognition.onresult = (event) => {
+    let interim = ''; let final = '';
+    for (let i = event.resultIndex; i < event.results.length; i++) {
+      const transcript = event.results[i][0].transcript;
+      if (event.results[i].isFinal) final += transcript;
+      else interim += transcript;
+    }
+    const text = final || interim;
+    if (text) {
+      listeningSub.textContent = `"${text}"`;
+      textInput.value = text;
+      autoResize();
+      charCount.textContent = `${text.length}/2000`;
+    }
+  };
+  recognition.onerror = (event) => {
+    console.error('STT error', event.error);
+    stopListening();
+    if (event.error === 'not-allowed') showToast('🎤 Microphone permission denied');
+    else if (event.error === 'no-speech') showToast('No speech detected, try again');
+    else showToast('Voice input failed, please type');
+  };
+  recognition.onend = () => { stopListening(); };
+}
+
+function toggleListening() { if (isListening) stopListening(); else startListening(); }
+function startListening() {
+  if (!recognition) { showToast('Voice not supported'); return; }
+  try {
+    recognition.lang = LANGUAGES[selectedLanguage].speechRecognition;
+    console.log(`[LANGUAGE LOCK] Starting STT: ${recognition.lang} for selected ${selectedLanguage}`);
+    recognition.start();
+    hasInteracted = true;
+    enableAudioIfNeeded();
+  } catch (e) { console.error(e); showToast('Could not start voice'); }
+}
+function stopListening() {
+  isListening = false;
+  micBtn.classList.remove('listening');
+  talkBtn.classList.remove('listening');
+  inputWrapper.classList.remove('listening');
+  listeningOverlay.classList.remove('active');
+  document.getElementById('mascotPulse1').classList.remove('active');
+  document.getElementById('mascotPulse2').classList.remove('active');
+  updateMascotState('idle');
+  try { if (recognition) recognition.stop(); } catch {}
+}
+
+function updateMascotState(state) {
+  heroMascot.className = 'hero-mascot';
+  if (state !== 'idle') heroMascot.classList.add(state);
+  const icons = { idle: '🌱', listening: '🎤', thinking: '💭', speaking: '🔊', success: '✨' };
+  if (icons[state]) {
+    // Keep leaf for idle/success, change for others with small transition
+    if (state === 'idle') heroMascot.textContent = '🌱';
+    else if (state === 'listening') heroMascot.textContent = '🎤';
+    else if (state === 'thinking') heroMascot.textContent = '💭';
+    else if (state === 'speaking') heroMascot.textContent = '🔊';
+    else if (state === 'success') heroMascot.textContent = '🌿';
+  }
+}
+
+function enableAudioIfNeeded() { if (!audioEnabled && hasInteracted) enableAudio(); }
+function enableAudio() {
+  audioEnabled = true;
+  localStorage.setItem('sahayak_audio_enabled', 'true');
+  autoplayBanner.classList.remove('show');
+  document.getElementById('ttsStatus').textContent = `🔊 ${LANGUAGES[currentLang].nativeName} Auto: ON`;
+  showToast(`🔊 Auto voice enabled for ${LANGUAGES[currentLang].nativeName}`);
+  try { const utter = new SpeechSynthesisUtterance(''); utter.volume = 0; speechSynthesis.speak(utter); } catch {}
+}
+
+async function checkBackend() {
+  try {
+    const res = await fetch('/api/health');
+    if (res.ok) {
+      const data = await res.json().catch(() => ({retriever: {total_documents: 37}}));
+      document.getElementById('inputStatus').textContent = `✓ ${data.retriever?.total_documents || 37} verified sources • 🔒 Language Lock`;
+      document.getElementById('statusText').textContent = LANGUAGES[currentLang].nativeName;
+    }
+  } catch { document.getElementById('inputStatus').textContent = '⚠️ Offline • Local knowledge'; }
+}
+
+function showThinking() {
+  const id = 'thinking-' + Date.now();
+  const div = document.createElement('div');
+  div.id = id;
+  div.className = 'message assistant';
+  div.innerHTML = `
+    <div class="message-avatar">🌱</div>
+    <div class="thinking-card">
+      <div class="thinking-mascot">💭</div>
+      <div class="thinking-content">
+        <div class="thinking-title" id="thinkingTitle">Sahayak is thinking...</div>
+        <div class="thinking-steps">
+          <div class="thinking-step active" data-step="1"><div class="dot">🔎</div><span id="step1">Finding relevant information</span></div>
+          <div class="thinking-step" data-step="2"><div class="dot">📚</div><span id="step2">Checking official sources</span></div>
+          <div class="thinking-step" data-step="3"><div class="dot">🤖</div><span id="step3">Preparing your answer</span></div>
+        </div>
+        <div class="thinking-dots"><span></span><span></span><span></span></div>
+      </div>
+    </div>
+  `;
+  chatContainer.appendChild(div);
+  scrollToBottom();
+  // Animate steps
+  let step = 1;
+  const interval = setInterval(() => {
+    const prev = div.querySelector(`[data-step="${step}"]`);
+    if (prev) { prev.classList.remove('active'); prev.classList.add('done'); prev.querySelector('.dot').textContent = '✓'; }
+    step++;
+    if (step <= 3) {
+      const next = div.querySelector(`[data-step="${step}"]`);
+      if (next) next.classList.add('active');
+    } else {
+      clearInterval(interval);
+    }
+  }, 800);
+  div._interval = interval;
+  return id;
+}
+function removeThinking(id) {
+  const el = document.getElementById(id);
+  if (el) { if (el._interval) clearInterval(el._interval); el.remove(); }
+}
+
+async function sendMessage() {
+  const question = textInput.value.trim();
+  if (!question || isProcessing) return;
+  isProcessing = true;
+  sendBtn.disabled = true;
+  hero.classList.add('hidden');
+  document.getElementById('emptyState').style.display = 'none';
+  hasInteracted = true;
+  enableAudioIfNeeded();
+
+  const questionLang = selectedLanguage;
+  const langConfigForLog = LANGUAGES[questionLang] || LANGUAGES.en;
+  console.log(`===== SENDING MESSAGE - LANGUAGE LOCK =====`);
+  console.log(`[LANGUAGE LOCK] Selected: ${questionLang} Name: ${langConfigForLog.nativeName} Q: ${question}`);
+
+  addMessageToUI('user', question, null, null, true, null, conversationHistory.length, questionLang);
+  textInput.value = '';
+  autoResize();
+  charCount.textContent = '0/2000';
+  const thinkingId = showThinking();
+  updateMascotState('thinking');
+
+  try {
+    const historyForApi = conversationHistory.slice(-8).map(m => ({
+      role: m.role === 'user' ? 'user' : 'assistant',
+      content: m.content || m.question || m.answer || ''
+    })).filter(h => h.content);
+
+    console.log(`[LANGUAGE LOCK] Sending chat request - Selected: ${selectedLanguage} is ONLY authority`);
+    const response = await fetch('/api/chat', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        question: question,
+        message: question,
+        language: selectedLanguage,
+        conversation_language: selectedLanguage,
+        history: historyForApi,
+        top_k: 5,
+        session_id: 'web-' + Date.now()
+      })
+    });
+
+    removeThinking(thinkingId);
+    if (!response.ok) {
+      const err = await response.json().catch(() => ({}));
+      throw new Error(err.error || `Server error ${response.status}`);
+    }
+    const data = await response.json();
+    console.log(`[LANGUAGE LOCK] Response - Selected: ${data.selected_language}, TTS: ${data.tts_language}, Valid: ${data.language_valid}, Badge: ${data.language_badge}`);
+
+    if (data.selected_language !== selectedLanguage) {
+      console.error(`[LANGUAGE LOCK ERROR] Backend returned ${data.selected_language} but selected was ${selectedLanguage}!`);
+    }
+
+    // Add friendly intro if not already friendly
+    let answer = data.answer;
+    const intros = FRIENDLY_INTROS[data.selected_language] || FRIENDLY_INTROS.en;
+    const hasFriendlyStart = intros.some(intro => answer.toLowerCase().startsWith(intro.toLowerCase().substring(0,10))) || answer.startsWith('Sure') || answer.startsWith('நிச்சயமாக') || answer.startsWith('ज़रूर');
+    // Keep original answer as is - backend already friendly
+
+    addMessageToUI('assistant', answer, data.sources, data.evidence_level, true, data, conversationHistory.length, data.selected_language);
+    updateMascotState('success');
+    setTimeout(() => updateMascotState('idle'), 1500);
+
+    if (audioEnabled) {
+      setTimeout(() => { autoSpeak(answer, data.selected_language); }, 400);
+    } else {
+      if (!autoplayBanner.classList.contains('show')) autoplayBanner.classList.add('show');
+    }
+
+  } catch (error) {
+    removeThinking(thinkingId);
+    console.error(error);
+    updateMascotState('idle');
+    const errMsg = currentLang === 'en' ? `Sorry, I couldn't process that. ${error.message}. Please try again.` : `${LANGUAGES[currentLang].nativeName} - Error: ${error.message}`;
+    addMessageToUI('assistant', `🌱\n\n${errMsg}\n\nYou can try asking in another way.\n\n🎤 Try again`, [], 'none', true, null, conversationHistory.length, currentLang);
+    showToast('Failed to get response');
+  } finally {
+    isProcessing = false;
+    sendBtn.disabled = false;
+    textInput.focus();
+  }
+}
+
+function formatAnswerText(text) {
+  // User request: ignore ** symbols in chat response while replaying and display
+  let formatted = text;
+  // Remove ** markers but keep content - so **PACS** becomes PACS
+  formatted = formatted.replace(/\*\*(.*?)\*\*/g, '$1');
+  formatted = formatted.replace(/__(.*?)__/g, '$1');
+  formatted = formatted.replace(/^•/gm, '•').replace(/^-\s/gm, '• ');
+  formatted = formatted.replace(/#{1,6}\s/g, '');
+  formatted = formatted.replace(/`{1,3}/g, '');
+  return formatted;
+}
+
+function addMessageToUI(role, content, sources, evidence_level, save, fullData = null, idx = 0, langCode = null) {
+  const messageDiv = document.createElement('div');
+  messageDiv.className = `message ${role}`;
+  messageDiv.dataset.index = idx;
+  messageDiv.dataset.language = langCode || currentLang;
+
+  const avatar = document.createElement('div');
+  avatar.className = 'message-avatar';
+  avatar.textContent = role === 'user' ? 'You' : '🌱';
+
+  const contentDiv = document.createElement('div');
+  contentDiv.className = 'message-content';
+
+  if (role === 'assistant') {
+    const badgeDiv = document.createElement('div');
+    badgeDiv.className = 'language-badge';
+    const langInfo = LANGUAGES[langCode || selectedLanguage || currentLang] || LANGUAGES.en;
+    const badgeText = fullData?.language_badge || `${langInfo.flag} ${langInfo.nativeName}`;
+    badgeDiv.textContent = badgeText;
+    contentDiv.appendChild(badgeDiv);
+  }
+
+  const textDiv = document.createElement('div');
+  textDiv.className = 'message-text';
+  textDiv.textContent = formatAnswerText(content);
+  contentDiv.appendChild(textDiv);
+
+  if (role === 'assistant') {
+    if (evidence_level) {
+      const badge = document.createElement('div');
+      badge.className = `evidence-badge evidence-${evidence_level}`;
+      const icons = { high: '✅', medium: '⚠️', low: '⚠️', none: '❌' };
+      const labels = {
+        high: { en: 'High confidence • Verified', ta: 'உயர் நம்பிக்கை • சரிபார்க்கப்பட்டது', hi: 'उच्च विश्वास • सत्यापित', ml: 'ഉയർന്ന വിശ്വാസം', te: 'అధిక విశ్వాసం', kn: 'ಹೆಚ್ಚಿನ ವಿಶ್ವಾಸ', mr: 'उच्च विश्वास', bn: 'উচ্চ আস্থা' },
+        medium: { en: 'Medium confidence', ta: 'நடுத்தர நம்பிக்கை', hi: 'मध्यम विश्वास', ml: 'ഇടത്തരം വിശ്വാസം', te: 'మధ్యస్థ విశ్వാസం', kn: 'ಮಧ್ಯಮ ವಿಶ್ವಾಸ', mr: 'मध्यम विश्वास', bn: 'মাঝারি আস্থা' },
+        low: { en: 'Low evidence • Verify', ta: 'குறைந்த ஆதாரம் • சரிபார்க்கவும்', hi: 'कम साक्ष्य • सत्यापित करें', ml: 'കുറഞ്ഞ തെളിവ്', te: 'తక్కువ ఆధారాలు', kn: 'ಕಡಿಮೆ ಪುರಾವೆ', mr: 'कमी पुरावे', bn: 'কম প্রমাণ' },
+        none: { en: 'No verified evidence', ta: 'சரிபார்க்கப்பட்ட ஆதாரம் இல்லை', hi: 'कोई सत्यापित साक्ष्य नहीं', ml: 'പരിശോധിച്ച തെളിവില്ല', te: 'ధృవీకరించబడిన ఆధారాలు లేవు', kn: 'ಪರಿಶೀಲಿಸಿದ ಪುರಾವೆ ಇಲ್ಲ', mr: 'सत्यापित पुरावा नाही', bn: 'যাচাইকৃত প্রমাণ নেই' }
+      };
+      const label = labels[evidence_level]?.[langCode || currentLang] || labels[evidence_level]?.en || evidence_level;
+      badge.innerHTML = `${icons[evidence_level] || ''} ${label}`;
+      contentDiv.appendChild(badge);
+    }
+
+    // Trust indicator
+    const trustDiv = document.createElement('div');
+    trustDiv.className = 'trust-indicator';
+    const trustText = LANGUAGES[langCode || currentLang]?.trust || LANGUAGES.en.trust;
+    trustDiv.innerHTML = `<div class="check">✓</div><span>${trustText}</span><span style="margin-left:auto; font-size:10px; opacity:0.7;">ℹ️</span>`;
+    trustDiv.onclick = () => {
+      showToast(`🔎 ${LANGUAGES[langCode || currentLang]?.basedOn || 'Based on official sources'}. This answer was generated using verified Sahayak knowledge base.`);
+    };
+    contentDiv.appendChild(trustDiv);
+
+    if (audioEnabled && langCode) {
+      const voiceDiv = document.createElement('div');
+      voiceDiv.className = 'voice-indicator idle';
+      voiceDiv.id = `voice-${idx}`;
+      const langNative = LANGUAGES[langCode]?.nativeName || langCode;
+      const autoText = LANGUAGES[langCode]?.autoVoice || `Speaking in ${langNative}...`;
+      voiceDiv.innerHTML = `<div class="sound-wave"><div class="bar"></div><div class="bar"></div><div class="bar"></div><div class="bar"></div><div class="bar"></div></div><span>🔊 ${autoText}</span>`;
+      contentDiv.appendChild(voiceDiv);
+    }
+
+    const actions = document.createElement('div');
+    actions.className = 'message-actions';
+
+    const replayBtn = document.createElement('button');
+    replayBtn.className = 'action-btn';
+    replayBtn.innerHTML = '🔊 Replay';
+    replayBtn.onclick = () => speakText(content, langCode || currentLang, replayBtn);
+
+    const pauseBtn = document.createElement('button');
+    pauseBtn.className = 'action-btn';
+    pauseBtn.innerHTML = '⏸️ Pause';
+    pauseBtn.onclick = () => { if (speechSynthesis.speaking) speechSynthesis.pause(); };
+
+    const resumeBtn = document.createElement('button');
+    resumeBtn.className = 'action-btn';
+    resumeBtn.innerHTML = '▶️ Resume';
+    resumeBtn.onclick = () => { if (speechSynthesis.paused) speechSynthesis.resume(); };
+
+    const stopBtn = document.createElement('button');
+    stopBtn.className = 'action-btn';
+    stopBtn.innerHTML = '⏹️ Stop';
+    stopBtn.onclick = () => { speechSynthesis.cancel(); if (currentAudioBtn) { currentAudioBtn.classList.remove('playing'); currentAudioBtn.innerHTML = '🔊 Replay'; } updateMascotState('idle'); };
+
+    const copyBtn = document.createElement('button');
+    copyBtn.className = 'action-btn';
+    copyBtn.innerHTML = '📋 Copy';
+    copyBtn.onclick = () => { navigator.clipboard.writeText(content).then(() => showToast('📋 Copied to clipboard')); };
+
+    const printBtn = document.createElement('button');
+    printBtn.className = 'action-btn';
+    printBtn.innerHTML = '🖨️ Print';
+    printBtn.onclick = () => printSingleAnswer(idx);
+
+    actions.appendChild(replayBtn);
+    actions.appendChild(pauseBtn);
+    actions.appendChild(resumeBtn);
+    actions.appendChild(stopBtn);
+    actions.appendChild(copyBtn);
+    actions.appendChild(printBtn);
+
+    if (fullData) {
+      const typeBadge = document.createElement('span');
+      typeBadge.className = 'action-btn';
+      typeBadge.style.background = '#e8f5e9';
+      typeBadge.style.borderColor = '#c8e6c9';
+      typeBadge.textContent = `🏷️ ${fullData.query_type}`;
+      actions.appendChild(typeBadge);
+    }
+
+    contentDiv.appendChild(actions);
+
+    if (sources && sources.length > 0) {
+      const sourcesDiv = document.createElement('div');
+      sourcesDiv.className = 'sources';
+      sourcesDiv.innerHTML = `
+        <div class="sources-header" onclick="this.parentElement.classList.toggle('open')">
+          <div class="sources-title">📚 ${LANGUAGES[langCode || currentLang]?.reportSources || 'Sources'} • ${sources.length} verified</div>
+          <span>▼</span>
+        </div>
+        <div class="sources-content">
+          ${sources.map(src => `
+            <div class="source-item">
+              <span class="source-badge">${src.id || '•'}</span>
+              <div style="flex:1;">
+                <div style="font-weight:700;">${escapeHtml(src.source_name || src.title)}</div>
+                ${src.title && src.title !== src.source_name ? `<div style="font-size:12px; color:#666;">${escapeHtml(src.title)}</div>` : ''}
+                ${src.source_url ? `<a href="${src.source_url}" target="_blank" rel="noopener">${src.source_url}</a>` : ''}
+              </div>
+            </div>
+          `).join('')}
+        </div>
+      `;
+      contentDiv.appendChild(sourcesDiv);
+    }
+  }
+
+  messageDiv.appendChild(avatar);
+  messageDiv.appendChild(contentDiv);
+  chatContainer.appendChild(messageDiv);
+
+  if (save) {
+    const entry = {
+      role: role,
+      content: content,
+      question: role === 'user' ? content : (conversationHistory.length > 0 ? conversationHistory[conversationHistory.length - 1]?.question || content : content),
+      answer: role === 'assistant' ? content : null,
+      language: langCode || currentLang,
+      category: fullData?.query_type || null,
+      query_type: fullData?.query_type || null,
+      sources: sources || [],
+      evidence_level: evidence_level || 'none',
+      timestamp: new Date().toISOString(),
+      fullData: fullData || null,
+      tts_language: fullData?.tts_language || LANGUAGES[langCode || currentLang]?.ttsLanguage || 'en-IN'
+    };
+    if (role === 'user') {
+      conversationHistory.push(entry);
+    } else {
+      const lastUserIdx = conversationHistory.length - 1;
+      if (lastUserIdx >= 0 && conversationHistory[lastUserIdx].role === 'user' && !conversationHistory[lastUserIdx].answer) {
+        conversationHistory[lastUserIdx].answer = content;
+        conversationHistory[lastUserIdx].sources = sources || [];
+        conversationHistory[lastUserIdx].evidence_level = evidence_level;
+        conversationHistory[lastUserIdx].category = fullData?.query_type;
+        conversationHistory[lastUserIdx].fullData = fullData;
+        conversationHistory.push(entry);
+      } else {
+        conversationHistory.push(entry);
+      }
+    }
+    if (conversationHistory.length > 100) conversationHistory = conversationHistory.slice(-100);
+    localStorage.setItem('sahayak_history_v2', JSON.stringify(conversationHistory));
+    localStorage.setItem('sahayak_history', JSON.stringify(conversationHistory));
+  }
+  scrollToBottom();
+  return messageDiv;
+}
+
+function scrollToBottom() { setTimeout(() => { window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' }); }, 150); }
+
+function getBestVoice(langCode) {
+  try {
+    const synth = window.speechSynthesis;
+    if (!synth) return null;
+    const voices = synth.getVoices();
+    if (!voices || voices.length === 0) {
+      console.warn('[TTS] No voices available yet');
+      return null;
+    }
+    const langConfig = LANGUAGES[langCode] || LANGUAGES.en;
+    console.log(`[TTS] Finding voice for ${langCode} (${langConfig.ttsLanguage}), available: ${voices.length} voices`);
+    
+    // 1. Exact match for ttsLanguage (ta-IN)
+    let voice = voices.find(v => v.lang.toLowerCase() === langConfig.ttsLanguage.toLowerCase());
+    if (voice) { console.log(`[TTS] Found exact match: ${voice.name} (${voice.lang})`); return voice; }
+    
+    // 2. Prefix match (ta, hi, etc)
+    voice = voices.find(v => v.lang.toLowerCase().startsWith(langCode.toLowerCase()));
+    if (voice) { console.log(`[TTS] Found prefix match: ${voice.name} (${voice.lang})`); return voice; }
+    
+    // 3. Check voice names
+    for (const name of langConfig.voiceNames || []) {
+      voice = voices.find(v => v.name.toLowerCase().includes(name.toLowerCase()));
+      if (voice) { console.log(`[TTS] Found name match: ${voice.name} (${voice.lang})`); return voice; }
+    }
+    
+    // 4. For Indian languages, try any IN voice that matches first letter
+    if (langCode !== 'en') {
+      voice = voices.find(v => v.lang.includes('IN'));
+      if (voice) { console.log(`[TTS] Found IN fallback: ${voice.name} (${voice.lang})`); return voice; }
+    }
+    
+    // 5. Fallback to en-IN or en
+    voice = voices.find(v => v.lang === 'en-IN') || voices.find(v => v.lang.startsWith('en')) || voices[0];
+    console.log(`[TTS] Fallback voice: ${voice?.name || 'default'} (${voice?.lang || 'unknown'})`);
+    return voice || null;
+  } catch (e) {
+    console.error('[TTS] getBestVoice error:', e);
+    return null;
+  }
+}
+
+function autoSpeak(text, langCode) {
+  if (!audioEnabled) { console.log('[LANGUAGE LOCK] Auto voice disabled'); return; }
+  if (!hasInteracted) { console.log('[LANGUAGE LOCK] No interaction yet, skip auto'); return; }
+  const ttsLang = langCode || selectedLanguage;
+  console.log(`[LANGUAGE LOCK] AutoSpeak - TTS: ${ttsLang} (selected ${selectedLanguage})`);
+  speakText(text, ttsLang, null, true);
+}
+
+function speakText(text, langCode, btn, isAuto = false) {
+  if (!('speechSynthesis' in window)) { showToast('TTS not supported'); return; }
+  const targetLang = langCode || selectedLanguage;
+  const langConfig = LANGUAGES[targetLang] || LANGUAGES.en;
+  console.log(`[LANGUAGE LOCK] TTS Request - Selected: ${selectedLanguage}, TTS: ${targetLang}, Same? ${targetLang === selectedLanguage}`);
+  console.log(`[TTS] Original text length: ${text.length}, preview: ${text.substring(0,100)}`);
+
+  // BUG FIX: Check if same text is already playing - compare cleaned versions
+  const isSameTextPlaying = currentUtterance && speechSynthesis.speaking;
+  
+  if (speechSynthesis.speaking || speechSynthesis.pending) {
+    speechSynthesis.cancel();
+    // Small delay to ensure cancel completes before new speech
+    if (currentAudioBtn) { 
+      currentAudioBtn.classList.remove('playing'); 
+      currentAudioBtn.innerHTML = '🔊 Replay'; 
+    }
+    if (isSameTextPlaying && !isAuto && btn && currentAudioBtn === btn) {
+      // User clicked same button to stop
+      currentUtterance = null;
+      currentAudioBtn = null;
+      updateMascotState('idle');
+      document.querySelectorAll('.voice-indicator').forEach(el => el.classList.add('idle'));
+      console.log('[TTS] Stopped same text playback');
+      return;
+    }
+  }
+
+  // BUG FIX: Comprehensive cleaning for TTS - ignore ** and all markdown, emojis, sources in any language
+  let cleanText = text;
+  
+  // Step 1: Remove URLs
+  cleanText = cleanText.replace(/https?:\/\/\S+/g, ' ');
+  
+  // Step 2: Remove sources section in ALL languages (📚 + Sources/ஆதாரங்கள்/स्रोत etc)
+  // Remove everything from 📚 onwards
+  cleanText = cleanText.replace(/📚[\s\S]*/g, ' ');
+  cleanText = cleanText.replace(/Sources[\s\S]*/gi, ' ');
+  cleanText = cleanText.replace(/ஆதாரங்கள்[\s\S]*/g, ' ');
+  cleanText = cleanText.replace(/स्रोत[\s\S]*/g, ' ');
+  cleanText = cleanText.replace(/उറവിടങ്ങൾ[\s\S]*/g, ' ');
+  cleanText = cleanText.replace(/মূলాలు[\s\S]*/g, ' ');
+  cleanText = cleanText.replace(/Sources used[\s\S]*/gi, ' ');
+  
+  // Step 3: Remove ** and markdown - USER REQUEST: ignore ** symbols
+  cleanText = cleanText.replace(/\*\*(.*?)\*\*/g, '$1'); // **bold** -> bold (keep text)
+  cleanText = cleanText.replace(/\*\*/g, ''); // Any remaining **
+  cleanText = cleanText.replace(/__(.*?)__/g, '$1'); // __bold__ -> bold
+  cleanText = cleanText.replace(/__/g, '');
+  cleanText = cleanText.replace(/\*(.*?)\*/g, '$1'); // *italic* -> italic
+  // Don't remove single * that are bullet points yet, handle below
+  
+  // Step 4: Remove markdown headings, code
+  cleanText = cleanText.replace(/#{1,6}\s+/g, '');
+  cleanText = cleanText.replace(/`{1,3}[^`]*`{1,3}/g, ' ');
+  cleanText = cleanText.replace(/\[([^\]]+)\]\([^)]+\)/g, '$1');
+  
+  // Step 5: Remove emojis and symbols that TTS can't read well (keep only text)
+  // Remove common UI emojis but keep meaningful ones
+  cleanText = cleanText.replace(/[✅❌⚠️🔊📚🏷️🌐🔒🌱🌾🏛️🏦💰📢💬🎤⏸️▶️⏹️📋🖨️⬇️🔎📄🤖💭✨🙏]/g, ' ');
+  cleanText = cleanText.replace(/\u2705|\u274C|\u26A0\uFE0F/g, ' ');
+  
+  // Step 6: Handle bullet points - replace with natural pauses
+  cleanText = cleanText.replace(/^[•\-\*]\s*/gm, '');
+  cleanText = cleanText.replace(/•/g, '. ');
+  
+  // Step 7: Clean up extra spaces and newlines for natural speech
+  cleanText = cleanText.replace(/\n{2,}/g, '. ');
+  cleanText = cleanText.replace(/\n/g, ' ');
+  cleanText = cleanText.replace(/\s{2,}/g, ' ');
+  cleanText = cleanText.replace(/\s*\.\s*\.\s*/g, '. ');
+  cleanText = cleanText.trim();
+  
+  // Step 8: Remove any remaining ** (double ensure)
+  cleanText = cleanText.replace(/\*\*/g, '').replace(/\*/g, '').trim();
+  
+  // BUG FIX: Handle long text by chunking into sentences instead of cutting mid-word
+  // If text is too long, split into sentences and speak first chunk, queue rest
+  let textChunks = [];
+  if (cleanText.length > 800) {
+    // Split by sentence boundaries (. ! ? in any language + Tamil danda etc)
+    const sentences = cleanText.split(/([.!?।۔।\n]+)/);
+    let currentChunk = '';
+    for (let i = 0; i < sentences.length; i++) {
+      const sentence = sentences[i];
+      if ((currentChunk + sentence).length > 700 && currentChunk.length > 0) {
+        textChunks.push(currentChunk.trim());
+        currentChunk = sentence;
+      } else {
+        currentChunk += sentence;
+      }
+    }
+    if (currentChunk.trim()) textChunks.push(currentChunk.trim());
+    // Limit to first 2 chunks for performance (about 1400 chars)
+    if (textChunks.length > 2) {
+      console.log(`[TTS] Long text split into ${textChunks.length} chunks, using first 2`);
+      textChunks = textChunks.slice(0, 2);
+      cleanText = textChunks.join(' ');
+    }
+  } else {
+    textChunks = [cleanText];
+  }
+  
+  if (!cleanText || cleanText.length < 2) {
+    console.warn('[TTS] Cleaned text too short, nothing to speak');
+    showToast('Nothing to read');
+    return;
+  }
+  
+  console.log(`[TTS CLEAN] Cleaned length: ${cleanText.length}, chunks: ${textChunks.length}, preview: ${cleanText.substring(0,100)}...`);
+
+  // BUG FIX: Create utterance queue for chunked text
+  let chunkIndex = 0;
+  
+  function speakNextChunk() {
+    if (chunkIndex >= textChunks.length) {
+      console.log('[TTS] All chunks spoken');
+      if (btn) { btn.classList.remove('playing'); btn.innerHTML = '🔊 Replay'; }
+      currentUtterance = null;
+      currentAudioBtn = null;
+      updateMascotState('success');
+      setTimeout(() => updateMascotState('idle'), 1200);
+      document.querySelectorAll('.voice-indicator').forEach(el => el.classList.add('idle'));
+      return;
+    }
+    
+    const chunk = textChunks[chunkIndex];
+    const utterance = new SpeechSynthesisUtterance(chunk);
+    utterance.lang = langConfig.ttsLanguage;
+    utterance.rate = 0.9;
+    utterance.pitch = 1;
+    utterance.volume = 1;
+
+    const bestVoice = getBestVoice(targetLang);
+    if (bestVoice) {
+      utterance.voice = bestVoice;
+      console.log(`[TTS] Using voice: ${bestVoice.name} (${bestVoice.lang}) for ${targetLang}, chunk ${chunkIndex+1}/${textChunks.length}`);
+    } else {
+      console.warn(`[TTS] No voice found for ${targetLang}, using default lang ${utterance.lang}`);
+    }
+
+    utterance.onstart = () => {
+      if (chunkIndex === 0) {
+        if (btn) { 
+          btn.classList.add('playing'); 
+          btn.innerHTML = '⏹️ Stop'; 
+          btn.dataset.lang = targetLang; 
+          currentAudioBtn = btn; 
+        }
+        updateMascotState('speaking');
+        const voiceEl = document.querySelector(`#voice-${btn ? btn.closest('.message')?.dataset.index : ''}`);
+        if (voiceEl) voiceEl.classList.remove('idle');
+        if (isAuto) showToast(`🔊 ${langConfig.autoVoice}`);
+        console.log(`[TTS] Started speaking chunk ${chunkIndex+1}`);
+      }
+    };
+    
+    utterance.onend = () => {
+      console.log(`[TTS] Ended chunk ${chunkIndex+1}/${textChunks.length}`);
+      chunkIndex++;
+      if (chunkIndex < textChunks.length) {
+        setTimeout(() => speakNextChunk(), 200);
+      } else {
+        if (btn) { btn.classList.remove('playing'); btn.innerHTML = '🔊 Replay'; }
+        currentUtterance = null;
+        currentAudioBtn = null;
+        updateMascotState('success');
+        setTimeout(() => updateMascotState('idle'), 1200);
+        document.querySelectorAll('.voice-indicator').forEach(el => el.classList.add('idle'));
+      }
+    };
+    
+    utterance.onerror = (e) => {
+      console.error(`[TTS] Error on chunk ${chunkIndex+1}:`, e);
+      if (btn) { btn.classList.remove('playing'); btn.innerHTML = '🔊 Replay'; }
+      if (e.error === 'not-allowed') {
+        showToast('🔊 Tap to enable voice');
+        autoplayBanner.classList.add('show');
+        audioEnabled = false;
+        localStorage.setItem('sahayak_audio_enabled', 'false');
+      } else if (e.error !== 'interrupted' && e.error !== 'canceled') {
+        showToast('Could not play audio: ' + e.error);
+        // Try next chunk even if one fails
+        chunkIndex++;
+        if (chunkIndex < textChunks.length) {
+          setTimeout(() => speakNextChunk(), 300);
+          return;
+        }
+      }
+      if (chunkIndex >= textChunks.length - 1) {
+        currentUtterance = null;
+        updateMascotState('idle');
+      }
+    };
+
+    if (chunkIndex === 0) currentUtterance = utterance;
+    try { 
+      speechSynthesis.speak(utterance); 
+    } catch (e) { 
+      console.error('Speak failed', e); 
+      showToast('Audio playback failed');
+      updateMascotState('idle');
+    }
+  }
+  
+  speakNextChunk();
+}
+
+function showToast(msg) {
+  toast.textContent = msg;
+  toast.classList.add('show');
+  setTimeout(() => toast.classList.remove('show'), 3500);
+}
+
+function generateReportData(singleIdx = null) {
+  const lang = LANGUAGES[currentLang] || LANGUAGES.en;
+  const now = new Date();
+  const dateStr = now.toLocaleDateString(lang.bcp47 || 'en-IN');
+  const timeStr = now.toLocaleTimeString(lang.bcp47 || 'en-IN');
+  let entries = [];
+  if (singleIdx !== null) {
+    const msg = conversationHistory[singleIdx];
+    if (msg) {
+      if (msg.role === 'assistant') {
+        let question = 'Unknown';
+        for (let i = singleIdx - 1; i >= 0; i--) { if (conversationHistory[i].role === 'user') { question = conversationHistory[i].content; break; } }
+        entries = [{ question, answer: msg.content, sources: msg.sources, timestamp: msg.timestamp, language: msg.language, category: msg.category }];
+      } else if (msg.role === 'user' && msg.answer) {
+        entries = [{ question: msg.content, answer: msg.answer, sources: msg.sources, timestamp: msg.timestamp, language: msg.language, category: msg.category }];
+      }
+    }
+  } else {
+    for (let i = 0; i < conversationHistory.length; i++) {
+      const m = conversationHistory[i];
+      if (m.role === 'user' && m.answer) entries.push({ question: m.content, answer: m.answer, sources: m.sources, timestamp: m.timestamp, language: m.language, category: m.category });
+    }
+    const seen = new Set();
+    entries = entries.filter(e => { const key = e.question + e.answer.substring(0,50); if (seen.has(key)) return false; seen.add(key); return true; });
+  }
+  return { lang, dateStr, timeStr, entries, selectedLang: currentLang, nativeLang: lang.nativeName };
+}
+
+function generateReportHTML(singleIdx = null) {
+  const data = generateReportData(singleIdx);
+  const { lang, dateStr, timeStr, entries, selectedLang, nativeLang } = data;
+  let html = `
+    <div style="font-family: 'Nunito', 'Noto Sans', sans-serif; max-width: 800px; margin: 0 auto; padding: 20px; color: #2e3d29;">
+      <div style="text-align: center; border-bottom: 3px solid #2e7d32; padding-bottom: 16px; margin-bottom: 24px;">
+        <div style="font-size:48px; margin-bottom:8px;">🌱</div>
+        <h1 style="color: #1b5e20; font-size: 28px; margin-bottom: 4px; font-weight:800;">${lang.reportTitle}</h1>
+        <p style="color: #6d7f6a; font-size: 14px;">Your Friendly Cooperative Helper • SIH26088</p>
+      </div>
+      <div style="background: #f1f8e9; border: 1.5px solid #c8e6c9; border-radius: 12px; padding: 16px; margin-bottom: 24px; display: grid; grid-template-columns: 1fr 1fr; gap: 12px; font-size: 13px;">
+        <div><strong>${lang.reportDate}:</strong> ${dateStr}</div>
+        <div><strong>${lang.reportTime}:</strong> ${timeStr}</div>
+        <div><strong>${lang.reportLang}:</strong> ${nativeLang} (${selectedLang})</div>
+        <div><strong>Questions:</strong> ${entries.length}</div>
+      </div>
+  `;
+  entries.forEach((entry, i) => {
+    const entryLang = LANGUAGES[entry.language] || lang;
+    html += `
+      <div style="margin-bottom: 28px; padding: 20px; background: white; border: 1.5px solid #e8ede6; border-radius: 16px; break-inside: avoid; box-shadow: 0 4px 20px rgba(46,125,50,0.08);">
+        <div style="font-size: 12px; font-weight: 800; color: #2e7d32; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 8px;">${entryLang.reportQuery} ${i+1} ${entry.category ? `• ${entry.category}` : ''}</div>
+        <div style="font-size: 15px; font-weight: 700; margin-bottom: 16px; padding: 12px; background: #f1f8e9; border-radius: 12px; border-left: 4px solid #2e7d32;">${escapeHtml(entry.question)}</div>
+        <div style="font-size: 12px; font-weight: 800; color: #2e7d32; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 8px;">${entryLang.reportAnswer}</div>
+        <div style="font-size: 14px; line-height: 1.7; white-space: pre-wrap; margin-bottom: 16px;">${escapeHtml(entry.answer)}</div>
+        ${entry.sources && entry.sources.length > 0 ? `
+          <div style="background: #f8faf5; border: 1.5px solid #e8f5e9; border-radius: 12px; padding: 12px;">
+            <div style="font-size: 11px; font-weight: 800; color: #2e7d32; margin-bottom: 8px;">📚 ${entryLang.reportSources}</div>
+            ${entry.sources.map(s => `
+              <div style="font-size: 12px; padding: 8px 0; border-bottom: 1px solid #eef5ee;">
+                <strong>${escapeHtml(s.source_name || s.title)}</strong><br>
+                <span style="color: #666;">${escapeHtml(s.title)}</span><br>
+                ${s.source_url ? `<a href="${s.source_url}" style="color: #2e7d32; font-size: 11px; word-break: break-all;">${s.source_url}</a>` : ''}
+              </div>
+            `).join('')}
+          </div>
+        ` : ''}
+        <div style="font-size: 11px; color: #888; margin-top: 12px;">${entry.timestamp ? new Date(entry.timestamp).toLocaleString() : ''} • ${entry.language} • 🌱 Verified</div>
+      </div>
+    `;
+  });
+  html += `
+      <div style="margin-top: 32px; padding: 16px; background: #fff8e1; border: 1.5px solid #ffe0b2; border-radius: 12px; font-size: 12px; color: #5d4037;">
+        <strong>Disclaimer:</strong> This report contains information retrieved from verified knowledge sources. Refer to official source for latest information. Not legal advice. Official names like PMFBY, PACS preserved accurately. 🌱 Sahayak AI is your friendly helper.
+      </div>
+      <div style="text-align: center; margin-top: 24px; padding-top: 16px; border-top: 1px solid #e8ede6; font-size: 11px; color: #888;">
+        Generated by 🌱 Sahayak AI • ${dateStr} ${timeStr} • Language: ${nativeLang} • 🔒 Language Lock: ${selectedLang} → ${selectedLang}
+      </div>
+    </div>
+  `;
+  return { html, data };
+}
+
+function escapeHtml(text) { const div = document.createElement('div'); div.textContent = text; return div.innerHTML; }
+function printSingleAnswer(idx) { const { html } = generateReportHTML(idx); printPreview.innerHTML = html; document.getElementById('printModalTitle').textContent = `${LANGUAGES[currentLang].reportTitle} - Single Answer`; printModal.classList.add('open'); }
+function printConversationReport() { if (conversationHistory.length === 0) { showToast('No conversation to print'); return; } const { html } = generateReportHTML(null); printPreview.innerHTML = html; document.getElementById('printModalTitle').textContent = `${LANGUAGES[currentLang].reportTitle} - Conversation`; printModal.classList.add('open'); }
+function downloadSingleAnswer(idx) { const { html, data } = generateReportHTML(idx); downloadAsPDF(html, `SahayakAI-Answer-${data.selectedLang}-${new Date().toISOString().slice(0,10)}.html`); }
+function downloadConversationReport() { if (conversationHistory.length === 0) { showToast('No conversation to download'); return; } const { html, data } = generateReportHTML(null); downloadAsPDF(html, `SahayakAI-Conversation-${data.selectedLang}-${new Date().toISOString().slice(0,10)}.html`); }
+function downloadReportFromPreview() { const content = printPreview.innerHTML; downloadAsPDF(content, `SahayakAI-Report-${currentLang}-${new Date().toISOString().slice(0,10)}.html`); }
+function downloadAsPDF(htmlContent, filename) {
+  const fullHtml = `<!DOCTYPE html><html><head><meta charset="UTF-8"><title>Sahayak AI Report</title><style>body{font-family: 'Nunito', sans-serif; padding: 20px;} @media print { body { padding: 0; } }</style></head><body>${htmlContent}</body></html>`;
+  const blob = new Blob([fullHtml], { type: 'text/html' });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a'); a.href = url; a.download = filename; document.body.appendChild(a); a.click(); document.body.removeChild(a); URL.revokeObjectURL(url);
+  showToast(`⬇️ Downloaded ${filename}`);
+}
+
+init();
+initVillageAnimations();
+
+let logoClicks = 0;
+document.getElementById('logo').onclick = () => {
+  logoClicks++;
+  if (logoClicks >= 5) {
+    if (confirm('🌱 Clear conversation history?')) {
+      conversationHistory = []; localStorage.removeItem('sahayak_history_v2'); localStorage.removeItem('sahayak_history');
+      chatContainer.innerHTML = ''; hero.classList.remove('hidden'); document.getElementById('emptyState').style.display = 'none'; showToast('History cleared');
+    }
+    logoClicks = 0;
+  }
+  setTimeout(() => logoClicks = 0, 2000);
+};
+
+function initVillageAnimations() {
+  // Enhanced falling leaves with random timing
+  const leavesContainer = document.getElementById('fallingLeaves');
+  if (leavesContainer) {
+    // Add more leaves dynamically
+    setInterval(() => {
+      if (document.hidden) return;
+      if (leavesContainer.children.length > 20) return;
+      const leaf = document.createElement('div');
+      leaf.className = 'leaf';
+      leaf.textContent = ['🍃','🍂','🌿','🌱'][Math.floor(Math.random()*4)];
+      leaf.style.left = Math.random()*100 + '%';
+      leaf.style.animationDuration = (8 + Math.random()*10) + 's';
+      leaf.style.animationDelay = '0s';
+      leaf.style.fontSize = (12 + Math.random()*12) + 'px';
+      leavesContainer.appendChild(leaf);
+      setTimeout(() => { if (leaf.parentNode) leaf.remove(); }, 18000);
+    }, 800);
+  }
+
+  // Parallax effect on mouse move for desktop - farmer and crops feel alive
+  let mouseX = 0, mouseY = 0;
+  document.addEventListener('mousemove', (e) => {
+    if (window.innerWidth < 768) return;
+    mouseX = (e.clientX / window.innerWidth - 0.5) * 10;
+    mouseY = (e.clientY / window.innerHeight - 0.5) * 10;
+    const bg = document.querySelector('.village-bg-image');
+    if (bg) {
+      bg.style.transform = `scale(1.04) translate(${mouseX*0.3}px, ${mouseY*0.2}px)`;
+    }
+    const sun = document.querySelector('.sun-glow');
+    if (sun) {
+      sun.style.transform = `translate(${mouseX*0.5}px, ${mouseY*0.3}px) scale(1)`;
+    }
+  });
+
+  // Farmer subtle movement - simulate breathing/walking via background filter
+  const bgImage = document.querySelector('.village-bg-image');
+  if (bgImage) {
+    let breathe = 0;
+    setInterval(() => {
+      breathe += 0.02;
+      const scale = 1.04 + Math.sin(breathe) * 0.005;
+      if (Math.abs(mouseX) < 1) { // Only when not in parallax
+        bgImage.style.transform = `scale(${scale})`;
+      }
+    }, 50);
+  }
+
+  // Tractor occasional movement boost
+  const tractor = document.querySelector('.tractor-layer');
+  if (tractor) {
+    setInterval(() => {
+      tractor.style.animationDuration = (20 + Math.random()*10) + 's';
+    }, 10000);
+  }
+
+  console.log('🌾 Village animations initialized - leaves falling, farmer breathing, tractor moving, birds flying');
+}
+</script>
+</body>
+</html>

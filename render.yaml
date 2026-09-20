@@ -1,0 +1,7 @@
+services:
+  - type: web
+    name: sahayak-ai
+    runtime: python
+    buildCommand: pip install -r requirements-minimal.txt
+    startCommand: uvicorn backend.main:app --host 0.0.0.0 --port $PORT
+    healthCheckPath: /api/health

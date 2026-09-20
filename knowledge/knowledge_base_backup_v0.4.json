@@ -1,0 +1,877 @@
+{
+  "metadata": {
+    "project": "AI-powered multilingual chatbot for cooperative governance, schemes, PACS, crop insurance, financial literacy and grievance redressal",
+    "version": "0.4.0",
+    "language": "en",
+    "note": "Expanded knowledge base covering national-level facts (laws, schemes, PACS, PMFBY, financial literacy, grievance channels) PLUS a state-wise Registrar of Cooperative Societies directory for routing state-specific queries. Content is paraphrased from official/public sources listed in each entry's 'source' field. Numbers, contact details, and portal URLs should be re-verified periodically since government data changes. Each entry is sized for RAG chunking and can be machine-translated per-entry for the multilingual layer.",
+    "coverage_summary": {
+      "cooperative_laws": "Central framework + model bye-laws; state acts handled via state_cooperative_registrars directory",
+      "government_schemes": "Ministry of Cooperation flagship schemes + central aggregator portal",
+      "pacs_services": "Core + diversified PACS services and membership process",
+      "crop_insurance": "PMFBY core rules, eligibility, claims, plus WBCIS/RWBCIS for completeness",
+      "financial_literacy": "RBI/NCFE/NABARD programs + baseline chatbot topic list",
+      "grievance_redressal": "CPGRAMS + sector-specific channels",
+      "state_cooperative_registrars": "All 29 states + 6 UTs, sourced directly from crcs.gov.in (primary government source)"
+    },
+    "known_gaps_for_team_to_track": [
+      "Full text of individual state Cooperative Societies Acts (only summarized generically here)",
+      "State-wise PMFBY notified crops and enrollment cutoff dates (change every Kharif/Rabi season)",
+      "Real-time scheme eligibility rules (better served by live data.gov.in/myScheme API than static JSON)"
+    ],
+    "last_compiled": "2026-09-10"
+  },
+  "cooperative_laws": [
+    {
+      "id": "law-001",
+      "title": "Multi-State Cooperative Societies (MSCS) Act, 2002 (amended 2023)",
+      "summary": "Governs cooperative societies whose objects and membership extend beyond one state. Such societies are centrally administered by the Central Registrar of Cooperative Societies (CRCS) under the Ministry of Cooperation, based on Entry 44 of the Union List.",
+      "key_points": [
+        "The 2023 amendment introduced reforms for transparency, timely elections, and monetary penalties for non-compliance.",
+        "It created provisions for a Cooperative Election Authority and a Cooperative Ombudsman to handle member grievances on deposits, shares and elections.",
+        "Applies only to multi-state cooperative societies (e.g., large federations), not to most village-level PACS."
+      ],
+      "applicable_to": "Multi-state cooperative societies and federations",
+      "source_name": "Ministry of Cooperation / PIB",
+      "source_url": "https://www.cooperation.gov.in",
+      "last_verified": "2026-09"
+    },
+    {
+      "id": "law-002",
+      "title": "State Cooperative Societies Acts",
+      "summary": "Cooperative societies confined to a single state (which includes the vast majority of PACS) are governed by that state's own Cooperative Societies Act, under Entry 32 of the State List, and administered by the State Registrar of Cooperative Societies (RCS).",
+      "key_points": [
+        "Each state (e.g., Maharashtra Cooperative Societies Act 1960, Gujarat Cooperative Societies Act 1961) has its own rules on membership, elections, audits and dissolution.",
+        "The District Registrar's office typically handles ground-level registration, disputes and compliance for PACS.",
+        "Because rules differ by state, a chatbot should ask the user's state before giving state-law-specific answers."
+      ],
+      "applicable_to": "State-registered cooperative societies including most PACS",
+      "source_name": "Respective State Cooperation Departments",
+      "source_url": "https://www.cooperation.gov.in",
+      "last_verified": "2026-09"
+    },
+    {
+      "id": "law-003",
+      "title": "Model Bye-laws for PACS (2023)",
+      "summary": "The Ministry of Cooperation issued Model Bye-laws to convert PACS from single-purpose credit societies into multipurpose, multidimensional entities, and recommended states adopt them.",
+      "key_points": [
+        "Allows PACS to undertake 20+ additional activities beyond farm credit: fair price shops, LPG distribution, banking correspondent (BC) services, insurance, CSC e-services, water supply (Paani Samiti) work, and more.",
+        "Aims to make PACS financially self-sustaining and improve rural service delivery.",
+        "Adoption requires each state to amend its own cooperative rules/bye-laws accordingly, so actual implementation varies by state."
+      ],
+      "applicable_to": "Primary Agricultural Credit Societies (PACS)",
+      "source_name": "Ministry of Cooperation",
+      "source_url": "https://www.cooperation.gov.in",
+      "last_verified": "2026-09"
+    },
+    {
+      "id": "law-004",
+      "title": "97th Constitutional Amendment Act, 2011",
+      "summary": "Added Article 43-B (state policy to promote voluntary, democratic cooperatives) and Part IX-B on cooperative societies, covering board tenure (5 years), timely elections, and mandatory audits.",
+      "key_points": [
+        "The Supreme Court (2021) struck down the portions of Part IX-B applicable to state-registered cooperatives for want of state legislature ratification, but upheld it for multi-state cooperative societies.",
+        "This is a useful fact for explaining why cooperative governance rules can differ between state and multi-state societies."
+      ],
+      "applicable_to": "Constitutional framework for cooperatives",
+      "source_name": "Constitution of India / Supreme Court judgment",
+      "source_url": "https://indiacode.nic.in",
+      "last_verified": "2026-09"
+    }
+  ],
+  "government_schemes": [
+    {
+      "id": "scheme-001",
+      "title": "National Cooperation Policy (NCP) 2025",
+      "summary": "Released on 24 July 2025 under the theme 'Sahkar-se-Samriddhi' (Prosperity through Cooperation), it is a long-term framework to reposition cooperatives as engines of inclusive rural development, aligned with the Viksit Bharat 2047 vision.",
+      "beneficiary": "All cooperative societies and their members",
+      "how_to_access": "Policy document available on the Ministry of Cooperation website; implementation happens through subsequent schemes and state action plans.",
+      "source_name": "Ministry of Cooperation",
+      "source_url": "https://www.cooperation.gov.in",
+      "last_verified": "2026-09"
+    },
+    {
+      "id": "scheme-002",
+      "title": "Computerization of PACS",
+      "summary": "A ₹2,516 crore project to computerize functional PACS with a common ERP system, linking them to State Cooperative Banks, District Central Cooperative Banks (DCCBs) and NABARD for real-time data flow.",
+      "beneficiary": "PACS and their member-farmers",
+      "how_to_access": "Implemented through state cooperative departments and NABARD; individual farmers benefit through faster loan processing at their local PACS.",
+      "source_name": "Ministry of Cooperation / PIB",
+      "source_url": "https://www.pib.gov.in",
+      "last_verified": "2026-09"
+    },
+    {
+      "id": "scheme-003",
+      "title": "World's Largest Decentralized Grain Storage Plan in Cooperative Sector",
+      "summary": "A pilot and expansion program to build godowns and allied agri-infrastructure at the PACS level so farmers can store produce locally, cutting post-harvest losses and enabling better price realization.",
+      "beneficiary": "Farmer members of participating PACS",
+      "how_to_access": "Rolled out PACS-by-PACS across states; farmers can check with their local PACS whether it is included.",
+      "source_name": "Ministry of Cooperation / PIB",
+      "source_url": "https://www.pib.gov.in",
+      "last_verified": "2026-09"
+    },
+    {
+      "id": "scheme-004",
+      "title": "New Multipurpose PACS / Dairy / Fishery Cooperatives",
+      "summary": "A plan to establish roughly 2 lakh new multipurpose primary cooperatives (PACS, dairy, fishery) in panchayats that currently have none, so every panchayat gets cooperative-based access to credit and allied services.",
+      "beneficiary": "Villages/panchayats currently uncovered by any primary cooperative",
+      "how_to_access": "Driven by NABARD, NDDB and NFDB along with state cooperative departments; interested villagers can approach their Block Development Office or state Registrar of Cooperative Societies.",
+      "source_name": "Ministry of Cooperation",
+      "source_url": "https://www.cooperation.gov.in",
+      "last_verified": "2026-09"
+    },
+    {
+      "id": "scheme-005",
+      "title": "PACS as Common Service Centres (CSC)",
+      "summary": "An MoU between the Ministry of Cooperation, MeitY, NABARD and CSC e-Governance Services India Ltd. allows PACS to offer 300+ e-services — banking, insurance, Aadhaar enrolment/update, PAN card, IRCTC/bus/air ticketing, and more.",
+      "beneficiary": "Rural citizens, especially those far from a full-service bank branch or CSC",
+      "how_to_access": "Visit a PACS that has been onboarded as a CSC in your village; not all PACS offer this yet.",
+      "source_name": "Ministry of Cooperation / PIB",
+      "source_url": "https://www.pib.gov.in",
+      "last_verified": "2026-09"
+    },
+    {
+      "id": "scheme-006",
+      "title": "National Cooperative Database",
+      "summary": "A phased, unified digital database of cooperative societies. Phase-I mapped roughly 2.64 lakh primary cooperatives (PACS, dairy, fisheries); later phases extend to other sectors and national federations.",
+      "beneficiary": "Policymakers, and indirectly members through better planning and transparency",
+      "how_to_access": "Data compiled and verified by District Registrar offices under each State Registrar of Cooperative Societies (RCS).",
+      "source_name": "Ministry of Cooperation / PIB",
+      "source_url": "https://www.pib.gov.in",
+      "last_verified": "2026-09"
+    },
+    {
+      "id": "scheme-007",
+      "title": "myScheme portal",
+      "summary": "A central government aggregator (myscheme.gov.in) where a citizen can search and check eligibility across hundreds of central and state government schemes, including agriculture and cooperative-related ones, using filters like state, category and occupation.",
+      "beneficiary": "General public, including farmers and cooperative members",
+      "how_to_access": "https://www.myscheme.gov.in — no login required to search; login needed to check personalized eligibility.",
+      "source_name": "Government of India (National Governance Services Delivery Gateway)",
+      "source_url": "https://www.myscheme.gov.in",
+      "last_verified": "2026-09"
+    },
+    {
+      "id": "scheme-008",
+      "title": "Sahakar Mitra – Scheme on Internship Programme (SIP)",
+      "summary": "An NCDC-run internship scheme (originally launched 2012-13, revamped since) connecting professional graduates with cooperatives to bring in fresh ideas while giving interns hands-on experience.",
+      "key_points": [
+        "Eligible disciplines: Agriculture and allied fields (Dairy, Animal Husbandry, Veterinary Science, Fisheries, Horticulture, Textiles, Handloom), IT, or MBA in Agribusiness/Cooperation.",
+        "Internship duration: up to 4 months, with NCDC providing financial support (a stipend) for that period.",
+        "Interns help cooperatives with business plans/project reports and get oriented to the cooperative business model, including FPO leadership pathways.",
+        "Relevant for a chatbot to flag to student/young-professional users, not just farmers."
+      ],
+      "beneficiary": "Professional graduates and cooperatives needing project/business-plan support",
+      "how_to_access": "Applications processed through NCDC; details available on cooperation.gov.in and ncdc.in",
+      "source_name": "NCDC / PIB / Ministry of Cooperation",
+      "source_url": "https://www.cooperation.gov.in/node/691",
+      "last_verified": "2026-09"
+    },
+    {
+      "id": "scheme-009",
+      "title": "Kisan Credit Card (KCC) via Cooperative Banks/PACS",
+      "summary": "KCC provides farmers with timely, affordable short-term credit for crop production and allied needs, at concessional interest rates, and is commonly issued through PACS linked to District Central Cooperative Banks.",
+      "key_points": [
+        "RuPay Kisan Credit Cards are being pushed by the Ministry of Cooperation to let farmers also use the credit line for regular financial transactions, not just farm inputs.",
+        "PACS members are frequently automatically enrolled in PMFBY crop insurance when they take a KCC-linked crop loan.",
+        "Interest subvention schemes can reduce the effective interest rate for prompt repayers."
+      ],
+      "beneficiary": "Farmers, including tenant farmers and sharecroppers in many states",
+      "how_to_access": "Apply through the local PACS, cooperative bank, or any scheduled bank branch.",
+      "source_name": "Ministry of Cooperation / NABARD",
+      "source_url": "https://www.cooperation.gov.in",
+      "last_verified": "2026-09"
+    },
+    {
+      "id": "scheme-010",
+      "title": "Branchless banking via PACS (Micro-ATMs / Banking Correspondent model)",
+      "summary": "PACS and other primary cooperatives are being equipped with micro-ATMs (with NABARD support) so members can access basic banking services without traveling to a bank branch.",
+      "beneficiary": "Rural residents in villages without a nearby bank branch",
+      "how_to_access": "Available at PACS onboarded for banking correspondent/CSC services; ask at the local PACS office.",
+      "source_name": "Ministry of Cooperation / NABARD",
+      "source_url": "https://www.cooperation.gov.in",
+      "last_verified": "2026-09"
+    }
+  ],
+  "pacs_services": [
+    {
+      "id": "pacs-001",
+      "title": "What is a PACS",
+      "summary": "A Primary Agricultural Credit Society (PACS) is the grassroots-level unit of India's short-term cooperative credit structure, typically operating at the village or Gram Panchayat level, owned and run by farmer-members.",
+      "key_points": [
+        "As per the National Cooperative Database, roughly 1.01 lakh PACS are functional across India.",
+        "PACS sit below the District Central Cooperative Bank (DCCB) and State Cooperative Bank in the credit structure."
+      ],
+      "source_name": "Ministry of Cooperation / PIB",
+      "source_url": "https://www.pib.gov.in",
+      "last_verified": "2026-09"
+    },
+    {
+      "id": "pacs-002",
+      "title": "Core services traditionally offered by PACS",
+      "summary": "Short and medium-term agricultural credit, input supply (seeds, fertilizers), and storage/marketing support for members' produce.",
+      "key_points": [
+        "Kisan Credit Card (KCC)-linked crop loans are commonly disbursed through PACS.",
+        "Loan recovery and overdue tracking are core PACS functions monitored by DCCBs."
+      ],
+      "source_name": "NABARD / Ministry of Cooperation",
+      "source_url": "https://www.nabard.org",
+      "last_verified": "2026-09"
+    },
+    {
+      "id": "pacs-003",
+      "title": "Newer, diversified PACS services",
+      "summary": "Under the Model Bye-laws and the CSC MoU, PACS are increasingly offering non-credit services.",
+      "key_points": [
+        "Common Service Centre (CSC) e-services: banking correspondent transactions, Aadhaar update, PAN, ticketing.",
+        "Fair price shop / ration distribution in some states.",
+        "LPG distributorship in select PACS.",
+        "Godown/warehousing for grain storage under the decentralized storage plan.",
+        "Formation and support of Farmer Producer Organizations (FPOs) with NCDC assistance."
+      ],
+      "source_name": "Ministry of Cooperation / PIB",
+      "source_url": "https://www.pib.gov.in",
+      "last_verified": "2026-09"
+    },
+    {
+      "id": "pacs-004",
+      "title": "How a farmer becomes a PACS member and accesses services",
+      "summary": "A farmer typically applies for membership at the local PACS office, pays a nominal share-capital contribution, and can then apply for credit or use other services the PACS offers.",
+      "key_points": [
+        "Membership is usually open to residents of the PACS's operational village(s)/panchayat.",
+        "Loanee farmers (those taking a crop loan) are often automatically enrolled in PMFBY crop insurance through the PACS/bank.",
+        "Computerized PACS allow faster loan sanction and disbursal since records are digitized and linked to the bank's core banking system."
+      ],
+      "source_name": "Ministry of Cooperation",
+      "source_url": "https://www.cooperation.gov.in",
+      "last_verified": "2026-09"
+    },
+    {
+      "id": "pacs-005",
+      "title": "PACS governance",
+      "summary": "Each PACS has a General Body of all members, an elected Managing Committee/Board (subject to the state Cooperative Societies Act's election rules), and a Secretary who manages daily operations.",
+      "key_points": [
+        "Board elections, audits and dissolution follow the respective State Cooperative Societies Act.",
+        "The District Registrar of Cooperative Societies office supervises compliance and can be approached for governance disputes."
+      ],
+      "source_name": "State Cooperative Societies Acts",
+      "source_url": "https://www.cooperation.gov.in",
+      "last_verified": "2026-09"
+    }
+  ],
+  "crop_insurance": [
+    {
+      "id": "pmfby-001",
+      "title": "Pradhan Mantri Fasal Bima Yojana (PMFBY) — overview",
+      "summary": "PMFBY is the Government of India's flagship crop insurance scheme, protecting farmers against financial loss from crop failure due to natural calamities, pests and diseases. It is described as the largest crop insurance scheme in the world by number of farmer applications.",
+      "portal": "National Crop Insurance Portal (NCIP) — https://pmfby.gov.in",
+      "source_name": "PMFBY / PIB",
+      "source_url": "https://pmfby.gov.in",
+      "last_verified": "2026-09"
+    },
+    {
+      "id": "pmfby-002",
+      "title": "Premium structure under PMFBY",
+      "summary": "Farmers pay a small, capped share of the premium; the rest is subsidized jointly by the Centre and State.",
+      "key_points": [
+        "Kharif food & oilseed crops: farmer pays up to 2% of sum insured.",
+        "Rabi food & oilseed crops: farmer pays up to 1.5%.",
+        "Annual commercial/horticultural crops: farmer pays up to 5%.",
+        "The remaining actuarial premium (95%–98.5%) is shared 50:50 between Centre and State (90:10 for North-Eastern and Himalayan states).",
+        "Several states have further waived the farmer's own share."
+      ],
+      "source_name": "PIB",
+      "source_url": "https://www.pib.gov.in",
+      "last_verified": "2026-09"
+    },
+    {
+      "id": "pmfby-003",
+      "title": "Who is eligible",
+      "summary": "All farmers growing notified crops in notified areas are eligible, including sharecroppers and tenant farmers, not just landowners.",
+      "key_points": [
+        "Loanee farmers (those with a crop loan from a bank/PACS) are typically enrolled automatically by the lending institution.",
+        "Non-loanee farmers can enroll voluntarily via the PMFBY portal, a Common Service Centre (CSC), an insurance agent, or their bank."
+      ],
+      "source_name": "PMFBY Operational Guidelines",
+      "source_url": "https://pmfby.gov.in",
+      "last_verified": "2026-09"
+    },
+    {
+      "id": "pmfby-004",
+      "title": "How to check application/claim status",
+      "summary": "Farmers can check enrollment (application) status and claim/payout status separately on the NCIP portal.",
+      "key_points": [
+        "Go to pmfby.gov.in → Farmer Corner → Application Status; enter Receipt Number or Policy ID with captcha.",
+        "Application status = whether enrollment was accepted and converted to a policy.",
+        "Claim status = whether a payout has been calculated/released after a reported loss.",
+        "These are two different checks and are often confused by farmers — a chatbot should clarify which one the user needs."
+      ],
+      "source_name": "PMFBY portal",
+      "source_url": "https://pmfby.gov.in",
+      "last_verified": "2026-09"
+    },
+    {
+      "id": "pmfby-005",
+      "title": "How to report a crop loss (claim)",
+      "summary": "For localized calamities (hailstorm, landslide, flooding of specific fields) and post-harvest losses, the loss must be reported within 72 hours.",
+      "key_points": [
+        "Report via the Crop Insurance mobile app, the PMFBY portal, or the Krishi Rakshak Helpline: 14447.",
+        "Always save the complaint/ticket reference number for follow-up.",
+        "For widespread calamities affecting a whole notified area, yield-based assessment is done automatically without individual reporting."
+      ],
+      "source_name": "PMFBY Operational Guidelines",
+      "source_url": "https://pmfby.gov.in",
+      "last_verified": "2026-09"
+    },
+    {
+      "id": "pmfby-006",
+      "title": "AgriStack / Unified Farmer Service Interface integration",
+      "summary": "Newer digital infrastructure (AgriStack) auto-populates PMFBY enrollment from the Farmer Registry, Land Verification API and Crop-Sown Registry, reducing manual paperwork and speeding up verification and premium calculation.",
+      "key_points": [
+        "As of the latest rollout, these registries span multiple states, hundreds of districts and lakhs of villages.",
+        "This is relevant for a chatbot explaining why some states now have faster, more automated PMFBY enrollment than others."
+      ],
+      "source_name": "ICRISAT / Government AgriStack documentation",
+      "source_url": "https://issca.icrisat.org",
+      "last_verified": "2026-09"
+    }
+  ],
+  "financial_literacy": [
+    {
+      "id": "finlit-001",
+      "title": "RBI Financial Literacy Centres (FLCs)",
+      "summary": "Banks run Financial Literacy Centres, often at block level, to educate rural and underserved populations on savings, credit, insurance, and safe digital transactions.",
+      "topics_covered": [
+        "savings basics",
+        "responsible borrowing",
+        "digital payment safety",
+        "avoiding fraud"
+      ],
+      "source_name": "Reserve Bank of India",
+      "source_url": "https://www.rbi.org.in",
+      "last_verified": "2026-09"
+    },
+    {
+      "id": "finlit-002",
+      "title": "National Centre for Financial Education (NCFE)",
+      "summary": "NCFE implements the National Strategy for Financial Education and periodically conducts a National Financial Literacy Assessment; it produces multilingual content on saving, investing and insurance basics.",
+      "topics_covered": [
+        "financial planning",
+        "insurance basics",
+        "pension awareness",
+        "fraud prevention"
+      ],
+      "source_name": "NCFE",
+      "source_url": "https://www.ncfe.org.in",
+      "last_verified": "2026-09"
+    },
+    {
+      "id": "finlit-003",
+      "title": "NABARD Financial Literacy and Credit Counselling Centres (FLCCs)",
+      "summary": "NABARD supports rural financial literacy through FLCCs and farmer-club networks, with content tailored to agricultural credit, Kisan Credit Cards, and cooperative banking.",
+      "topics_covered": [
+        "Kisan Credit Card usage",
+        "cooperative credit basics",
+        "debt counselling"
+      ],
+      "source_name": "NABARD",
+      "source_url": "https://www.nabard.org",
+      "last_verified": "2026-09"
+    },
+    {
+      "id": "finlit-004",
+      "title": "Core financial literacy topics for the chatbot",
+      "summary": "A recommended baseline set of topics for the chatbot's financial literacy module, useful for rural/cooperative members specifically.",
+      "topics_covered": [
+        "How a Kisan Credit Card works and how to apply",
+        "Interest rates, EMIs and what 'overdue' means for a PACS loan",
+        "Basics of PMFBY premium vs subsidy",
+        "How to identify and avoid Ponzi/chit-fund style fraud schemes targeting cooperative members",
+        "Safe use of UPI/digital banking and how to spot phishing/OTP scams",
+        "Where to find your bank/PACS passbook entries and how to reconcile them"
+      ],
+      "source_name": "Compiled from RBI / NCFE / NABARD public guidance",
+      "source_url": "https://www.rbi.org.in",
+      "last_verified": "2026-09"
+    }
+  ],
+  "grievance_redressal": [
+    {
+      "id": "grievance-001",
+      "title": "CPGRAMS — Centralized Public Grievance Redress and Monitoring System",
+      "summary": "A single online portal connected to all central ministries/departments and states, available 24x7, where any citizen can lodge a grievance against a government service, including cooperative and agriculture-related departments.",
+      "how_to_use": [
+        "Visit pgportal.gov.in → 'Grievance' → 'Lodge Public Grievance'.",
+        "Track status anytime using the unique registration ID issued at submission.",
+        "If unsatisfied with resolution, an appeal can be filed with the Nodal Appellate Authority.",
+        "Also accessible via a standalone mobile app and through UMANG."
+      ],
+      "timelines": "Grievance redressal timelines have been progressively tightened; recent guidance targets around 21 days, with feedback sent to the citizen by SMS/email.",
+      "helpline": "DARPG helpline: 1964",
+      "source_name": "DARPG / pgportal.gov.in",
+      "source_url": "https://pgportal.gov.in",
+      "last_verified": "2026-09"
+    },
+    {
+      "id": "grievance-002",
+      "title": "Grievances against multi-state cooperative societies",
+      "summary": "Complaints about a multi-state cooperative society (e.g., disputed elections, mismanaged deposits) can be raised with the Central Registrar of Cooperative Societies (CRCS) under the Ministry of Cooperation.",
+      "how_to_use": [
+        "The 2023 MSCS Act amendment introduced a Cooperative Ombudsman mechanism intended for time-bound resolution of such member complaints.",
+        "Complaints can also be routed through CPGRAMS under the Ministry of Cooperation."
+      ],
+      "source_name": "Ministry of Cooperation",
+      "source_url": "https://www.cooperation.gov.in",
+      "last_verified": "2026-09"
+    },
+    {
+      "id": "grievance-003",
+      "title": "Grievances against state-registered cooperatives (most PACS)",
+      "summary": "For PACS and other state-registered cooperative societies, complaints go to the District Registrar of Cooperative Societies, under the state's Registrar of Cooperative Societies (RCS) office.",
+      "how_to_use": [
+        "A chatbot should ask for the user's state and district to direct them to the correct RCS office contact.",
+        "Many states also allow such grievances to be filed through their own state CPGRAMS-linked portal."
+      ],
+      "source_name": "State Cooperation Departments",
+      "source_url": "https://www.cooperation.gov.in",
+      "last_verified": "2026-09"
+    },
+    {
+      "id": "grievance-004",
+      "title": "PMFBY-specific grievance/claim disputes",
+      "summary": "Disputes over crop insurance claims (e.g., delayed or denied payout) can be escalated through dedicated crop-insurance channels rather than general CPGRAMS.",
+      "how_to_use": [
+        "Krishi Rakshak Helpline: 14447 for loss reporting and claim queries.",
+        "District Level Monitoring Committee and State-level grievance cells handle unresolved PMFBY disputes.",
+        "Always keep the enrollment Receipt Number / Policy ID and any loss-reporting ticket number for reference."
+      ],
+      "source_name": "PMFBY Operational Guidelines",
+      "source_url": "https://pmfby.gov.in",
+      "last_verified": "2026-09"
+    },
+    {
+      "id": "grievance-005",
+      "title": "Grievances against cooperative banks / financial institutions",
+      "summary": "The Department of Financial Services (Ministry of Finance) handles grievances relating to cooperative banks, RBI-regulated entities, and insurance companies.",
+      "how_to_use": [
+        "File via CPGRAMS (pgportal.gov.in), which routes the complaint to DFS.",
+        "RBI's own Complaint Management System (CMS) and the Banking Ombudsman scheme are alternate channels for banking-specific disputes.",
+        "Postal complaints can also be sent directly to DFS, Ministry of Finance, New Delhi."
+      ],
+      "source_name": "Department of Financial Services",
+      "source_url": "https://www.financialservices.gov.in",
+      "last_verified": "2026-09"
+    }
+  ],
+  "state_cooperative_registrars": {
+    "_note": "Official directory sourced directly from the Ministry of Cooperation's Central Registrar of Cooperative Societies (CRCS) portal — the primary government source, not a third-party aggregator. Covers all states plus 6 Union Territories. Still verify phone/email before production use, as government office contacts are updated periodically; portal is the safest live link to point users to for anything county-office contact info may have missed.",
+    "entries": [
+      {
+        "state": "Andhra Pradesh",
+        "office": "Commissioner & Registrar of Cooperative Societies",
+        "address": "5th Floor, Gruhakalpa, Mojam Jahi Road, Hyderabad-500001, Andhra Pradesh",
+        "phone": "040-24613043",
+        "email": "ccandress@ap.gov.in"
+      },
+      {
+        "state": "Arunachal Pradesh",
+        "office": "Registrar of Cooperative Societies",
+        "address": "Sahkarita Bhawan, Court Street, D-Sector, Naharlagun-791110",
+        "phone": "0360-2244319",
+        "email": "cooparun@gmail.com"
+      },
+      {
+        "state": "Assam",
+        "office": "Registrar of Cooperative Societies",
+        "address": "Khanapara, Guwahati-781022",
+        "phone": "0361-2359936",
+        "email": "rcs@rcsassam.org"
+      },
+      {
+        "state": "Bihar",
+        "office": "Registrar, Cooperative Societies",
+        "address": "2nd Floor, Vikas Bhawan, New Secretariat, Patna-800015",
+        "phone": "0612-2215884",
+        "email": "rcsbihar1@gmail.com"
+      },
+      {
+        "state": "Chhattisgarh",
+        "office": "Registrar of Cooperative Societies",
+        "address": "Block B, 2nd & 3rd Floor, Indrawati Bhawan, Naya Raipur-492001",
+        "phone": "0771-2511921",
+        "email": "rcs.coop@nic.in"
+      },
+      {
+        "state": "Goa",
+        "office": "Registrar of Cooperative Societies",
+        "address": "Sahakar Sankul, 4th & 5th Floor, EDC Complex, Patto, Panaji",
+        "phone": "0832-2437134",
+        "email": "reg-orcs.goa@nic.in"
+      },
+      {
+        "state": "Gujarat",
+        "office": "Registrar of Cooperative Societies",
+        "address": "Block 10, 1st Floor, Dr. Jivraj Mehta Bhavan, Gandhinagar-382010",
+        "phone": "079-23253868",
+        "email": "rcs@gujarat.gov.in"
+      },
+      {
+        "state": "Haryana",
+        "office": "Registrar of Cooperative Societies",
+        "address": "Bays 27-30, Sector 2, Sahakarita Bhawan, Panchkula-134109",
+        "phone": "0172-2585023",
+        "email": "cooperatives@hry.nic.in"
+      },
+      {
+        "state": "Himachal Pradesh",
+        "office": "Registrar of Cooperative Societies",
+        "address": "25 SDA Complex, Sahkaar Bhavan, Kasumpti, Shimla-171009",
+        "phone": "0177-2620970",
+        "email": "rcs-hp@nic.in"
+      },
+      {
+        "state": "Jammu & Kashmir",
+        "office": "Registrar of Cooperative Societies",
+        "address": "Jawahar Nagar, Srinagar (summer) / Rajinder Nagar, Jammu (winter)",
+        "phone": "0194-2490327 / 0191-2597859",
+        "email": "rcsjnk@gmail.com"
+      },
+      {
+        "state": "Jharkhand",
+        "office": "Registrar, Cooperative Societies",
+        "address": "Engineer's Hostel No. 02, Near Dhurwa Golchakkar, Dhurwa, Ranchi-834004",
+        "phone": "0651-2400490",
+        "email": "jharkhand.coopregistrar@gmail.com"
+      },
+      {
+        "state": "Karnataka",
+        "office": "Registrar of Cooperative Societies",
+        "address": "No. 1, Ali Asker Road, Bengaluru-560052",
+        "phone": "080-22252036",
+        "email": "rcs-ka@nic.in"
+      },
+      {
+        "state": "Kerala",
+        "office": "Registrar of Co-operative Societies",
+        "address": "NSS Building, Behind Govt. Secretariat, Thiruvananthapuram-695001",
+        "phone": "0471-2331982",
+        "email": "keralarcs@coop.kerala.gov.in"
+      },
+      {
+        "state": "Madhya Pradesh",
+        "office": "Registrar Cooperative Societies",
+        "address": "Ground Floor, Vindhyachal Bhawan, Arera Hills, Bhopal-462004",
+        "phone": "0755-2551513",
+        "email": "rcs_mp@yahoo.co.in"
+      },
+      {
+        "state": "Maharashtra",
+        "office": "Commissioner for Cooperation & Registrar of Cooperative Societies",
+        "address": "2nd Floor, New Central Building, Ambedkar Wellesly Rd, Pune-411001",
+        "phone": "020-26122846",
+        "email": "commcoop@rediffmail.gov.in"
+      },
+      {
+        "state": "Manipur",
+        "office": "Registrar of Cooperative Societies",
+        "address": "Cooperation Complex, Lamphelpat, Imphal-795004",
+        "phone": "0385-2310770",
+        "email": "registrar.coop-mn@gov.in"
+      },
+      {
+        "state": "Meghalaya",
+        "office": "Registrar of Cooperative Societies",
+        "address": "New Administrative Building, Lower Lachumiere, Shillong-793001",
+        "phone": "0364-2210132",
+        "email": "jrcs.estt@gmail.com"
+      },
+      {
+        "state": "Mizoram",
+        "office": "Registrar of Cooperative Societies",
+        "address": "Babutlang, Aizawl-796001",
+        "phone": "0364-2210132",
+        "email": "cooperationdept@gmail.com"
+      },
+      {
+        "state": "Nagaland",
+        "office": "Registrar of Cooperative Societies",
+        "address": "Kohima-797001",
+        "phone": "0370-2241608",
+        "email": "nagaland16tpc@gmail.com"
+      },
+      {
+        "state": "Odisha",
+        "office": "Registrar of Cooperative Societies",
+        "address": "Head of Department Building, Bhubaneswar-751001",
+        "phone": "0674-2401224",
+        "email": "rcs@ori.nic.in"
+      },
+      {
+        "state": "Punjab",
+        "office": "Registrar, Cooperative Societies",
+        "address": "17 Bays Building, Sector 17, Chandigarh-160017",
+        "phone": "0172-5046808",
+        "email": "rcspunjab@gmail.com"
+      },
+      {
+        "state": "Rajasthan",
+        "office": "Registrar of Cooperative Societies",
+        "address": "Nehru Sahakar Bhawan, 22 Godown, Bhawani Singh Road, Jaipur-302001",
+        "phone": "0141-2740737",
+        "email": "reg.coop@rajasthan.gov.in"
+      },
+      {
+        "state": "Sikkim",
+        "office": "Registrar, Cooperative Societies",
+        "address": "Sahakari Bhawan, Tadong, Gangtok-737102",
+        "phone": "03592-231878",
+        "email": "coop_sikkim@yahoo.com"
+      },
+      {
+        "state": "Tamil Nadu",
+        "office": "Registrar of Cooperative Societies",
+        "address": "170 Periyar EVR High Road, Kilpauk, Chennai-600010",
+        "phone": "044-28252425",
+        "email": "rcs@tn.nic.in"
+      },
+      {
+        "state": "Telangana",
+        "office": "Registrar of Cooperative Societies",
+        "address": "Gruha Kalpa Building, M J Road, Nampally, Hyderabad-500001",
+        "phone": "040-24613041 (fax)",
+        "email": "tsccandres@gmail.com"
+      },
+      {
+        "state": "Tripura",
+        "office": "Registrar of Cooperative Societies",
+        "address": "Palace Compound, North Gate, Agartala-799001",
+        "phone": "0381-2323765",
+        "email": "commcoop@rediffmail.com"
+      },
+      {
+        "state": "Uttar Pradesh",
+        "office": "Registrar of Cooperative Societies",
+        "address": "14 Vidhan Sabha Marg, Lucknow-226001",
+        "phone": "0522-2622267",
+        "email": "comm.coop.up@gmail.com"
+      },
+      {
+        "state": "Uttarakhand",
+        "office": "Addl. Secretary Cooperation & Registrar of Cooperative Societies",
+        "address": "108, Old Nehru Colony, Dehradun-248001",
+        "phone": "0135-2669722",
+        "email": "drfscddn@gmail.com"
+      },
+      {
+        "state": "West Bengal",
+        "office": "Registrar of Cooperative Societies",
+        "address": "New Secretariat Building, 4th Floor, 1 K.S. Roy Road, Kolkata-700001",
+        "phone": "033-22486271",
+        "email": "coopwbdte@gmail.com"
+      },
+      {
+        "state": "Puducherry (UT)",
+        "office": "Registrar of Cooperative Societies",
+        "address": "V.V.P. Nagar, Thattanchavady, Puducherry-605009",
+        "phone": "0413-2272007",
+        "email": "rcs.pon@nic.in"
+      },
+      {
+        "state": "Lakshadweep (UT)",
+        "office": "Registrar of Cooperative Societies i/c",
+        "address": "UT of Lakshadweep Admin, Kavaratti-682555",
+        "phone": "04896-262935",
+        "email": "ik-coops@hub.nic.in"
+      },
+      {
+        "state": "Andaman & Nicobar Islands (UT)",
+        "office": "Registrar of Cooperative Societies",
+        "address": "P.O. Junglighat, VIP Road, Port Blair-744103",
+        "email": "rcs.and@nic.in"
+      },
+      {
+        "state": "Delhi (NCT)",
+        "office": "Registrar of Cooperative Societies",
+        "address": "Parliament Street, New Delhi-110001",
+        "phone": "011-23742806",
+        "email": "rcoop@nic.in"
+      },
+      {
+        "state": "Daman & Diu (UT)",
+        "office": "Registrar of Cooperative Societies",
+        "address": "Moti Daman, Daman & Diu",
+        "phone": "0260-254698",
+        "email": "fs-dmn-dd@nic.in"
+      },
+      {
+        "state": "Chandigarh (UT)",
+        "office": "Registrar of Cooperative Societies",
+        "address": "Old Estate Building, Sector 17, Chandigarh",
+        "phone": "0172-2709000",
+        "email": "dc-chd@nic.in"
+      }
+    ],
+    "source_name": "Central Registrar of Cooperative Societies (CRCS), Ministry of Cooperation, Government of India",
+    "source_url": "https://crcs.gov.in/state_registrar",
+    "last_verified": "2026-09"
+  },
+  "crop_insurance_other_schemes": [
+    {
+      "id": "insure-001",
+      "title": "Weather Based Crop Insurance Scheme (WBCIS)",
+      "summary": "An alternative to yield-based PMFBY that pays out based on adverse weather parameters (rainfall, temperature, humidity) measured at notified weather stations, rather than waiting for actual crop-cutting yield data.",
+      "key_points": [
+        "Used in some states/seasons alongside or instead of PMFBY depending on state notification.",
+        "Faster payouts than yield-based assessment since it doesn't require crop-cutting experiments."
+      ],
+      "source_name": "PMFBY / Ministry of Agriculture",
+      "source_url": "https://pmfby.gov.in",
+      "last_verified": "2026-09"
+    },
+    {
+      "id": "insure-002",
+      "title": "Restructured Weather Based Crop Insurance Scheme (RWBCIS)",
+      "summary": "A refined version of WBCIS with revised trigger parameters, run in parallel with PMFBY under the same National Crop Insurance Portal framework.",
+      "source_name": "PMFBY / Ministry of Agriculture",
+      "source_url": "https://pmfby.gov.in",
+      "last_verified": "2026-09"
+    }
+  ],
+  "national_cooperative_federations": [
+    {
+      "id": "fed-001",
+      "name": "National Cooperative Union of India (NCUI)",
+      "role": "Apex national-level federation representing and advocating for the cooperative movement across sectors.",
+      "source_url": "https://ncui.coop"
+    },
+    {
+      "id": "fed-002",
+      "name": "National Cooperative Development Corporation (NCDC)",
+      "role": "Statutory financial and developmental institution devoted exclusively to the cooperative sector; funds and promotes projects in agri-processing, marketing, storage, and now runs Sahakar Mitra.",
+      "source_url": "https://www.ncdc.in"
+    },
+    {
+      "id": "fed-003",
+      "name": "National Agricultural Cooperative Marketing Federation of India (NAFED)",
+      "role": "Apex marketing federation for agricultural cooperatives; handles procurement and price support operations for several crops.",
+      "source_url": "https://nafed-india.com"
+    },
+    {
+      "id": "fed-004",
+      "name": "National Cooperative Consumers' Federation of India (NCCF)",
+      "role": "Apex body for consumer cooperatives, involved in retail distribution including price-stabilization sales.",
+      "source_url": "https://www.nccf-india.com"
+    },
+    {
+      "id": "fed-005",
+      "name": "National Cooperative Exports Limited (NCEL)",
+      "role": "Newer multi-state cooperative promoting exports of agricultural and allied products from the cooperative sector.",
+      "source_url": "https://www.cooperation.gov.in"
+    },
+    {
+      "id": "fed-006",
+      "name": "National Cooperative Organics Limited (NCOL)",
+      "role": "Promotes certification, branding, and marketing of organic products from cooperatives, including PACS/FPOs.",
+      "source_url": "https://www.cooperation.gov.in"
+    },
+    {
+      "id": "fed-007",
+      "name": "National Urban Cooperative Finance and Development Corporation (NUCFDC)",
+      "role": "Umbrella organization for Urban Cooperative Banks (UCBs), inaugurated 2 March 2024, to strengthen the urban cooperative banking sector.",
+      "source_url": "https://www.cooperation.gov.in"
+    },
+    {
+      "id": "fed-008",
+      "name": "National Dairy Development Board (NDDB)",
+      "role": "Apex body promoting dairy cooperatives (the 'Amul model'); works with NCDC on new dairy cooperative formation.",
+      "source_url": "https://www.nddb.coop"
+    }
+  ],
+  "glossary": [
+    {
+      "term": "PACS",
+      "definition": "Primary Agricultural Credit Society — the grassroots-level farmer credit cooperative."
+    },
+    {
+      "term": "DCCB",
+      "definition": "District Central Cooperative Bank — the mid-tier bank that PACS are linked to."
+    },
+    {
+      "term": "RCS",
+      "definition": "Registrar of Cooperative Societies — the state government authority overseeing cooperatives in that state."
+    },
+    {
+      "term": "CRCS",
+      "definition": "Central Registrar of Cooperative Societies — the central authority overseeing multi-state cooperative societies."
+    },
+    {
+      "term": "MSCS",
+      "definition": "Multi-State Cooperative Society — a cooperative operating in more than one state, governed by the MSCS Act 2002."
+    },
+    {
+      "term": "KCC",
+      "definition": "Kisan Credit Card — a credit line for farmers covering crop production and allied needs."
+    },
+    {
+      "term": "PMFBY",
+      "definition": "Pradhan Mantri Fasal Bima Yojana — the government's main crop insurance scheme."
+    },
+    {
+      "term": "NCIP",
+      "definition": "National Crop Insurance Portal (pmfby.gov.in) — the official portal for PMFBY enrollment and claims."
+    },
+    {
+      "term": "WBCIS",
+      "definition": "Weather Based Crop Insurance Scheme — insurance triggered by adverse weather readings rather than yield loss."
+    },
+    {
+      "term": "CPGRAMS",
+      "definition": "Centralized Public Grievance Redress and Monitoring System — the central government's grievance portal."
+    },
+    {
+      "term": "CSC",
+      "definition": "Common Service Centre — a village-level access point for government e-services, increasingly hosted at PACS."
+    },
+    {
+      "term": "NABARD",
+      "definition": "National Bank for Agriculture and Rural Development — the apex development bank for agriculture and rural credit."
+    },
+    {
+      "term": "FPO",
+      "definition": "Farmer Producer Organization — a farmer-owned collective for input purchase, aggregation, and marketing, often promoted via PACS/NCDC."
+    },
+    {
+      "term": "Sahakar-se-Samriddhi",
+      "definition": "The guiding vision phrase ('Prosperity through Cooperation') behind the National Cooperation Policy 2025."
+    }
+  ],
+  "helplines_quick_reference": [
+    {
+      "purpose": "General public grievance against any central/state government department",
+      "channel": "CPGRAMS portal",
+      "contact": "pgportal.gov.in / DARPG helpline 1964"
+    },
+    {
+      "purpose": "Crop loss reporting / PMFBY claim query",
+      "channel": "Krishi Rakshak Helpline",
+      "contact": "14447"
+    },
+    {
+      "purpose": "PMFBY application/claim status check",
+      "channel": "National Crop Insurance Portal, Farmer Corner",
+      "contact": "pmfby.gov.in"
+    },
+    {
+      "purpose": "Grievance re: cooperative bank, RBI-regulated entity, or insurer",
+      "channel": "CPGRAMS -> routed to Dept. of Financial Services; or RBI CMS / Banking Ombudsman",
+      "contact": "pgportal.gov.in"
+    },
+    {
+      "purpose": "Grievance re: a multi-state cooperative society",
+      "channel": "Central Registrar of Cooperative Societies (CRCS) / Cooperative Ombudsman",
+      "contact": "crcs.gov.in"
+    },
+    {
+      "purpose": "Grievance re: a state-registered cooperative (most PACS)",
+      "channel": "State/District Registrar of Cooperative Societies",
+      "contact": "see state_cooperative_registrars section"
+    }
+  ]
+}

@@ -1,0 +1,1670 @@
+{
+  "metadata": {
+    "project": "Sahayak AI - Comprehensive Rural Cooperative Knowledge Base - SIH26088 - Upgraded",
+    "version": "2.0.0 - Upgraded for 6 categories - 34 specific Q&A + existing",
+    "language": "en",
+    "note": "Upgraded knowledge base covering 6 categories with detailed answers for 34 specific questions requested: Cooperative Laws (6 Q), Government Schemes (5 Q), PACS Services (6 Q), Crop Insurance (5 Q), Financial Literacy (6 Q), Grievance Redressal (6 Q). Plus existing knowledge. Content from Ministry of Cooperation, RBI, NABARD, PMFBY, myScheme, CPGRAMS. Friendly answers for rural users.",
+    "coverage": {
+      "cooperative_laws": "Detailed - member rights, documents, responsibilities, elections, managing committee, violations + MSCS Act",
+      "government_schemes": "Detailed - available schemes, PM-KISAN eligibility, application, small farmer assistance, documents",
+      "pacs_services": "Detailed - services, crop loan, inputs, membership, loan documents, problem resolution",
+      "crop_insurance": "Detailed - protection, claim process, documents, covered losses, status check + WBCIS",
+      "financial_literacy": "Detailed - savings vs current, interest, EMI, secured vs unsecured, repayment, loan checklist + KCC",
+      "grievance_redressal": "Detailed - file complaint, PACS problem, dispute resolution, loan rejection, track status, escalation"
+    },
+    "last_compiled": "2026-09-20",
+    "total_questions_covered": 34,
+    "previous_version": {
+      "project": "AI-powered multilingual chatbot for cooperative governance, schemes, PACS, crop insurance, financial literacy and grievance redressal",
+      "version": "0.4.0",
+      "language": "en",
+      "note": "Expanded knowledge base covering national-level facts (laws, schemes, PACS, PMFBY, financial literacy, grievance channels) PLUS a state-wise Registrar of Cooperative Societies directory for routing state-specific queries. Content is paraphrased from official/public sources listed in each entry's 'source' field. Numbers, contact details, and portal URLs should be re-verified periodically since government data changes. Each entry is sized for RAG chunking and can be machine-translated per-entry for the multilingual layer.",
+      "coverage_summary": {
+        "cooperative_laws": "Central framework + model bye-laws; state acts handled via state_cooperative_registrars directory",
+        "government_schemes": "Ministry of Cooperation flagship schemes + central aggregator portal",
+        "pacs_services": "Core + diversified PACS services and membership process",
+        "crop_insurance": "PMFBY core rules, eligibility, claims, plus WBCIS/RWBCIS for completeness",
+        "financial_literacy": "RBI/NCFE/NABARD programs + baseline chatbot topic list",
+        "grievance_redressal": "CPGRAMS + sector-specific channels",
+        "state_cooperative_registrars": "All 29 states + 6 UTs, sourced directly from crcs.gov.in (primary government source)"
+      },
+      "known_gaps_for_team_to_track": [
+        "Full text of individual state Cooperative Societies Acts (only summarized generically here)",
+        "State-wise PMFBY notified crops and enrollment cutoff dates (change every Kharif/Rabi season)",
+        "Real-time scheme eligibility rules (better served by live data.gov.in/myScheme API than static JSON)"
+      ],
+      "last_compiled": "2026-09-10"
+    }
+  },
+  "cooperative_laws": [
+    {
+      "id": "law-rights-001",
+      "title": "Basic rights of a member of a cooperative society",
+      "summary": "Every member of a cooperative society has fundamental democratic and economic rights protected under the Cooperative Societies Act.",
+      "key_points": [
+        "Right to vote: One member, one vote - regardless of shareholding. Every member can vote in general body meetings and elections.",
+        "Right to participate: Attend general body meetings, ask questions, seek information about society's accounts and decisions.",
+        "Right to contest elections: Eligible members can contest for Managing Committee/Board positions if they meet criteria (minimum membership period, no default, etc).",
+        "Right to share in profits: Receive dividend/bonus from surplus as decided by general body, based on patronage and shareholding.",
+        "Right to access services: Use society's services - credit, inputs, marketing, storage - as per bye-laws.",
+        "Right to inspect records: Examine member register, minutes, accounts, audit reports during office hours with prior notice.",
+        "Right to transfer interest: Transfer share/interest to another person or nominee as per Act and bye-laws.",
+        "Right to withdraw: Resign from membership as per procedure, get refund of share capital after adjusting dues.",
+        "Right to protection: Cannot be expelled without due process - show-cause notice and general body approval required.",
+        "Right to appeal: Appeal to Registrar if rights violated - under Section 23 of most State Acts and MSCS Act Section 25."
+      ],
+      "applicable_to": "All cooperative society members - PACS, dairy, housing, etc",
+      "friendly_answer": "Sure! As a cooperative member, you have important rights. You get one vote (one member, one vote), can attend meetings, ask questions about accounts, contest elections, get share in profits, use society services, inspect records, transfer your share to nominee, and withdraw as per rules. You cannot be removed without proper notice and approval. If your rights are violated, you can appeal to the Registrar of Cooperative Societies.",
+      "source_name": "State Cooperative Societies Acts, MSCS Act 2002, Model Bye-laws",
+      "source_url": "https://www.cooperation.gov.in",
+      "last_verified": "2026-09"
+    },
+    {
+      "id": "law-docs-002",
+      "title": "Documents required to become a member of a cooperative society",
+      "summary": "To become a member of a cooperative society, you need to provide identity, address, and eligibility proof.",
+      "key_points": [
+        "Application Form: Duly filled membership application form in prescribed format (available at society office or District Registrar office).",
+        "Identity Proof: Aadhaar Card is primary; alternatives - Voter ID, PAN Card, Driving License, Passport.",
+        "Address Proof: Aadhaar, Voter ID, Ration Card, Electricity Bill, or Residence Certificate from local authority.",
+        "Age Proof: Should be 18+ years; Aadhaar, Birth Certificate, or School Certificate.",
+        "Photographs: 2-3 recent passport size photos.",
+        "Share Capital: Payment of minimum share capital amount as per bye-laws (typically Rs 10-100 for PACS, varies by society).",
+        "Entrance Fee: Small one-time entrance fee as per bye-laws.",
+        "Residence/Eligibility Proof: Proof that you reside in society's operational area or meet occupational criteria (e.g., farmer - land record, tenant - tenancy agreement, artisan - trade certificate).",
+        "For Farmers: Land records (7/12, Khatauni, Patta), or for tenant/sharecropper - tenancy agreement or self-declaration certified by local authority.",
+        "Nomination Form: Nominee details with ID proof for nominee.",
+        "No Objection Certificate: In some cases, if you are already member of similar society in same area, NOC may be required.",
+        "Procedure: Submit documents to Secretary, Managing Committee scrutinizes, approves in meeting, issues share certificate within 30 days as per most State Acts."
+      ],
+      "friendly_answer": "To become a cooperative member, you generally need: Membership application form, Aadhaar/Voter ID for identity and address, 2-3 photos, payment of share capital (usually Rs 10-100 for PACS) plus small entrance fee, proof that you live in society's area or are eligible (for farmers - land record like 7/12 or tenancy agreement), and nominee details. Submit to society Secretary, committee will approve within 30 days and give you share certificate. Process is simple and local.",
+      "source_name": "State Cooperative Societies Acts, PACS Bye-laws",
+      "source_url": "https://www.cooperation.gov.in",
+      "last_verified": "2026-09"
+    },
+    {
+      "id": "law-resp-003",
+      "title": "Responsibilities of members in a cooperative society",
+      "summary": "Along with rights, members have duties to ensure cooperative's success and democratic functioning.",
+      "key_points": [
+        "Attend meetings: Regularly attend general body meetings, participate in discussions and decision making.",
+        "Follow bye-laws: Abide by society's bye-laws, rules, and resolutions passed by general body.",
+        "Repay loans timely: If you took loan from PACS/cooperative, repay principal and interest on time to avoid overdue and maintain good credit.",
+        "Use services: Avail society's services and do business with your own cooperative (patronage).",
+        "Maintain share capital: Keep minimum share capital contribution as required; additional contribution if general body decides.",
+        "Provide correct information: Give true information in application and transactions; inform about change in address/nominee.",
+        "Participate in elections: Vote in elections and encourage democratic process.",
+        "Maintain secrecy: Not disclose confidential business information of society.",
+        "Help in audit: Cooperate during audit and inspections, provide records if member is also office bearer.",
+        "Promote cooperative: Help in enrollment of new members, promote cooperative principles of self-help, mutual help.",
+        "Liability: Limited liability up to share capital contribution, but in some societies may have additional liability as per Act (check bye-laws).",
+        "Not to act against interest: Should not do anything that harms society's interest or competes directly without permission."
+      ],
+      "friendly_answer": "As a member, your responsibilities are simple: Attend general body meetings, follow bye-laws and decisions, repay loans on time, use your cooperative's services, keep your share capital, give correct information and update address/nominee, vote in elections, keep business information confidential, cooperate during audits, and promote cooperative by helping new members. Your liability is usually limited to your share amount. By fulfilling these, you help your cooperative grow and benefit all members.",
+      "source_name": "Cooperative Principles, State Acts",
+      "source_url": "https://www.cooperation.gov.in",
+      "last_verified": "2026-09"
+    },
+    {
+      "id": "law-election-004",
+      "title": "How elections are conducted in a cooperative society",
+      "summary": "Elections in cooperative societies follow democratic process under State Cooperative Acts or MSCS Act, with oversight by Cooperative Election Authority.",
+      "key_points": [
+        "Authority: State Cooperative Election Authority (for state societies) or Central Cooperative Election Authority (for multi-state societies under MSCS Amendment 2023) conducts elections.",
+        "Voter List: Final list of eligible voters prepared 60-90 days before election - includes members with minimum 1 year membership, not defaulters, active users.",
+        "Eligibility to contest: Must be member for minimum period (usually 2 years), not defaulter of society/bank, not holding office of profit, not disqualified under Act (e.g., convicted of moral turpitude).",
+        "Reservation: As per 97th Amendment and state rules - reservation for SC/ST, women (typically 2 seats), etc in Managing Committee.",
+        "Nomination: File nomination form with proposer and seconder (both eligible voters), pay nomination fee, scrutiny of nominations.",
+        "Campaign: Brief campaign period, no misuse of society funds, code of conduct applies.",
+        "Voting: Secret ballot, one member one vote, polling at society premises or designated place, supervised by Returning Officer appointed by Election Authority.",
+        "Counting: Immediately after polling, results declared same day, displayed on notice board.",
+        "Tenure: Board/Managing Committee tenure is 5 years as per 97th Constitutional Amendment and Model Bye-laws.",
+        "Timeline: Election must be held before expiry of current board; if not, Administrator may be appointed by Registrar.",
+        "Disputes: Election disputes to be filed with Cooperative Court/Tribunal within 2 months of declaration of results.",
+        "For PACS: Many states have simplified process - District Cooperative Election Officer conducts PACS elections in batches."
+      ],
+      "friendly_answer": "Elections in cooperative societies are democratic and supervised by Cooperative Election Authority. First, final voter list is made (members with 1+ year membership, not defaulters). Eligible members can file nomination with proposer and seconder. Voting is secret ballot - one member, one vote - at society premises, supervised by Returning Officer. Counting is same day. Board tenure is 5 years. There is reservation for SC/ST and women. If you have dispute, you can approach Cooperative Court within 2 months. For PACS, District Election Officer conducts elections in batches.",
+      "source_name": "MSCS Act 2002 Amended 2023, State Cooperative Election Authority Rules, 97th Amendment",
+      "source_url": "https://www.cooperation.gov.in",
+      "last_verified": "2026-09"
+    },
+    {
+      "id": "law-committee-005",
+      "title": "Role of the managing committee in a cooperative society",
+      "summary": "Managing Committee (also called Board of Directors) is elected executive body that manages daily affairs of cooperative society.",
+      "key_points": [
+        "Policy Making: Frames policies for credit, business, services within framework of Act, Rules, Bye-laws and general body directions.",
+        "Financial Management: Sanctions loans to members as per loan policy, approves budget, maintains accounts, ensures audit, manages funds and investments.",
+        "Member Management: Admits new members, approves transfer/withdrawal, maintains member register, ensures member services.",
+        "Business Operations: Decides procurement, input supply, marketing, storage, new services (like CSC, fair price shop) under Model Bye-laws.",
+        "Staff Management: Appoints Secretary and staff, fixes duties, takes disciplinary action.",
+        "Meeting Management: Convenes general body meetings (AGM within 6 months of financial year end), records minutes, implements general body resolutions.",
+        "Compliance: Ensures compliance with Cooperative Act, timely elections, audit, filing returns to Registrar, display of information.",
+        "Representation: Represents society in legal matters, with DCCB, NABARD, government departments, signs agreements.",
+        "Risk Management: Ensures proper loan appraisal, recovery, NPA management, insurance coverage.",
+        "Composition: Typically 9-15 members elected by general body, including President/Chairman, Vice-President, plus reserved seats for SC/ST/Women, plus co-opted experts in some states.",
+        "Accountability: Accountable to general body; can be removed by no-confidence or superseded by Registrar for misconduct as per Section 32-33 of State Acts.",
+        "For PACS: Managing Committee also acts as link between members and DCCB, ensures credit planning for village."
+      ],
+      "friendly_answer": "Managing Committee is the elected team that runs your cooperative daily. They make policies for loans and business, approve budgets and accounts, admit new members, manage services like credit, seeds, marketing, CSC, appoint Secretary and staff, call general body meetings, ensure compliance with law, audit, elections, represent society with banks and government, and manage loan recovery. Typically 9-15 members including President, with reservation for SC/ST and women. They are accountable to all members and can be removed if they don't work properly. For PACS, they are the bridge between farmers and District Bank.",
+      "source_name": "Model Bye-laws for PACS 2023, State Cooperative Acts",
+      "source_url": "https://www.cooperation.gov.in",
+      "last_verified": "2026-09"
+    },
+    {
+      "id": "law-violation-006",
+      "title": "What happens if a cooperative society violates provisions of law",
+      "summary": "If a cooperative society violates law, Registrar has powers to take corrective and penal action to protect members' interest.",
+      "key_points": [
+        "Inquiry: Registrar can order inquiry under Section 23/65 of State Acts if complaints about mismanagement, fraud, or violation of Act/Rules/Bye-laws.",
+        "Inspection: Registrar or authorized officer can inspect books, accounts, and affairs.",
+        "Supersession: If committee fails to conduct elections, misuses funds, or violates law persistently, Registrar can supersede (remove) Managing Committee and appoint Administrator for up to 1 year (extendable) to manage affairs and hold fresh elections - Section 32-33.",
+        "Surcharge: Registrar can order surcharge proceedings to recover loss caused by negligence, misappropriation, breach of trust by committee members, officers - they become personally liable to compensate society.",
+        "Penalties (MSCS Amendment 2023): For multi-state societies, monetary penalties up to Rs 1 lakh for non-compliance, plus Rs 10,000 per day for continuing default.",
+        "Disqualification: Members of committee can be disqualified for 3-6 years for serious violations.",
+        "Dissolution/Winding Up: In extreme cases - if society is not functioning, purpose not fulfilled, or against public interest - Registrar can order winding up and appoint liquidator to settle assets/liabilities.",
+        "Criminal Action: For fraud, forgery, embezzlement, criminal complaint can be filed under IPC and Cooperative Act - punishable with imprisonment up to 2-3 years.",
+        "Member Remedies: Members can file dispute under Section 70/84 before Cooperative Court, or complaint to Cooperative Ombudsman (for multi-state societies) for deposits, shares, elections grievances.",
+        "Appeal: Society/committee can appeal to Cooperative Tribunal and then High Court against Registrar's orders.",
+        "Prevention: Regular audit, timely elections, transparent accounts, and active general body participation prevent violations."
+      ],
+      "friendly_answer": "If a cooperative society violates law, Registrar can take action to protect members. First, Registrar orders inquiry and inspection of accounts. If serious, Registrar can remove (supersede) Managing Committee and appoint Administrator to run society and hold fresh elections. Committee members who caused loss by negligence or fraud must pay back (surcharge) and can be disqualified for 3-6 years. For multi-state societies, penalty up to Rs 1 lakh plus daily fine. In extreme cases, society can be wound up and liquidator appointed. For fraud, criminal case with jail up to 2-3 years. As member, you can file dispute in Cooperative Court or complaint to Cooperative Ombudsman. You can also appeal to Tribunal if you disagree with Registrar's order.",
+      "source_name": "State Cooperative Societies Acts, MSCS Act Amended 2023, PIB",
+      "source_url": "https://www.cooperation.gov.in",
+      "last_verified": "2026-09"
+    },
+    {
+      "id": "law-mscs-007",
+      "title": "Multi-State Cooperative Societies Act 2002 amended 2023 overview",
+      "summary": "Central law for cooperatives operating in more than one state, administered by Central Registrar under Ministry of Cooperation.",
+      "key_points": [
+        "Applies to societies whose objects and membership extend beyond one state - e.g., NAFED, NCCF, large dairy federations.",
+        "2023 Amendment introduced Cooperative Election Authority for transparent elections, Cooperative Ombudsman for member grievances on deposits/shares/elections, stricter audit and compliance.",
+        "Board tenure 5 years, timely elections mandatory, otherwise Administrator appointed.",
+        "Monetary penalties for non-compliance: up to Rs 1 lakh plus daily fine."
+      ],
+      "source_name": "Ministry of Cooperation",
+      "source_url": "https://www.cooperation.gov.in",
+      "last_verified": "2026-09"
+    },
+    {
+      "id": "law-001",
+      "title": "Multi-State Cooperative Societies (MSCS) Act, 2002 (amended 2023)",
+      "summary": "Governs cooperative societies whose objects and membership extend beyond one state. Such societies are centrally administered by the Central Registrar of Cooperative Societies (CRCS) under the Ministry of Cooperation, based on Entry 44 of the Union List.",
+      "key_points": [
+        "The 2023 amendment introduced reforms for transparency, timely elections, and monetary penalties for non-compliance.",
+        "It created provisions for a Cooperative Election Authority and a Cooperative Ombudsman to handle member grievances on deposits, shares and elections.",
+        "Applies only to multi-state cooperative societies (e.g., large federations), not to most village-level PACS."
+      ],
+      "applicable_to": "Multi-state cooperative societies and federations",
+      "source_name": "Ministry of Cooperation / PIB",
+      "source_url": "https://www.cooperation.gov.in",
+      "last_verified": "2026-09"
+    },
+    {
+      "id": "law-002",
+      "title": "State Cooperative Societies Acts",
+      "summary": "Cooperative societies confined to a single state (which includes the vast majority of PACS) are governed by that state's own Cooperative Societies Act, under Entry 32 of the State List, and administered by the State Registrar of Cooperative Societies (RCS).",
+      "key_points": [
+        "Each state (e.g., Maharashtra Cooperative Societies Act 1960, Gujarat Cooperative Societies Act 1961) has its own rules on membership, elections, audits and dissolution.",
+        "The District Registrar's office typically handles ground-level registration, disputes and compliance for PACS.",
+        "Because rules differ by state, a chatbot should ask the user's state before giving state-law-specific answers."
+      ],
+      "applicable_to": "State-registered cooperative societies including most PACS",
+      "source_name": "Respective State Cooperation Departments",
+      "source_url": "https://www.cooperation.gov.in",
+      "last_verified": "2026-09"
+    },
+    {
+      "id": "law-003",
+      "title": "Model Bye-laws for PACS (2023)",
+      "summary": "The Ministry of Cooperation issued Model Bye-laws to convert PACS from single-purpose credit societies into multipurpose, multidimensional entities, and recommended states adopt them.",
+      "key_points": [
+        "Allows PACS to undertake 20+ additional activities beyond farm credit: fair price shops, LPG distribution, banking correspondent (BC) services, insurance, CSC e-services, water supply (Paani Samiti) work, and more.",
+        "Aims to make PACS financially self-sustaining and improve rural service delivery.",
+        "Adoption requires each state to amend its own cooperative rules/bye-laws accordingly, so actual implementation varies by state."
+      ],
+      "applicable_to": "Primary Agricultural Credit Societies (PACS)",
+      "source_name": "Ministry of Cooperation",
+      "source_url": "https://www.cooperation.gov.in",
+      "last_verified": "2026-09"
+    },
+    {
+      "id": "law-004",
+      "title": "97th Constitutional Amendment Act, 2011",
+      "summary": "Added Article 43-B (state policy to promote voluntary, democratic cooperatives) and Part IX-B on cooperative societies, covering board tenure (5 years), timely elections, and mandatory audits.",
+      "key_points": [
+        "The Supreme Court (2021) struck down the portions of Part IX-B applicable to state-registered cooperatives for want of state legislature ratification, but upheld it for multi-state cooperative societies.",
+        "This is a useful fact for explaining why cooperative governance rules can differ between state and multi-state societies."
+      ],
+      "applicable_to": "Constitutional framework for cooperatives",
+      "source_name": "Constitution of India / Supreme Court judgment",
+      "source_url": "https://indiacode.nic.in",
+      "last_verified": "2026-09"
+    }
+  ],
+  "government_schemes": [
+    {
+      "id": "govt-schemes-list-001",
+      "title": "What government schemes are available for farmers",
+      "summary": "Central and state governments run many schemes for farmers - credit, income support, insurance, inputs, infrastructure, marketing.",
+      "key_points": [
+        "PM-KISAN: Rs 6000 per year income support to eligible farmer families, in 3 installments of Rs 2000, directly to bank account.",
+        "Pradhan Mantri Fasal Bima Yojana (PMFBY): Crop insurance with farmer paying only 2% Kharif, 1.5% Rabi, 5% commercial/horticulture, rest subsidy.",
+        "Kisan Credit Card (KCC): Timely affordable short-term credit for crop and allied needs, up to Rs 3 lakh at 7% interest, with 3% subvention for prompt repayment (effective 4%).",
+        "Soil Health Card: Free soil testing and card with nutrient status and fertilizer recommendations.",
+        "PM-Kisan Maandhan Yojana: Pension scheme - Rs 3000 monthly pension after 60 years for small/marginal farmers with small contribution.",
+        "Agriculture Infrastructure Fund (AIF): Loans up to Rs 2 crore with interest subvention for cold storage, warehouse, processing units at PACS level.",
+        "Formation and Promotion of FPOs: Support to form 10,000 FPOs with Rs 18.5 lakh per FPO for 3 years plus credit guarantee.",
+        "National Mission on Natural Farming: Promotion of natural farming with assistance for inputs and training.",
+        "PM Krishi Sinchayee Yojana: Irrigation - Har Khet Ko Paani, micro-irrigation subsidy.",
+        "Cooperative Sector Schemes: Computerization of PACS (Rs 2516 cr), World's Largest Grain Storage Plan at PACS, PACS as CSC (300+ e-services), New Multipurpose PACS/Dairy/Fishery in uncovered panchayats.",
+        "State Schemes: Each state has additional schemes - e.g., Tamil Nadu Uzhavar Sandhai, Maharashtra Mahatma Phule loan waiver, etc. Check myScheme portal.",
+        "How to find: Visit myScheme.gov.in, select state, category 'Agriculture, Rural & Environment', occupation 'Farmer' to see all eligible schemes."
+      ],
+      "friendly_answer": "Many government schemes are available for farmers! Main central schemes: PM-KISAN gives Rs 6000 per year directly to bank; PMFBY crop insurance where you pay only 2% (Kharif) and government pays rest; Kisan Credit Card for cheap crop loans up to Rs 3 lakh at 7% (4% if you repay on time); Soil Health Card free soil testing; PM-Kisan Maandhan pension Rs 3000 after 60 years; Agriculture Infrastructure Fund for godown/cold storage at PACS; FPO scheme to form farmer groups with Rs 18.5 lakh support; Natural Farming mission; Irrigation scheme. Plus cooperative schemes like PACS computerization, grain storage at PACS, PACS as CSC for 300+ services. Each state has extra schemes. Easiest way - visit myScheme.gov.in, select your state and 'Farmer' to see all you are eligible for.",
+      "source_name": "myScheme portal, Ministry of Agriculture, Ministry of Cooperation",
+      "source_url": "https://www.myscheme.gov.in",
+      "last_verified": "2026-09"
+    },
+    {
+      "id": "govt-pmkisan-002",
+      "title": "Who is eligible for PM-KISAN",
+      "summary": "PM-KISAN (Pradhan Mantri Kisan Samman Nidhi) provides income support to all landholding farmer families across India.",
+      "key_points": [
+        "Eligible: All landholding farmer families who own cultivable land as per land records, including small and marginal farmers.",
+        "Family definition: Husband, wife and minor children who own land as per land record.",
+        "Landholding: No minimum or maximum land limit - all landholding farmers eligible (earlier 2 hectare limit removed).",
+        "Benefit: Rs 6000 per year in 3 equal installments of Rs 2000 each, transferred via DBT to Aadhaar-seeded bank account.",
+        "Exclusions: Institutional landholders (e.g., government farms), farmer families with member who is/was: constitutional post holder, former/current Minister, MLA, MP, Mayor, Chairperson of District Panchayat; serving/retired government employees (except Group D/MTS); income tax payer in last assessment year; professionals like Doctors, Engineers, Lawyers, CAs registered and practicing; pensioners with pension > Rs 10,000 per month (except Group D).",
+        "Documents: Aadhaar, bank account linked with Aadhaar, land record (Khatauni, 7/12), self-declaration.",
+        "Tenant farmers/sharecroppers not eligible unless they own land; some states have separate schemes for tenants.",
+        "How to check: pmkisan.gov.in → Farmer Corner → Beneficiary Status or Beneficiary List.",
+        "New registration: At pmkisan.gov.in or via CSC or local agriculture office with Aadhaar and land record."
+      ],
+      "friendly_answer": "PM-KISAN is for all landholding farmer families in India - no minimum or maximum land limit, small and marginal farmers included. Family means husband, wife and minor children who own cultivable land as per land records. You get Rs 6000 per year in 3 installments of Rs 2000 directly to your Aadhaar-linked bank account. Not eligible if your family has: former or current Minister/MLA/MP/Mayor/District Panchayat Chairperson, government employee (except Group D), income tax payer last year, practicing Doctor/Engineer/Lawyer/CA, pensioner getting >Rs 10,000 per month, or institutional land. Tenant farmers not eligible unless they own land. You need Aadhaar, bank account, land record. Check status at pmkisan.gov.in → Farmer Corner.",
+      "source_name": "PM-KISAN Guidelines, Ministry of Agriculture",
+      "source_url": "https://pmkisan.gov.in",
+      "last_verified": "2026-09"
+    },
+    {
+      "id": "govt-apply-003",
+      "title": "How can a farmer apply for government agricultural schemes",
+      "summary": "Farmers can apply for agricultural schemes through multiple channels - online portals, CSC, PACS, agriculture department offices.",
+      "key_points": [
+        "myScheme Portal (Easiest): Visit www.myscheme.gov.in → Search schemes → Filter by State, Category 'Agriculture', Occupation 'Farmer' → Check eligibility → Click 'Apply' which takes you to official portal. No login needed to search.",
+        "PM-KISAN: pmkisan.gov.in → New Farmer Registration → Enter Aadhaar, mobile, state → Fill land details → Submit. Or visit nearest CSC with Aadhaar and land record.",
+        "PMFBY (Crop Insurance): Enroll via pmfby.gov.in, or at your bank/PACS when taking crop loan (auto-enrolled), or via CSC, or insurance agent. Need Aadhaar, bank account, land record, sowing certificate.",
+        "KCC (Kisan Credit Card): Apply at local PACS, District Central Cooperative Bank, commercial bank branch, or online via bank website. Need Aadhaar, land record, photo, application form.",
+        "Soil Health Card: Contact local agriculture office or Krishi Vigyan Kendra (KVK) - they collect soil sample free and issue card.",
+        "State Schemes: Visit state agriculture department website or contact Block Agriculture Officer, Village Agriculture Assistant, or PACS Secretary who can guide.",
+        "Common Service Centre (CSC): Visit nearest CSC or PACS acting as CSC - they offer 300+ e-services including scheme applications, Aadhaar, PAN, etc. Find CSC at csc.gov.in.",
+        "Offline: Visit Gram Panchayat, Block Development Office, Taluk Agriculture Office with documents - they have forms and help fill.",
+        "Documents generally needed: Aadhaar, bank passbook, land record (7/12, Patta), photo, mobile number, income certificate if required.",
+        "Tips: Keep Aadhaar linked to bank and mobile, keep land records updated, check eligibility on myScheme before applying, keep application receipt number for tracking."
+      ],
+      "friendly_answer": "Applying for government farm schemes is now easy! Best way is myScheme portal: go to www.myscheme.gov.in, select your state, category Agriculture, occupation Farmer - it shows all schemes you are eligible for and takes you to apply. For PM-KISAN, go to pmkisan.gov.in → New Farmer Registration with Aadhaar and land record, or visit CSC. For crop insurance PMFBY, you are auto-enrolled when you take crop loan at PACS/bank, or enroll at pmfby.gov.in or CSC. For KCC loan, apply at local PACS or bank branch. For Soil Health Card, contact local agriculture office or KVK. You can also visit CSC or PACS acting as CSC - they provide 300+ services. Offline, go to Gram Panchayat or Block Agriculture Office with Aadhaar, bank passbook, land record like 7/12, photo, mobile. Keep Aadhaar linked to bank, keep receipt number to track status.",
+      "source_name": "myScheme, PM-KISAN, PMFBY, Ministry of Agriculture",
+      "source_url": "https://www.myscheme.gov.in",
+      "last_verified": "2026-09"
+    },
+    {
+      "id": "govt-smallfarmer-004",
+      "title": "What financial assistance is available for small farmers",
+      "summary": "Small and marginal farmers (86% of farmers in India) get special assistance through multiple schemes.",
+      "key_points": [
+        "PM-KISAN: Rs 6000 per year income support to all landholding farmers including small/marginal - no land limit.",
+        "KCC with Interest Subvention: Crop loan up to Rs 3 lakh at 7% interest, government gives 3% subvention for prompt repayment, so effective 4%. For small farmers, collateral-free up to Rs 1.6 lakh.",
+        "PMFBY: Crop insurance at very low premium - 2% Kharif, 1.5% Rabi, 5% horticulture - rest 95-98% subsidy borne by Centre and State.",
+        "PM-Kisan Maandhan Yojana: Pension for small/marginal farmers - Rs 3000 per month after 60 years, with small monthly contribution (Rs 55-200 depending on entry age 18-40).",
+        "Agriculture Infrastructure Fund: Loans up to Rs 2 crore with 3% interest subvention and credit guarantee for godown, cold storage, processing at PACS/FPO level - benefits small farmers via PACS.",
+        "Sub-Mission on Agricultural Mechanization: Subsidy 40-50% for small farmers to buy farm machinery, up to 80% for custom hiring centers.",
+        "Micro Irrigation (Per Drop More Crop): Subsidy 55% for small/marginal farmers for drip/sprinkler irrigation (45% for others).",
+        "National Food Security Mission, RKVY, etc: Input assistance - seeds, fertilizers at subsidized rates through PACS.",
+        "NABARD and Cooperative Banks: Special refinance and lower interest for small farmer loans via PACS/DCCB.",
+        "FPO Scheme: Small farmers can form FPO (15+ members) and get Rs 18.5 lakh support for 3 years plus credit guarantee up to Rs 2 crore.",
+        "State-specific: Many states have additional - e.g., Rythu Bandhu (Telangana) Rs 5000 per acre per season, KALIA (Odisha), etc."
+      ],
+      "friendly_answer": "Small farmers get many special assistances! PM-KISAN gives Rs 6000 per year to all landholding farmers. KCC crop loan up to Rs 3 lakh at 7% interest, but if you repay on time, effective only 4% - and collateral-free up to Rs 1.6 lakh for small farmers. PMFBY crop insurance - you pay only 2% (Kharif), government pays 98% subsidy. PM-Kisan Maandhan pension - Rs 3000 monthly after 60 years with small monthly contribution. Agriculture Infrastructure Fund for godown/cold storage at PACS with 3% interest subvention. Farm machinery subsidy 50% for small farmers, micro-irrigation 55% subsidy for drip/sprinkler. You can form FPO with 15+ small farmers and get Rs 18.5 lakh support. Plus seeds, fertilizers at subsidized rates via PACS, and many state schemes like Rythu Bandhu. Visit myScheme.gov.in to check all you are eligible for.",
+      "source_name": "Ministry of Agriculture, NABARD, myScheme",
+      "source_url": "https://www.myscheme.gov.in",
+      "last_verified": "2026-09"
+    },
+    {
+      "id": "govt-docs-005",
+      "title": "What documents are generally required to apply for a government scheme",
+      "summary": "Most government agricultural schemes require similar basic documents - identity, address, bank, land proof.",
+      "key_points": [
+        "Identity Proof: Aadhaar Card is mandatory for most schemes now; alternatives Voter ID, PAN may be needed additionally.",
+        "Address Proof: Aadhaar, Voter ID, Ration Card, or Residence Certificate from Tahsildar/Gram Panchayat.",
+        "Bank Account: Passbook or bank statement, with Aadhaar seeded and linked to mobile for DBT (Direct Benefit Transfer). Most schemes transfer money directly to bank.",
+        "Land Record: For farmer schemes - 7/12 extract, Khatauni, Patta, Jamabandi, or Record of Rights (RoR) showing cultivable land ownership. For tenant farmers - tenancy agreement or self-declaration certified by local authority where allowed.",
+        "Photographs: 2-3 recent passport size photos.",
+        "Mobile Number: Linked with Aadhaar and bank for OTP and status updates.",
+        "Income Certificate: For some schemes targeting small/marginal farmers or with income criteria - from Tahsildar.",
+        "Caste Certificate: If scheme has SC/ST reservation or special component.",
+        "Sowing Certificate/Crop Details: For PMFBY crop insurance - self-declaration of crop sown, area, with sowing certificate from agriculture officer or self-declaration.",
+        "For PM-KISAN specifically: Aadhaar, bank account, land record, self-declaration of not being in exclusion category.",
+        "For KCC Loan: Application form, Aadhaar, land record, photograph, and for loan > Rs 1.6 lakh - collateral documents.",
+        "For PMFBY: Aadhaar, bank account, land record, sowing certificate, and for tenant - tenancy agreement.",
+        "Tips: Keep Aadhaar linked to mobile and bank, keep land records updated in revenue department, keep digital copies in DigiLocker, keep application receipt numbers safe for tracking."
+      ],
+      "friendly_answer": "Most government schemes need similar documents: Aadhaar (mandatory now), bank passbook with Aadhaar linked for direct money transfer, land record like 7/12 or Patta showing you own cultivable land (for tenant - tenancy agreement where allowed), 2-3 passport photos, mobile number linked to Aadhaar, and sometimes income certificate from Tahsildar or caste certificate if reservation. For crop insurance PMFBY, also need sowing certificate - which crop you sowed. For KCC loan, application form plus Aadhaar and land record, and for loan above Rs 1.6 lakh - collateral documents. Keep Aadhaar linked to bank and mobile, keep land records updated, keep digital copies in DigiLocker, and always keep receipt number after applying to track status.",
+      "source_name": "myScheme, PM-KISAN, PMFBY Guidelines",
+      "source_url": "https://www.myscheme.gov.in",
+      "last_verified": "2026-09"
+    },
+    {
+      "id": "scheme-001",
+      "title": "National Cooperation Policy (NCP) 2025",
+      "summary": "Released on 24 July 2025 under the theme 'Sahkar-se-Samriddhi' (Prosperity through Cooperation), it is a long-term framework to reposition cooperatives as engines of inclusive rural development, aligned with the Viksit Bharat 2047 vision.",
+      "beneficiary": "All cooperative societies and their members",
+      "how_to_access": "Policy document available on the Ministry of Cooperation website; implementation happens through subsequent schemes and state action plans.",
+      "source_name": "Ministry of Cooperation",
+      "source_url": "https://www.cooperation.gov.in",
+      "last_verified": "2026-09"
+    },
+    {
+      "id": "scheme-002",
+      "title": "Computerization of PACS",
+      "summary": "A ₹2,516 crore project to computerize functional PACS with a common ERP system, linking them to State Cooperative Banks, District Central Cooperative Banks (DCCBs) and NABARD for real-time data flow.",
+      "beneficiary": "PACS and their member-farmers",
+      "how_to_access": "Implemented through state cooperative departments and NABARD; individual farmers benefit through faster loan processing at their local PACS.",
+      "source_name": "Ministry of Cooperation / PIB",
+      "source_url": "https://www.pib.gov.in",
+      "last_verified": "2026-09"
+    },
+    {
+      "id": "scheme-003",
+      "title": "World's Largest Decentralized Grain Storage Plan in Cooperative Sector",
+      "summary": "A pilot and expansion program to build godowns and allied agri-infrastructure at the PACS level so farmers can store produce locally, cutting post-harvest losses and enabling better price realization.",
+      "beneficiary": "Farmer members of participating PACS",
+      "how_to_access": "Rolled out PACS-by-PACS across states; farmers can check with their local PACS whether it is included.",
+      "source_name": "Ministry of Cooperation / PIB",
+      "source_url": "https://www.pib.gov.in",
+      "last_verified": "2026-09"
+    },
+    {
+      "id": "scheme-004",
+      "title": "New Multipurpose PACS / Dairy / Fishery Cooperatives",
+      "summary": "A plan to establish roughly 2 lakh new multipurpose primary cooperatives (PACS, dairy, fishery) in panchayats that currently have none, so every panchayat gets cooperative-based access to credit and allied services.",
+      "beneficiary": "Villages/panchayats currently uncovered by any primary cooperative",
+      "how_to_access": "Driven by NABARD, NDDB and NFDB along with state cooperative departments; interested villagers can approach their Block Development Office or state Registrar of Cooperative Societies.",
+      "source_name": "Ministry of Cooperation",
+      "source_url": "https://www.cooperation.gov.in",
+      "last_verified": "2026-09"
+    },
+    {
+      "id": "scheme-005",
+      "title": "PACS as Common Service Centres (CSC)",
+      "summary": "An MoU between the Ministry of Cooperation, MeitY, NABARD and CSC e-Governance Services India Ltd. allows PACS to offer 300+ e-services — banking, insurance, Aadhaar enrolment/update, PAN card, IRCTC/bus/air ticketing, and more.",
+      "beneficiary": "Rural citizens, especially those far from a full-service bank branch or CSC",
+      "how_to_access": "Visit a PACS that has been onboarded as a CSC in your village; not all PACS offer this yet.",
+      "source_name": "Ministry of Cooperation / PIB",
+      "source_url": "https://www.pib.gov.in",
+      "last_verified": "2026-09"
+    },
+    {
+      "id": "scheme-006",
+      "title": "National Cooperative Database",
+      "summary": "A phased, unified digital database of cooperative societies. Phase-I mapped roughly 2.64 lakh primary cooperatives (PACS, dairy, fisheries); later phases extend to other sectors and national federations.",
+      "beneficiary": "Policymakers, and indirectly members through better planning and transparency",
+      "how_to_access": "Data compiled and verified by District Registrar offices under each State Registrar of Cooperative Societies (RCS).",
+      "source_name": "Ministry of Cooperation / PIB",
+      "source_url": "https://www.pib.gov.in",
+      "last_verified": "2026-09"
+    },
+    {
+      "id": "scheme-007",
+      "title": "myScheme portal",
+      "summary": "A central government aggregator (myscheme.gov.in) where a citizen can search and check eligibility across hundreds of central and state government schemes, including agriculture and cooperative-related ones, using filters like state, category and occupation.",
+      "beneficiary": "General public, including farmers and cooperative members",
+      "how_to_access": "https://www.myscheme.gov.in — no login required to search; login needed to check personalized eligibility.",
+      "source_name": "Government of India (National Governance Services Delivery Gateway)",
+      "source_url": "https://www.myscheme.gov.in",
+      "last_verified": "2026-09"
+    },
+    {
+      "id": "scheme-008",
+      "title": "Sahakar Mitra – Scheme on Internship Programme (SIP)",
+      "summary": "An NCDC-run internship scheme (originally launched 2012-13, revamped since) connecting professional graduates with cooperatives to bring in fresh ideas while giving interns hands-on experience.",
+      "key_points": [
+        "Eligible disciplines: Agriculture and allied fields (Dairy, Animal Husbandry, Veterinary Science, Fisheries, Horticulture, Textiles, Handloom), IT, or MBA in Agribusiness/Cooperation.",
+        "Internship duration: up to 4 months, with NCDC providing financial support (a stipend) for that period.",
+        "Interns help cooperatives with business plans/project reports and get oriented to the cooperative business model, including FPO leadership pathways.",
+        "Relevant for a chatbot to flag to student/young-professional users, not just farmers."
+      ],
+      "beneficiary": "Professional graduates and cooperatives needing project/business-plan support",
+      "how_to_access": "Applications processed through NCDC; details available on cooperation.gov.in and ncdc.in",
+      "source_name": "NCDC / PIB / Ministry of Cooperation",
+      "source_url": "https://www.cooperation.gov.in/node/691",
+      "last_verified": "2026-09"
+    },
+    {
+      "id": "scheme-009",
+      "title": "Kisan Credit Card (KCC) via Cooperative Banks/PACS",
+      "summary": "KCC provides farmers with timely, affordable short-term credit for crop production and allied needs, at concessional interest rates, and is commonly issued through PACS linked to District Central Cooperative Banks.",
+      "key_points": [
+        "RuPay Kisan Credit Cards are being pushed by the Ministry of Cooperation to let farmers also use the credit line for regular financial transactions, not just farm inputs.",
+        "PACS members are frequently automatically enrolled in PMFBY crop insurance when they take a KCC-linked crop loan.",
+        "Interest subvention schemes can reduce the effective interest rate for prompt repayers."
+      ],
+      "beneficiary": "Farmers, including tenant farmers and sharecroppers in many states",
+      "how_to_access": "Apply through the local PACS, cooperative bank, or any scheduled bank branch.",
+      "source_name": "Ministry of Cooperation / NABARD",
+      "source_url": "https://www.cooperation.gov.in",
+      "last_verified": "2026-09"
+    },
+    {
+      "id": "scheme-010",
+      "title": "Branchless banking via PACS (Micro-ATMs / Banking Correspondent model)",
+      "summary": "PACS and other primary cooperatives are being equipped with micro-ATMs (with NABARD support) so members can access basic banking services without traveling to a bank branch.",
+      "beneficiary": "Rural residents in villages without a nearby bank branch",
+      "how_to_access": "Available at PACS onboarded for banking correspondent/CSC services; ask at the local PACS office.",
+      "source_name": "Ministry of Cooperation / NABARD",
+      "source_url": "https://www.cooperation.gov.in",
+      "last_verified": "2026-09"
+    }
+  ],
+  "pacs_services": [
+    {
+      "id": "pacs-services-list-001",
+      "title": "What services does a Primary Agricultural Credit Society provide",
+      "summary": "PACS provides core credit services plus many diversified services under Model Bye-laws 2023 and CSC MoU.",
+      "key_points": [
+        "Core - Short & Medium Term Credit: Crop loans (KCC) for seeds, fertilizers, labour, short-term farm needs; medium-term loans for farm machinery, cattle, etc. Typically up to Rs 1-3 lakh with DCCB linkage.",
+        "Kisan Credit Card (KCC): Issues RuPay KCC cards, facilitates renewal, and enables withdrawals via micro-ATM at PACS.",
+        "Input Supply: Seeds (certified), fertilizers (urea, DAP, potash), pesticides, farm implements on cash or credit, often at subsidized rates.",
+        "Storage & Marketing: Godown/warehousing for storing produce after harvest, enabling better price realization; some PACS do aggregation and marketing to APMC or NAFED.",
+        "New Diversified (Model Bye-laws 2023) - PACS as Multipurpose: Fair Price Shop (ration), LPG distributorship, Petrol pump in some, Water supply (Paani Samiti) management, Dairy collection center.",
+        "PACS as CSC (Common Service Centre): 300+ e-services - banking correspondent (deposits, withdrawals, micro-ATM), Aadhaar enrolment/update, PAN card, insurance (PMFBY, life, general), IRCTC/bus/air ticketing, bill payments, mobile recharge.",
+        "Banking Correspondent: Micro-ATM for cash withdrawal/deposit, balance enquiry, fund transfer for any bank customer.",
+        "Insurance: PMFBY crop insurance enrollment (auto for loanee farmers), other insurance as BC.",
+        "FPO Support: Helps form and support Farmer Producer Organizations with NCDC assistance - input purchase, aggregation, marketing.",
+        "Government Scheme Facilitation: Helps members apply for PM-KISAN, PMFBY, Soil Health Card, etc.",
+        "As per Ministry of Cooperation, about 1.01 lakh PACS functional, being computerized with ERP linked to DCCB and State Cooperative Bank for faster service."
+      ],
+      "friendly_answer": "PACS provides many services! Core is crop loans and KCC cards - short-term loans for seeds, fertilizers, labour, and medium-term for machinery, cattle, up to Rs 1-3 lakh via District Bank linkage. It also supplies inputs - certified seeds, fertilizers, pesticides at subsidized rates. Storage - godown to store your produce for better price. Under new Model Bye-laws 2023, PACS is becoming multipurpose: Fair Price Shop for ration, LPG distribution, petrol pump in some places, water supply management, dairy collection. As CSC, PACS gives 300+ e-services - banking with micro-ATM (any bank withdrawal/deposit), Aadhaar update, PAN, insurance like PMFBY, ticket booking, bill payments. It helps form FPO farmer groups and helps you apply for PM-KISAN, PMFBY, Soil Health Card. About 1 lakh PACS are functional and being computerized for faster service.",
+      "source_name": "Ministry of Cooperation, NABARD, Model Bye-laws 2023",
+      "source_url": "https://www.cooperation.gov.in",
+      "last_verified": "2026-09"
+    },
+    {
+      "id": "pacs-croploan-002",
+      "title": "How can I get a crop loan through PACS",
+      "summary": "Farmers can get crop loan (KCC) through PACS with simple process, linked to District Central Cooperative Bank.",
+      "key_points": [
+        "Membership: First become PACS member - application with Aadhaar, land record, photos, share capital Rs 10-100. If already member, skip.",
+        "Application: Fill crop loan application form at PACS office - mention crop, area, season (Kharif/Rabi), loan amount needed. Forms available at PACS.",
+        "Documents: Aadhaar, land record (7/12, Patta, Khatauni), photograph, KCC form if new, and for tenant/sharecropper - tenancy agreement or self-declaration certified by local authority.",
+        "Loan Assessment: PACS Secretary and Managing Committee check land record, cropping pattern, previous repayment (if any), and recommend to DCCB. For loan up to Rs 1.6 lakh, no collateral - only hypothecation of crop.",
+        "Sanction: DCCB sanctions based on PACS recommendation and scale of finance fixed by District Level Technical Committee (e.g., Rs 30,000 per acre for paddy varies by district).",
+        "Disbursement: Loan disbursed as cash or kind (seeds, fertilizers) or credited to KCC account; RuPay KCC card issued for withdrawals via micro-ATM at PACS or any ATM.",
+        "Interest: Typically 7% per annum, with 3% interest subvention for prompt repayment (pay on time), so effective 4%. For KCC, interest subvention up to Rs 3 lakh.",
+        "Insurance: Loanee farmers auto-enrolled in PMFBY crop insurance - premium deducted from loan (2% Kharif, 1.5% Rabi).",
+        "Repayment: Repay after harvest as per due date (usually 12 months for short-term). Prompt repayment ensures next loan easily and interest subvention.",
+        "Renewal: KCC is revolving - after repayment, limit renewed for next season without fresh documentation in many PACS.",
+        "Computerized PACS: Under computerization project (Rs 2516 cr), loan processing faster - records digitized, linked to bank CBS."
+      ],
+      "friendly_answer": "Getting crop loan through PACS is simple! First become PACS member if not already - with Aadhaar, land record, photos, share capital Rs 10-100. Then fill crop loan form at PACS office - mention crop, area, season, amount. Documents needed: Aadhaar, land record like 7/12, photo, KCC form. For loan up to Rs 1.6 lakh, no collateral needed. PACS committee checks and recommends to District Central Cooperative Bank, which sanctions as per scale of finance (e.g., Rs 30,000 per acre for paddy - varies). Loan given as cash or seeds/fertilizers, or credited to your RuPay KCC card which you can use at PACS micro-ATM. Interest 7%, but if you repay on time, effective only 4% (3% subvention). You are auto-enrolled in PMFBY crop insurance. Repay after harvest within 12 months. KCC renews easily next season. Computerized PACS now process faster.",
+      "source_name": "NABARD, Ministry of Cooperation, KCC Guidelines",
+      "source_url": "https://www.nabard.org",
+      "last_verified": "2026-09"
+    },
+    {
+      "id": "pacs-inputs-003",
+      "title": "Can PACS provide agricultural inputs to farmers",
+      "summary": "Yes, PACS provides agricultural inputs - seeds, fertilizers, pesticides, implements - on cash or credit, often at subsidized rates.",
+      "key_points": [
+        "Seeds: Certified seeds of paddy, wheat, pulses, oilseeds, etc., from government seed corporations or private companies, often at subsidized rates under government schemes.",
+        "Fertilizers: Urea, DAP, MOP (Potash), Complex fertilizers, available at PACS as per allocation from cooperative marketing federations (MARKFED, etc). Sold at government fixed rates, no black marketing.",
+        "Pesticides/Insecticides: Common pesticides, herbicides, bio-pesticides as per local demand.",
+        "Farm Implements: Small implements, sprayers, etc., some PACS have custom hiring center for tractor, rotavator under Sub-Mission on Agricultural Mechanization with subsidy.",
+        "Mode: On cash or credit - if you are member and have KCC limit, inputs can be given on credit and adjusted against loan; non-members can buy on cash.",
+        "Quality: PACS procures from authorized sources - state seed corporation, IFFCO, KRIBHCO for fertilizers - so quality assured compared to open market.",
+        "Subsidy: Under schemes like NFSM, RKVY, inputs may be at 50% subsidy via PACS.",
+        "New Services: Under Model Bye-laws, PACS can also supply cattle feed, dairy inputs, fishery inputs if it runs dairy/fishery activities.",
+        "How to get: Visit PACS office, check stock availability, place indent, pay cash or request credit if eligible. For bulk, Managing Committee decides distribution priority.",
+        "Computerization helps track stock and issue receipts digitally."
+      ],
+      "friendly_answer": "Yes, PACS definitely provides agricultural inputs! You can get certified seeds (paddy, wheat, pulses), fertilizers like Urea, DAP, Potash at government fixed rates (no black marketing), pesticides, and small implements like sprayers. Some PACS even have tractor, rotavator on custom hiring with subsidy. You can buy on cash or on credit - if you have KCC loan limit, inputs can be adjusted against loan. Quality is assured because PACS procures from authorized sources like IFFCO, KRIBHCO, state seed corporations. Sometimes 50% subsidy under government schemes via PACS. Just visit PACS office, check stock, and buy. Computerized PACS now give digital receipts and track stock better.",
+      "source_name": "NABARD, Ministry of Cooperation",
+      "source_url": "https://www.nabard.org",
+      "last_verified": "2026-09"
+    },
+    {
+      "id": "pacs-member-004",
+      "title": "How can I become a member of PACS",
+      "summary": "Becoming PACS member is simple, local, and low-cost - designed for farmers in operational area.",
+      "key_points": [
+        "Eligibility: Must reside in PACS operational area (village/Gram Panchayat), be 18+ years, of sound mind, not disqualified under Cooperative Act. For farmer PACS - should be farmer, tenant, sharecropper, agricultural labourer, rural artisan as per bye-laws. Most PACS allow all rural residents.",
+        "Application: Get membership form from PACS Secretary or download from state cooperation department website. Fill details - name, father's name, address, age, occupation, land details, nominee.",
+        "Documents: Aadhaar (identity + address), 2-3 passport photos, land record (7/12, Patta, Khatauni) for farmers OR for tenant/sharecropper - tenancy agreement or self-declaration certified by Gram Panchayat/Tahsildar, and for non-farmer rural - residence proof.",
+        "Payment: Pay share capital (typically Rs 10-100 per share, minimum 1-10 shares as per bye-laws) + entrance fee (Rs 1-10) + nominal membership fee. Total usually less than Rs 200-500.",
+        "Submission: Submit form with documents and payment to PACS Secretary at PACS office during working hours.",
+        "Scrutiny: Secretary scrutinizes, places before Managing Committee in next meeting (usually monthly). Committee verifies eligibility and approves.",
+        "Share Certificate: Within 30 days of approval as per most State Acts, PACS issues share certificate with member number. You are then member.",
+        "Benefits after membership: Eligible for crop loan/KCC, input supply, storage, dividend if profit, voting right after 1 year (in many states), right to attend general body.",
+        "Nominal/Associate Member: Some PACS also have nominal membership for non-voting, short-term credit - procedure simpler.",
+        "If rejected: Managing Committee must give reasons in writing; you can appeal to District Deputy Registrar of Cooperative Societies within 2 months."
+      ],
+      "friendly_answer": "Becoming PACS member is very simple and local! Eligibility - you must live in PACS village area, be 18+ years. For farmer PACS, you should be farmer, tenant, sharecropper, agri labourer or rural artisan - but many PACS allow all rural residents. Get membership form from PACS Secretary, fill name, address, land details, nominee. Documents: Aadhaar, 2-3 photos, land record like 7/12 for farmers or tenancy agreement for tenants or residence proof for others. Pay share capital - usually only Rs 10-100 per share, 1-10 shares plus small entrance fee - total less than Rs 200-500. Submit to Secretary at PACS office. Managing Committee checks and approves in monthly meeting, and within 30 days you get share certificate with member number. Then you can get crop loan, KCC, seeds, fertilizers, storage, dividend, voting right after 1 year. If rejected, they must give reasons in writing and you can appeal to Deputy Registrar within 2 months.",
+      "source_name": "PACS Model Bye-laws 2023, State Cooperative Acts",
+      "source_url": "https://www.cooperation.gov.in",
+      "last_verified": "2026-09"
+    },
+    {
+      "id": "pacs-loandocs-005",
+      "title": "What documents are required to apply for a loan through PACS",
+      "summary": "Documents for PACS loan are minimal, especially for crop loan/KCC up to Rs 1.6 lakh which is collateral-free.",
+      "key_points": [
+        "For Crop Loan / KCC (up to Rs 1.6 lakh - collateral-free): Application form (PACS loan form/KCC form), Aadhaar Card (ID + address), Land record - 7/12, Patta, Khatauni, Jamabandi showing cultivable land in your name OR for tenant/sharecropper - tenancy agreement or self-declaration certified by Gram Panchayat/Revenue Officer, 2 passport photos, Mobile number linked to Aadhaar.",
+        "For Crop Loan > Rs 1.6 lakh up to Rs 3 lakh: Above plus - No Dues Certificate from other banks if required, Collateral - may ask for land mortgage or guarantor as per DCCB policy, Income proof if required.",
+        "For Medium-Term Loan (farm machinery, cattle, etc): Above plus - Quotation for machinery/animal, Project report for larger loans, Collateral - land mortgage, hypothecation of asset, guarantor.",
+        "For Tenant/Sharecropper: Special provisions - many states allow KCC to tenant farmers with - Tenancy agreement OR Certificate from Gram Panchayat that you cultivate land OR Self-declaration with local authority certification, No land record in own name needed.",
+        "For Renewal: If you repaid previous loan on time, renewal is simpler - only application and declaration that land/crop details same, no fresh land record needed in many computerized PACS.",
+        "For Non-Farmer Member Loans (if PACS offers): Aadhaar, residence proof, income proof, guarantor.",
+        "Common: All loans need - Share capital contribution to be member, Nominee details, Bank account (for KCC RuPay card linkage).",
+        "Computerized PACS: Under computerization, documents digitized, loan application faster, receipts digital."
+      ],
+      "friendly_answer": "Documents for PACS loan are minimal! For crop loan/KCC up to Rs 1.6 lakh - which is collateral-free (no land mortgage needed) - you need: Loan application/KCC form from PACS, Aadhaar, land record like 7/12 or Patta showing cultivable land (for tenant/sharecropper - tenancy agreement or Gram Panchayat certificate that you cultivate land), 2 photos, mobile linked to Aadhaar. For loan above Rs 1.6 lakh up to Rs 3 lakh, additionally - No Dues Certificate if asked, collateral like land mortgage or guarantor. For medium-term loan for machinery/cattle - quotation for machine/animal plus collateral. For tenant farmers, many states allow KCC without own land record - just tenancy agreement or Panchayat certificate. For renewal after timely repayment, only simple application - no fresh land record in computerized PACS. You also need to be PACS member with share capital and nominee details.",
+      "source_name": "NABARD KCC Guidelines, PACS Bye-laws",
+      "source_url": "https://www.nabard.org",
+      "last_verified": "2026-09"
+    },
+    {
+      "id": "pacs-problem-006",
+      "title": "What should I do if I have a problem with a PACS service",
+      "summary": "If you face problem with PACS service - loan delay, input quality, staff behavior - there are clear grievance channels.",
+      "key_points": [
+        "Step 1 - Talk to PACS Secretary: First approach PACS Secretary at office during working hours, explain problem verbally and in writing, ask for written acknowledgement with date.",
+        "Step 2 - Managing Committee: If Secretary doesn't resolve in 7-15 days, give written complaint to President/Chairman of Managing Committee, attend next committee meeting if allowed to present issue.",
+        "Step 3 - District Central Cooperative Bank (DCCB): Since PACS is linked to DCCB for credit, for loan-related issues - contact DCCB Branch Manager or Nodal Officer, give PACS name, member number, loan application date.",
+        "Step 4 - District Deputy Registrar of Cooperative Societies: For governance, membership, election, or serious service issues - file written complaint to Deputy Registrar (also called Assistant Registrar) of your district. Office usually at District Collectorate or Sahakar Bhavan. They can order inquiry under Section 23/65.",
+        "Step 5 - State Registrar (RCS): If district level doesn't resolve, escalate to State Registrar of Cooperative Societies - contact details in state_cooperative_registrars directory, or via state cooperation department website.",
+        "Step 6 - CPGRAMS Portal: File online grievance at pgportal.gov.in → Lodge Grievance → Select Ministry of Cooperation or State Government → Mention PACS name, district, problem. You get registration ID to track status.",
+        "For Banking Services (micro-ATM): If PACS acts as Banking Correspondent and you have issue with banking transaction, also complain to respective bank's Nodal Officer and Banking Ombudsman via RBI CMS portal.",
+        "For PMFBY Insurance via PACS: If insurance enrollment/claim issue, call Krishi Rakshak Helpline 14447 with receipt number.",
+        "Tips: Always keep - Membership number, share certificate, loan application receipt, photos of problem if input quality, written complaints with date and acknowledgement, names of staff you met.",
+        "Timeline: PACS should resolve within 15-30 days; Deputy Registrar inquiry within 2-3 months as per citizen charter."
+      ],
+      "friendly_answer": "If you have problem with PACS service, don't worry - there is clear process! Step 1: Talk to PACS Secretary at office, explain and give written complaint, take acknowledgement with date. Step 2: If not resolved in 7-15 days, complain to President of Managing Committee in writing. Step 3: For loan issues, contact District Central Cooperative Bank (DCCB) Branch Manager - PACS is linked to DCCB. Step 4: For serious issues like membership, governance, file written complaint to District Deputy Registrar of Cooperative Societies (office at Collectorate). They can order inquiry. Step 5: If still not resolved, go to State Registrar of Cooperative Societies. Step 6: You can also file online at pgportal.gov.in (CPGRAMS) - select Ministry of Cooperation or State Government, mention PACS name and problem, you get ID to track. For banking via micro-ATM, also complain to bank's Nodal Officer and Banking Ombudsman. For PMFBY insurance via PACS, call 14447. Always keep your membership number, receipts, and written complaints with dates.",
+      "source_name": "State Cooperative Acts, CPGRAMS, RBI Banking Ombudsman",
+      "source_url": "https://pgportal.gov.in",
+      "last_verified": "2026-09"
+    },
+    {
+      "id": "pacs-001",
+      "title": "What is a PACS",
+      "summary": "A Primary Agricultural Credit Society (PACS) is the grassroots-level unit of India's short-term cooperative credit structure, typically operating at the village or Gram Panchayat level, owned and run by farmer-members.",
+      "key_points": [
+        "As per the National Cooperative Database, roughly 1.01 lakh PACS are functional across India.",
+        "PACS sit below the District Central Cooperative Bank (DCCB) and State Cooperative Bank in the credit structure."
+      ],
+      "source_name": "Ministry of Cooperation / PIB",
+      "source_url": "https://www.pib.gov.in",
+      "last_verified": "2026-09"
+    },
+    {
+      "id": "pacs-002",
+      "title": "Core services traditionally offered by PACS",
+      "summary": "Short and medium-term agricultural credit, input supply (seeds, fertilizers), and storage/marketing support for members' produce.",
+      "key_points": [
+        "Kisan Credit Card (KCC)-linked crop loans are commonly disbursed through PACS.",
+        "Loan recovery and overdue tracking are core PACS functions monitored by DCCBs."
+      ],
+      "source_name": "NABARD / Ministry of Cooperation",
+      "source_url": "https://www.nabard.org",
+      "last_verified": "2026-09"
+    },
+    {
+      "id": "pacs-003",
+      "title": "Newer, diversified PACS services",
+      "summary": "Under the Model Bye-laws and the CSC MoU, PACS are increasingly offering non-credit services.",
+      "key_points": [
+        "Common Service Centre (CSC) e-services: banking correspondent transactions, Aadhaar update, PAN, ticketing.",
+        "Fair price shop / ration distribution in some states.",
+        "LPG distributorship in select PACS.",
+        "Godown/warehousing for grain storage under the decentralized storage plan.",
+        "Formation and support of Farmer Producer Organizations (FPOs) with NCDC assistance."
+      ],
+      "source_name": "Ministry of Cooperation / PIB",
+      "source_url": "https://www.pib.gov.in",
+      "last_verified": "2026-09"
+    },
+    {
+      "id": "pacs-004",
+      "title": "How a farmer becomes a PACS member and accesses services",
+      "summary": "A farmer typically applies for membership at the local PACS office, pays a nominal share-capital contribution, and can then apply for credit or use other services the PACS offers.",
+      "key_points": [
+        "Membership is usually open to residents of the PACS's operational village(s)/panchayat.",
+        "Loanee farmers (those taking a crop loan) are often automatically enrolled in PMFBY crop insurance through the PACS/bank.",
+        "Computerized PACS allow faster loan sanction and disbursal since records are digitized and linked to the bank's core banking system."
+      ],
+      "source_name": "Ministry of Cooperation",
+      "source_url": "https://www.cooperation.gov.in",
+      "last_verified": "2026-09"
+    },
+    {
+      "id": "pacs-005",
+      "title": "PACS governance",
+      "summary": "Each PACS has a General Body of all members, an elected Managing Committee/Board (subject to the state Cooperative Societies Act's election rules), and a Secretary who manages daily operations.",
+      "key_points": [
+        "Board elections, audits and dissolution follow the respective State Cooperative Societies Act.",
+        "The District Registrar of Cooperative Societies office supervises compliance and can be approached for governance disputes."
+      ],
+      "source_name": "State Cooperative Societies Acts",
+      "source_url": "https://www.cooperation.gov.in",
+      "last_verified": "2026-09"
+    }
+  ],
+  "crop_insurance": [
+    {
+      "id": "crop-protect-001",
+      "title": "How does crop insurance protect farmers from crop losses",
+      "summary": "Crop insurance (PMFBY) protects farmers by compensating financial loss when crops fail due to natural calamities, pests, diseases.",
+      "key_points": [
+        "Financial Safety Net: If your crop fails or yield is low due to covered risks, insurance company pays claim amount based on sum insured, reducing your debt burden and helping you sow next season.",
+        "Low Premium, High Coverage: You pay only small premium - 2% of sum insured for Kharif food/oilseeds, 1.5% for Rabi, 5% for commercial/horticultural - rest 95-98% subsidy paid by Centre and State governments. So with Rs 100-200 you can insure crop worth Rs 10,000.",
+        "Covers Many Risks: Prevented sowing/failed germination due to deficit rainfall, standing crop loss from drought, dry spells, flood, inundation, pests, diseases, landslides, natural fire, lightning, storm, hailstorm, cyclone; post-harvest losses (up to 14 days after harvest) if crop kept in field for drying and damaged by cyclone, unseasonal rain; localized calamities like hailstorm, landslide affecting individual farms.",
+        "Sum Insured: Based on scale of finance (cost of cultivation) fixed by District Level Technical Committee - e.g., Rs 30,000-50,000 per acre for paddy varies by district. This is amount you get if total loss, proportional if partial.",
+        "Compulsory for Loanee Farmers: If you take crop loan/KCC from PACS/bank, you are auto-enrolled in PMFBY - premium deducted from loan, so you are automatically protected without separate enrollment.",
+        "Voluntary for Non-Loanee: Even without loan, you can enroll voluntarily via pmfby.gov.in, CSC, bank, insurance agent.",
+        "Helps Credit Access: Banks more willing to give crop loan if crop is insured - reduces their risk too.",
+        "Largest Scheme: PMFBY is world's largest crop insurance scheme by number of farmer applications - over 5 crore farmers enrolled per season in recent years.",
+        "Example: If you insured 1 acre paddy for sum insured Rs 40,000, paid premium Rs 800 (2%), and due to flood yield is 50% low, you may get claim Rs 20,000 (50% of sum insured) as per area approach.",
+        "Portal: National Crop Insurance Portal pmfby.gov.in for enrollment, status, claim reporting, helpline 14447."
+      ],
+      "friendly_answer": "Crop insurance like PMFBY protects you by paying money when your crop fails due to natural problems! You pay very small premium - only 2% for Kharif crops (like paddy), 1.5% for Rabi (wheat), 5% for commercial/horticulture - so if your crop worth Rs 10,000, you pay only Rs 150-200, government pays remaining 95-98% as subsidy. It covers many risks: if you couldn't sow due to less rain, standing crop damaged by drought, flood, pests, diseases, landslide, fire, storm, hailstorm, cyclone, and even post-harvest loss if crop kept in field for drying up to 14 days and damaged by cyclone or unseasonal rain. Sum insured is based on cost of cultivation - e.g., Rs 40,000 per acre for paddy - you get proportional claim if yield low. If you took crop loan from PACS/bank, you are auto-enrolled - premium deducted from loan, so automatically protected. Even without loan, you can enroll at pmfby.gov.in or CSC. It helps you repay loan and sow next season, and banks give loans more easily if crop insured. It's world's largest crop insurance scheme!",
+      "source_name": "PMFBY Operational Guidelines, Ministry of Agriculture",
+      "source_url": "https://pmfby.gov.in",
+      "last_verified": "2026-09"
+    },
+    {
+      "id": "crop-claim-002",
+      "title": "My crop was damaged due to heavy rain How can I claim insurance",
+      "summary": "If crop damaged due to heavy rain, flood, or other covered risks, report loss within 72 hours via app, portal, or helpline to claim insurance.",
+      "key_points": [
+        "Check if Covered: Heavy rain, flood, inundation are covered under PMFBY for standing crop and localized calamities. If damage is widespread affecting whole notified area, yield-based claim will be auto-calculated after crop-cutting experiments - you may not need to report individually. If damage is localized to your farm or few farms, you MUST report within 72 hours.",
+        "72-Hour Rule: For localized calamities (including flood, inundation of your field) and post-harvest losses, report within 72 hours of occurrence. Delay may lead to rejection.",
+        "How to Report - 3 Ways: 1) Crop Insurance App - Download 'Crop Insurance' app from Play Store, login with mobile, select policy, report loss with photos and location; 2) PMFBY Portal - pmfby.gov.in → Farmer Corner → Report Crop Loss → Enter policy details; 3) Helpline - Call Krishi Rakshak Helpline 14447 (toll-free) with policy/receipt number, explain loss, get ticket number.",
+        "What to Provide: Policy ID/Receipt Number (from enrollment), Aadhaar, mobile, crop details, date of loss, extent of damage (in acres/percentage), cause (heavy rain/flood), photos of damaged crop with geo-tag if via app, bank account details.",
+        "After Reporting: You get complaint/ticket number - save it. Insurance company appoints loss assessor who visits field within 7-10 days, does survey, takes photos, estimates loss percentage.",
+        "Survey: Cooperate with assessor, show damaged area, provide any additional documents. For flood, also provide any local government report if available (e.g., from Agriculture Officer or Patwari).",
+        "Claim Calculation: For localized, based on assessor report and sum insured. For widespread, based on area approach - actual yield vs threshold yield of your notified area (Gram Panchayat level).",
+        "Payout: Claim amount credited directly to your Aadhaar-seeded bank account via DBT, typically within 2-3 months after yield data or survey completion. You get SMS alert.",
+        "If No Response: If assessor doesn't visit within 10 days or claim not settled in 2-3 months, escalate - call 14447 again with ticket number, or file grievance at pmfby.gov.in or CPGRAMS.",
+        "For Loanee Farmers: If you took loan via PACS/bank, also inform PACS Secretary and bank branch about loss - they can follow up with insurance company.",
+        "Preventive: Always keep enrollment receipt, take photos of healthy crop before and damaged after, keep sowing certificate."
+      ],
+      "friendly_answer": "If your crop damaged due to heavy rain, you can claim insurance! Heavy rain and flood are covered. Important - if damage is only to your farm or few farms (localized), you MUST report within 72 hours. If whole area affected, yield-based claim auto-calculated - you may not need to report individually, but still good to report. How to report: 1) Download Crop Insurance app from Play Store, login with mobile, select your policy, report loss with photos and location; 2) Go to pmfby.gov.in → Farmer Corner → Report Crop Loss; 3) Call toll-free Krishi Rakshak Helpline 14447 with your policy/receipt number. Provide policy ID, Aadhaar, crop details, date of loss, extent of damage, photos. You will get ticket number - save it! Insurance company sends assessor within 7-10 days to survey field. Cooperate and show damaged area. Claim amount based on survey and sum insured, credited directly to your bank account via DBT in 2-3 months with SMS alert. If no response in 10 days, call 14447 again with ticket number. Also inform your PACS Secretary and bank if you took loan. Always keep enrollment receipt and photos.",
+      "source_name": "PMFBY Operational Guidelines, PMFBY Portal",
+      "source_url": "https://pmfby.gov.in",
+      "last_verified": "2026-09"
+    },
+    {
+      "id": "crop-docs-003",
+      "title": "What documents are required to make a crop insurance claim",
+      "summary": "To claim crop insurance, you need enrollment proof, identity, bank, land, and loss evidence.",
+      "key_points": [
+        "Enrollment Proof: PMFBY Receipt Number / Policy ID / Application Number - issued at enrollment via PACS/bank/CSC/portal. This is most important - without this, claim not processed.",
+        "Identity Proof: Aadhaar Card (mandatory for DBT), plus Voter ID or PAN if asked.",
+        "Bank Account: Passbook or bank statement showing Aadhaar-seeded account where claim will be credited. Account should be same as enrollment or updated via portal.",
+        "Land Record: 7/12, Patta, Khatauni, Jamabandi proving you cultivate notified area. For tenant/sharecropper - tenancy agreement or certificate from Gram Panchayat that you cultivate land.",
+        "Sowing Certificate: Proof of crop sown - self-declaration at enrollment plus sowing certificate from Agriculture Officer or Gram Panchayat or self-declaration with date of sowing, crop, area.",
+        "Loss Intimation: Complaint/ticket number from Crop Insurance App or 14447 helpline or portal - proof you reported within 72 hours for localized losses.",
+        "Photos: Geo-tagged photos of damaged crop - ideally before and after damage, showing extent. Via Crop Insurance App, photos auto geo-tagged.",
+        "Survey Report: Loss assessor's survey report - insurance company arranges, but you should keep copy if given.",
+        "Additional for Flood/Rain: Any local report - from Agriculture Officer, Patwari, or Gram Panchayat confirming heavy rain/flood in area, newspaper cutting if widespread, or government notification of flood.",
+        "For Loanee Farmers: Loan sanction letter or KCC passbook showing crop loan and insurance premium deduction.",
+        "Bank Account for DBT: Aadhaar linked bank account - claim credited via DBT, so ensure Aadhaar seeding is active.",
+        "Tips: Keep all documents in DigiLocker or safe folder, keep enrollment receipt safe, take photos immediately after damage, report within 72 hours, save ticket number, keep bank account active."
+      ],
+      "friendly_answer": "To make crop insurance claim, you need: Most important - PMFBY Receipt Number/Policy ID from enrollment (without this claim not processed). Then Aadhaar for identity and DBT, bank passbook with Aadhaar-linked account where claim will be credited, land record like 7/12 or Patta showing you cultivate land (for tenant - tenancy agreement or Panchayat certificate), sowing certificate showing which crop you sowed, when, area - self-declaration or from Agriculture Officer. For loss, complaint/ticket number from Crop Insurance App or 14447 helpline proving you reported within 72 hours for localized losses, geo-tagged photos of damaged crop (before and after if possible). For flood/rain, any local report from Agriculture Officer or Patwari confirming heavy rain. For loanee farmers, loan sanction letter or KCC passbook showing premium deduction. Keep all in DigiLocker, keep receipt safe, take photos immediately after damage, report within 72 hours, save ticket number, keep bank account active.",
+      "source_name": "PMFBY Operational Guidelines",
+      "source_url": "https://pmfby.gov.in",
+      "last_verified": "2026-09"
+    },
+    {
+      "id": "crop-covered-004",
+      "title": "What types of crop losses are covered under crop insurance",
+      "summary": "PMFBY covers wide range of crop losses from sowing to post-harvest, due to natural calamities, pests, diseases.",
+      "key_points": [
+        "Prevented Sowing/Failed Germination: If you could not sow or germination failed due to deficit rainfall or adverse seasonal conditions affecting major part of notified area - claim up to 25% of sum insured.",
+        "Standing Crop Loss (Sowing to Harvesting): Drought, dry spells, flood, inundation, pests, diseases, landslides, natural fire due to lightning, storm, hailstorm, cyclone, cyclonic rain - covered under area approach (yield loss) or localized if individual farm affected.",
+        "Localized Calamities: Hailstorm, landslide, inundation, cloudburst, natural fire affecting isolated farms in notified area - individual farm assessed, report within 72 hours.",
+        "Post-Harvest Losses: If harvested crop kept in field for drying (cut and spread) up to 14 days after harvest, and damaged by cyclone, cyclonic rain, unseasonal rain, hailstorm - covered, report within 72 hours.",
+        "Wild Animal Attack: In some states, crop loss due to wild animal attack is covered as per state notification - check your state's PMFBY notification.",
+        "Not Covered: Loss due to war, nuclear risks, malicious damage, theft, grazing by domestic animals, improper use of inputs, non-compliance with good agricultural practices, loss due to non-notified crops or non-notified areas, post-harvest beyond 14 days or kept in covered place.",
+        "Area Approach: For widespread calamities, claim based on actual yield vs threshold yield of notified area (Gram Panchayat or block) determined via crop-cutting experiments (CCEs) conducted by state agriculture department.",
+        "Individual Approach: For localized calamities and post-harvest, individual farm loss assessed by loss assessor.",
+        "Sum Insured: Based on scale of finance (cost of cultivation) fixed by District Level Technical Committee - e.g., Rs 30,000-50,000 per acre for paddy.",
+        "Important: Crop must be notified crop in notified area for that season (Kharif/Rabi) as per state government notification on pmfby.gov.in. Check notification before enrollment."
+      ],
+      "friendly_answer": "PMFBY covers many types of crop losses! From sowing to post-harvest: If you couldn't sow due to less rain - up to 25% claim. Standing crop from sowing to harvesting damaged by drought, dry spells, flood, pests, diseases, landslide, fire due to lightning, storm, hailstorm, cyclone - covered. Localized calamities like hailstorm, landslide, cloudburst affecting only your farm - individual assessment, report within 72 hours. Post-harvest - if harvested crop kept in field for drying up to 14 days after harvest and damaged by cyclone, unseasonal rain, hailstorm - covered, report within 72 hours. Some states also cover wild animal attack as per notification. Not covered: war, nuclear, theft, grazing by domestic animals, improper inputs, non-notified crops/areas, post-harvest beyond 14 days or kept in covered place. For widespread losses, claim based on area yield vs threshold yield via crop-cutting experiments. For localized, individual farm survey. Crop must be notified crop in notified area for that season - check pmfby.gov.in notification.",
+      "source_name": "PMFBY Operational Guidelines",
+      "source_url": "https://pmfby.gov.in",
+      "last_verified": "2026-09"
+    },
+    {
+      "id": "crop-status-005",
+      "title": "How can I check the status of my crop insurance claim",
+      "summary": "Farmers can check crop insurance application status and claim status separately on PMFBY portal, app, or helpline.",
+      "key_points": [
+        "Two Different Statuses: Application Status = whether your enrollment was accepted and policy issued; Claim Status = whether payout calculated/released after loss. Farmers often confuse - check both.",
+        "Online - PMFBY Portal: Go to pmfby.gov.in → Farmer Corner → Application Status or Check Status → Enter Receipt Number OR Policy ID AND Captcha → Submit → Shows enrollment status, policy number, sum insured, premium. For claim - same portal → Claim Status or Report Crop Loss → Track with ticket number.",
+        "Crop Insurance App: Download 'Crop Insurance' app → Login with mobile → My Policies → Select policy → Shows status, claim details, ticket status.",
+        "Helpline 14447: Call Krishi Rakshak Helpline 14447 (toll-free) → Provide Receipt Number/Policy ID or Ticket Number → Agent tells application and claim status.",
+        "Bank/PACS: If you enrolled via PACS/bank (loanee), visit PACS Secretary or bank branch with receipt number - they can check in their system and help track with insurance company.",
+        "CSC: Visit nearest Common Service Centre with Aadhaar and receipt number - they can check status on portal.",
+        "What You Need: Receipt Number (most important, issued at enrollment), or Policy ID, or Ticket Number for loss reporting, plus mobile number or Aadhaar.",
+        "Timeline: Application status available within 15-30 days of enrollment; Claim status - for yield-based, after crop-cutting experiments and yield data submission (2-3 months after harvest); for localized, after survey (within 1 month of reporting).",
+        "If Not Showing: If application not showing after 30 days, contact bank/PACS/CSC where you enrolled with receipt; if claim not showing after 3 months, call 14447 with ticket number and escalate to District Level Monitoring Committee.",
+        "SMS Alerts: You get SMS on registered mobile at enrollment, policy issuance, claim calculation, and payout credit - keep mobile active and linked.",
+        "Important: Keep receipt number safe - without it, difficult to track. Take screenshot or photo of receipt."
+      ],
+      "friendly_answer": "You can check crop insurance status in many ways! Remember there are two statuses: Application Status (whether enrollment accepted and policy issued) and Claim Status (whether payout released after loss). Online: Go to pmfby.gov.in → Farmer Corner → Application Status → Enter Receipt Number or Policy ID + Captcha → Shows enrollment status, sum insured. For claim status, same portal → Claim Status → Enter ticket number from loss reporting. Via app: Download Crop Insurance app → My Policies → Shows status. Via helpline: Call toll-free 14447 with receipt/policy/ticket number - agent tells status. Via PACS/bank: If you enrolled via PACS/bank, visit Secretary with receipt - they can check. Via CSC: Visit nearest CSC with Aadhaar and receipt. You need receipt number (most important) or policy ID or ticket number. Application status available in 15-30 days after enrollment; claim status 2-3 months after harvest for yield-based, 1 month after survey for localized. You get SMS alerts at each stage - keep mobile active. Keep receipt number safe - take photo!",
+      "source_name": "PMFBY Portal, Krishi Rakshak Helpline",
+      "source_url": "https://pmfby.gov.in",
+      "last_verified": "2026-09"
+    },
+    {
+      "id": "pmfby-001",
+      "title": "Pradhan Mantri Fasal Bima Yojana (PMFBY) — overview",
+      "summary": "PMFBY is the Government of India's flagship crop insurance scheme, protecting farmers against financial loss from crop failure due to natural calamities, pests and diseases. It is described as the largest crop insurance scheme in the world by number of farmer applications.",
+      "portal": "National Crop Insurance Portal (NCIP) — https://pmfby.gov.in",
+      "source_name": "PMFBY / PIB",
+      "source_url": "https://pmfby.gov.in",
+      "last_verified": "2026-09"
+    },
+    {
+      "id": "pmfby-002",
+      "title": "Premium structure under PMFBY",
+      "summary": "Farmers pay a small, capped share of the premium; the rest is subsidized jointly by the Centre and State.",
+      "key_points": [
+        "Kharif food & oilseed crops: farmer pays up to 2% of sum insured.",
+        "Rabi food & oilseed crops: farmer pays up to 1.5%.",
+        "Annual commercial/horticultural crops: farmer pays up to 5%.",
+        "The remaining actuarial premium (95%–98.5%) is shared 50:50 between Centre and State (90:10 for North-Eastern and Himalayan states).",
+        "Several states have further waived the farmer's own share."
+      ],
+      "source_name": "PIB",
+      "source_url": "https://www.pib.gov.in",
+      "last_verified": "2026-09"
+    },
+    {
+      "id": "pmfby-003",
+      "title": "Who is eligible",
+      "summary": "All farmers growing notified crops in notified areas are eligible, including sharecroppers and tenant farmers, not just landowners.",
+      "key_points": [
+        "Loanee farmers (those with a crop loan from a bank/PACS) are typically enrolled automatically by the lending institution.",
+        "Non-loanee farmers can enroll voluntarily via the PMFBY portal, a Common Service Centre (CSC), an insurance agent, or their bank."
+      ],
+      "source_name": "PMFBY Operational Guidelines",
+      "source_url": "https://pmfby.gov.in",
+      "last_verified": "2026-09"
+    },
+    {
+      "id": "pmfby-004",
+      "title": "How to check application/claim status",
+      "summary": "Farmers can check enrollment (application) status and claim/payout status separately on the NCIP portal.",
+      "key_points": [
+        "Go to pmfby.gov.in → Farmer Corner → Application Status; enter Receipt Number or Policy ID with captcha.",
+        "Application status = whether enrollment was accepted and converted to a policy.",
+        "Claim status = whether a payout has been calculated/released after a reported loss.",
+        "These are two different checks and are often confused by farmers — a chatbot should clarify which one the user needs."
+      ],
+      "source_name": "PMFBY portal",
+      "source_url": "https://pmfby.gov.in",
+      "last_verified": "2026-09"
+    },
+    {
+      "id": "pmfby-005",
+      "title": "How to report a crop loss (claim)",
+      "summary": "For localized calamities (hailstorm, landslide, flooding of specific fields) and post-harvest losses, the loss must be reported within 72 hours.",
+      "key_points": [
+        "Report via the Crop Insurance mobile app, the PMFBY portal, or the Krishi Rakshak Helpline: 14447.",
+        "Always save the complaint/ticket reference number for follow-up.",
+        "For widespread calamities affecting a whole notified area, yield-based assessment is done automatically without individual reporting."
+      ],
+      "source_name": "PMFBY Operational Guidelines",
+      "source_url": "https://pmfby.gov.in",
+      "last_verified": "2026-09"
+    },
+    {
+      "id": "pmfby-006",
+      "title": "AgriStack / Unified Farmer Service Interface integration",
+      "summary": "Newer digital infrastructure (AgriStack) auto-populates PMFBY enrollment from the Farmer Registry, Land Verification API and Crop-Sown Registry, reducing manual paperwork and speeding up verification and premium calculation.",
+      "key_points": [
+        "As of the latest rollout, these registries span multiple states, hundreds of districts and lakhs of villages.",
+        "This is relevant for a chatbot explaining why some states now have faster, more automated PMFBY enrollment than others."
+      ],
+      "source_name": "ICRISAT / Government AgriStack documentation",
+      "source_url": "https://issca.icrisat.org",
+      "last_verified": "2026-09"
+    }
+  ],
+  "financial_literacy": [
+    {
+      "id": "fin-savings-current-001",
+      "title": "What is the difference between a savings account and a current account",
+      "summary": "Savings and current accounts serve different purposes - savings for individuals to save, current for businesses for frequent transactions.",
+      "key_points": [
+        "Purpose: Savings Account - for individuals, especially farmers, salaried, to save money and earn interest; Current Account - for businesses, traders, firms, cooperatives for frequent daily transactions.",
+        "Interest: Savings Account earns interest - currently around 2.5-4% per annum in most banks (RBI regulates), paid quarterly/half-yearly; Current Account generally earns NO interest (0%).",
+        "Transactions: Savings Account has limits - some banks allow limited free transactions per month, extra may have charges; Current Account allows unlimited transactions, suitable for business with many daily receipts/payments.",
+        "Minimum Balance: Savings Account - low minimum balance (Rs 0-500 for Basic Savings Bank Deposit Account, Rs 1000-5000 for regular), many Jan Dhan and PACS accounts have zero balance; Current Account - higher minimum balance (Rs 5000-25000) required, else charges.",
+        "Facilities: Savings Account - passbook, ATM/debit card, cheque book (limited), internet banking, UPI; Current Account - overdraft facility, higher transaction limits, bulk payment options, business loans linkage.",
+        "Overdraft: Savings Account - generally no overdraft (except Jan Dhan with small overdraft up to Rs 10,000 after 6 months); Current Account - overdraft facility available based on business turnover and collateral.",
+        "Who Should Open: Farmers, individuals, students - Savings Account (especially Basic Savings Bank Deposit Account or Jan Dhan for zero balance); Shopkeepers, traders, PACS, FPOs, businesses - Current Account for business transactions.",
+        "For Farmers: Most farmers have Savings Account for PM-KISAN, PMFBY, KCC subsidy; PACS itself has Current Account with DCCB for business.",
+        "Example: If you are farmer getting PM-KISAN Rs 2000, it comes to Savings Account and earns interest; If you are PACS Secretary handling daily collection of Rs 1 lakh, you need Current Account for unlimited transactions without interest."
+      ],
+      "friendly_answer": "Savings and current accounts are different! Savings Account is for individuals like farmers to save money - it earns interest around 2.5-4% per year, has low minimum balance (Rs 0-500 for basic accounts, Jan Dhan zero balance), limited free transactions, with passbook, ATM, UPI. Current Account is for businesses, traders, PACS, FPOs for frequent daily transactions - it generally earns NO interest, allows unlimited transactions, has higher minimum balance Rs 5000-25000, and offers overdraft facility. As farmer, you should have Savings Account for PM-KISAN, crop insurance, KCC subsidy - it earns interest. If you run shop or PACS handling daily Rs 1 lakh collection, you need Current Account. Example: PM-KISAN Rs 2000 comes to Savings and earns interest; PACS daily business needs Current Account.",
+      "source_name": "RBI, NCFE Financial Literacy",
+      "source_url": "https://www.rbi.org.in",
+      "last_verified": "2026-09"
+    },
+    {
+      "id": "fin-interest-002",
+      "title": "What is interest on a loan and how is it calculated",
+      "summary": "Interest is cost of borrowing money, calculated as percentage of loan amount per year, with simple and compound types.",
+      "key_points": [
+        "Definition: Interest is fee charged by bank/PACS for lending money, expressed as percentage per year (per annum) of loan amount - e.g., 7% p.a. means you pay Rs 7 per year for every Rs 100 borrowed.",
+        "Principal: Original loan amount you borrow - e.g., Rs 1,00,000 crop loan.",
+        "Simple Interest Formula: Simple Interest = (Principal × Rate × Time) / 100. Example: Rs 1,00,000 × 7% × 1 year /100 = Rs 7,000 interest for 1 year.",
+        "For Farmers - KCC: Crop loan up to Rs 3 lakh at 7% p.a., but government gives 3% interest subvention if you repay on time, so effective 4% - so Rs 1,00,000 loan for 1 year, you pay only Rs 4,000 if prompt.",
+        "Compound Interest: Interest on interest - if you don't pay interest, it gets added to principal and next year interest charged on higher amount. Most agri loans are simple if repaid on time, but become compound if overdue.",
+        "Reducing Balance: Most bank loans calculate interest on reducing balance - as you repay principal, interest calculated on remaining amount, not original. So EMI includes reducing interest.",
+        "Fixed vs Floating: Fixed interest rate stays same throughout loan tenure; Floating (most KCC, agri loans) can change as per RBI repo rate and bank policy.",
+        "Factors Affecting Rate: RBI repo rate, loan type (crop loan cheaper than personal), collateral, repayment history, government subvention schemes.",
+        "How to Check: Interest rate mentioned in loan sanction letter, KCC passbook, loan statement. Ask PACS Secretary or bank officer for effective rate after subvention.",
+        "Tips: Always ask - Is rate fixed or floating? Is there subvention for prompt repayment? What is penalty for late payment? Calculate total interest before taking loan."
+      ],
+      "friendly_answer": "Interest is fee you pay for borrowing money! If you borrow Rs 1,00,000 at 7% per year, you pay Rs 7,000 interest for 1 year. Formula: Interest = Principal × Rate × Time / 100. For farmers, KCC crop loan up to Rs 3 lakh at 7% interest, but if you repay on time, government gives 3% subvention, so effective only 4% - so Rs 1,00,000 loan, you pay only Rs 4,000 if prompt! Most loans use reducing balance - as you repay principal, interest calculated on remaining amount, so EMI has less interest over time. Fixed rate stays same, floating (most agri loans) can change as per RBI. Always check sanction letter for rate, ask if subvention available, what penalty for late payment. Calculate total interest before taking loan.",
+      "source_name": "RBI Financial Literacy, NABARD",
+      "source_url": "https://www.rbi.org.in",
+      "last_verified": "2026-09"
+    },
+    {
+      "id": "fin-emi-003",
+      "title": "What is EMI",
+      "summary": "EMI is Equated Monthly Installment - fixed amount you pay every month to repay loan with interest.",
+      "key_points": [
+        "Definition: EMI = Fixed amount you pay every month to bank/PACS to repay loan, includes both principal (loan amount) and interest. So you don't pay whole loan at once, but in small monthly installments.",
+        "Formula: EMI = [P × R × (1+R)^N] / [(1+R)^N -1], where P=Principal, R=monthly interest rate (annual rate/12/100), N=number of months. Don't need to calculate manually - banks provide EMI chart or use EMI calculator on bank website.",
+        "Example: Rs 1,00,000 loan at 7% annual interest for 12 months: Monthly rate = 7%/12/100 = 0.00583, N=12, EMI = Rs 8,652 approx per month. Total paid = Rs 1,03,824 (Rs 3,824 interest). If effective 4% after subvention, EMI = Rs 8,515, total interest only Rs 2,180.",
+        "Components: Early EMIs have more interest, less principal; later EMIs have more principal, less interest - because interest calculated on reducing balance.",
+        "For Farmers: KCC crop loan typically not EMI but single repayment after harvest (12 months). Medium-term loans for tractor, cattle, etc are EMI-based - e.g., tractor loan Rs 5 lakh for 5 years (60 months) at 9% - EMI ~ Rs 10,380 per month.",
+        "Due Date: EMI due on fixed date every month (e.g., 5th). Pay on or before due date to avoid late fee and maintain good CIBIL score.",
+        "Prepayment: You can prepay extra amount to reduce principal and future interest - check if bank charges prepayment fee (most agri loans have no prepayment fee).",
+        "What Happens if Missed: Late fee charged, CIBIL score affected (makes future loans difficult), interest on overdue, and if many EMIs missed, account becomes NPA (Non-Performing Asset) and bank may take recovery action.",
+        "Tips: Before taking loan, ask bank for EMI chart showing principal and interest breakup, total interest payable, and use EMI calculator to check if monthly EMI fits your income (ideally EMI not more than 40% of monthly income)."
+      ],
+      "friendly_answer": "EMI is fixed amount you pay every month to repay loan! EMI includes both loan amount and interest, so you don't pay whole at once. Example: Rs 1,00,000 loan at 7% for 12 months - EMI approx Rs 8,652 per month, total interest Rs 3,824. If effective 4% after subvention for prompt repayment, EMI Rs 8,515, interest only Rs 2,180. Early EMIs have more interest, later more principal because interest on reducing balance. For farmers, KCC crop loan usually single repayment after harvest (not monthly EMI), but tractor, cattle loans are EMI - e.g., Rs 5 lakh tractor loan for 5 years at 9% - EMI ~ Rs 10,380 per month. Pay on fixed date every month to avoid late fee and keep good CIBIL score for future loans. You can prepay extra to reduce interest - most agri loans have no prepayment fee. Before loan, ask for EMI chart and check if EMI fits your income - ideally not more than 40% of monthly income.",
+      "source_name": "RBI, NCFE Financial Literacy",
+      "source_url": "https://www.rbi.org.in",
+      "last_verified": "2026-09"
+    },
+    {
+      "id": "fin-secured-004",
+      "title": "What is the difference between a secured and unsecured loan",
+      "summary": "Secured loan needs collateral (security), unsecured doesn't - secured has lower interest but risk of losing collateral if not repaid.",
+      "key_points": [
+        "Secured Loan: You pledge collateral (security) - like land, house, gold, fixed deposit, tractor - to bank. If you don't repay, bank can sell collateral to recover money. Because risk to bank is low, interest rate is lower.",
+        "Examples of Secured for Farmers: KCC crop loan above Rs 1.6 lakh may require land mortgage; Tractor loan - tractor itself is hypothecated; Gold loan - gold as security; Loan against fixed deposit; Housing loan - house as mortgage.",
+        "Unsecured Loan: No collateral needed - bank gives based on your income, repayment capacity, CIBIL score. Risk to bank is higher, so interest rate higher, loan amount smaller, tenure shorter.",
+        "Examples of Unsecured: KCC crop loan up to Rs 1.6 lakh is collateral-free (unsecured) as per RBI - only hypothecation of crop; Personal loan; Small Jan Dhan overdraft up to Rs 10,000.",
+        "Interest Difference: Secured - lower interest, e.g., KCC 7% (4% effective), gold loan 8-10%, tractor loan 9-11%; Unsecured - higher, personal loan 12-20%, credit card 30-40%.",
+        "Loan Amount & Tenure: Secured - higher amount (up to crores for land mortgage), longer tenure (5-15 years for tractor, housing); Unsecured - smaller amount (up to Rs 1.6 lakh for KCC collateral-free, Rs 50,000 personal), shorter tenure (1-5 years).",
+        "Risk: Secured - if you don't repay, you may lose collateral (land, gold, tractor) after legal process; Unsecured - no collateral loss, but CIBIL score badly affected, bank can take legal action, recovery agents may follow up.",
+        "For Farmers: Most small farmers prefer secured via land for larger amounts but KCC up to Rs 1.6 lakh collateral-free is best - no risk of land loss, still low interest. Always check - Is loan secured or unsecured? What collateral? What happens if I can't repay?",
+        "RBI Rule: For agricultural loans up to Rs 1.6 lakh, banks should not ask for collateral - this is to help small farmers."
+      ],
+      "friendly_answer": "Secured loan needs collateral (security) like land, gold, tractor - if you don't repay, bank can sell it to recover money. Because bank risk is low, interest is lower. Example: Tractor loan - tractor itself as security, interest 9-11%; Gold loan - gold as security, 8-10%. Unsecured loan needs NO collateral - bank gives based on your income and CIBIL score. Risk to bank high, so interest higher, amount smaller. Example: KCC crop loan up to Rs 1.6 lakh is collateral-free (unsecured) as per RBI - only crop hypothecation, interest 7% (4% effective if prompt); Personal loan 12-20%. For farmers, KCC up to Rs 1.6 lakh collateral-free is best - no risk of losing land, still low interest. Secured loans give higher amount and longer tenure (5-15 years), unsecured smaller and shorter (1-5 years). If you don't repay secured, you may lose collateral after legal process; unsecured - no collateral loss but CIBIL badly affected and legal action. RBI rule: Agri loans up to Rs 1.6 lakh should not ask for collateral - to help small farmers. Always ask - Is loan secured? What collateral? What if I can't repay?",
+      "source_name": "RBI, NABARD",
+      "source_url": "https://www.rbi.org.in",
+      "last_verified": "2026-09"
+    },
+    {
+      "id": "fin-repay-005",
+      "title": "How can farmers manage their loan repayments effectively",
+      "summary": "Farmers can manage loan repayments by planning, timely repayment, maintaining buffer, and using government subvention benefits.",
+      "key_points": [
+        "Understand Loan Terms: Before taking loan, clearly know - loan amount, interest rate (fixed/floating), effective rate after subvention, due date, EMI or single repayment, penalty for late payment, prepayment rules. Ask PACS Secretary or bank officer to explain in your language.",
+        "Repay On Time for Subvention: For KCC crop loan up to Rs 3 lakh, if you repay on time (within due date), you get 3% interest subvention - so you pay only 4% instead of 7%. This saves Rs 3,000 per lakh per year! Set reminder for due date.",
+        "Align Repayment with Harvest: KCC is designed for single repayment after harvest (12 months). Plan to repay immediately after selling produce, when you have cash. Don't delay - interest subvention only if prompt.",
+        "Maintain Buffer: Keep 10-20% of expected income as buffer for unexpected expenses, so you don't divert loan repayment money. Example: If you expect Rs 1 lakh from crop, keep Rs 10,000 buffer, plan to repay loan from Rs 90,000.",
+        "Prioritize Loans: If you have multiple loans, prioritize - first repay high-interest loans (personal, unsecured), then KCC crop loan to get subvention, then medium-term loans. Don't default on any.",
+        "Keep Records: Maintain loan passbook, receipts, repayment receipts. Check loan statement regularly at PACS/bank or via app. Note due dates in calendar or mobile reminder.",
+        "Avoid Over-Borrowing: Borrow only what you need and can repay from expected crop income. Don't take loan for non-productive purposes if you can't repay. Scale of finance is fixed by district - e.g., Rs 30,000 per acre for paddy - don't borrow much more than that.",
+        "Use KCC Renewal Benefit: KCC is revolving - after timely repayment, limit renewed easily for next season without fresh documents. This is easier than new loan each time.",
+        "Communicate with Bank/PACS: If you face difficulty due to crop failure, drought, flood - inform PACS Secretary and bank BEFORE due date. They can restructure loan, give extension, or help with insurance claim (PMFBY) as per RBI guidelines for natural calamities.",
+        "Insurance Protection: Ensure crop is insured under PMFBY - if crop fails, insurance claim can help repay loan. Loanee farmers auto-enrolled, but check premium deducted.",
+        "Improve CIBIL: Timely repayment builds good CIBIL score (credit score) - makes future loans easier and at lower interest. Default badly affects CIBIL for 7 years.",
+        "Seek Advice: Contact Financial Literacy Centre (FLC) at block level run by banks, or NABARD FLCC, or PACS Secretary for free advice on loan management."
+      ],
+      "friendly_answer": "Farmers can manage loan repayments effectively with planning! First, understand loan terms - amount, interest rate, effective rate after subvention (4% if prompt for KCC), due date, penalty. Repay on time to get 3% interest subvention - saves Rs 3,000 per lakh per year! KCC is designed for single repayment after harvest - repay immediately after selling produce when you have cash. Keep 10-20% buffer from income for unexpected expenses, so you don't divert repayment money. If multiple loans, prioritize high-interest first, then KCC to get subvention. Keep loan passbook and receipts, note due dates in mobile reminder. Borrow only what you need and can repay - don't over-borrow. KCC renews easily after timely repayment without fresh documents. If difficulty due to crop failure, inform PACS and bank BEFORE due date - they can restructure or help with PMFBY insurance claim as per RBI guidelines. Ensure crop insured under PMFBY - claim can help repay. Timely repayment builds good CIBIL score for future loans. Contact Financial Literacy Centre at block level for free advice.",
+      "source_name": "RBI Financial Literacy, NABARD, NCFE",
+      "source_url": "https://www.rbi.org.in",
+      "last_verified": "2026-09"
+    },
+    {
+      "id": "fin-checklist-006",
+      "title": "What should I check before taking an agricultural loan",
+      "summary": "Before taking agri loan, check lender, interest, fees, collateral, repayment, insurance, and compare options.",
+      "key_points": [
+        "Lender Authenticity: Is lender authorized? PACS, DCCB, State Cooperative Bank, commercial banks, RRBs are authorized. Avoid unregistered moneylenders charging high interest. Check if PACS is functional and computerized.",
+        "Interest Rate: What is annual interest rate? Fixed or floating? Is there government subvention for prompt repayment (e.g., KCC 7% becomes 4% if on time)? What is effective rate? Is there penal interest for late payment? Ask for written sanction letter with rate.",
+        "Fees & Charges: Processing fee, documentation charges, insurance premium (PMFBY), prepayment fee, late payment fee. Most KCC up to Rs 1.6 lakh have no processing fee as per RBI; PMFBY premium is 2% Kharif, 1.5% Rabi.",
+        "Loan Amount & Scale of Finance: Is loan amount as per scale of finance fixed by District Level Technical Committee for your crop and area? E.g., Rs 30,000 per acre for paddy - don't take much more than needed.",
+        "Collateral: Is collateral required? For agri loans up to Rs 1.6 lakh, RBI says no collateral should be asked (collateral-free). For above Rs 1.6 lakh, what collateral - land mortgage, gold, guarantor? What is risk if you can't repay?",
+        "Repayment Terms: Single repayment after harvest or EMI? Due date? Tenure? What happens if crop fails - is there restructuring as per RBI natural calamity guidelines? Is KCC revolving (renewable)?",
+        "Insurance: Is crop insured under PMFBY? Is premium deducted? What is sum insured? What risks covered? How to claim? Check policy details.",
+        "CIBIL & Documentation: Will loan be reported to CIBIL? What documents needed - Aadhaar, land record, photos? Are documents returned after verification?",
+        "Compare Options: Compare PACS/DCCB vs commercial bank vs RRB - interest, fees, service, proximity. PACS is local and understands farmers, DCCB linkage ensures lower rates.",
+        "Read Sanction Letter: Don't sign blank forms. Read loan agreement, especially interest, fees, collateral, repayment, default clauses. Ask PACS Secretary or bank officer to explain in your language.",
+        "Grievance: If loan rejected, bank must give reason in writing as per RBI. You can appeal to Banking Ombudsman.",
+        "Checklist: Before signing, ask - What is total cost (interest+fees+insurance)? What is EMI/due date? What if I can't repay on time? Is there subvention? Is crop insured?"
+      ],
+      "friendly_answer": "Before taking agricultural loan, check these! Lender - is it authorized PACS, DCCB, commercial bank, RRB? Avoid unregistered moneylenders. Interest rate - what is annual rate? Fixed or floating? Is there subvention for prompt repayment (KCC 7% becomes 4% if on time)? What is effective rate and penal interest? Ask for sanction letter. Fees - processing fee, documentation, PMFBY insurance premium (2% Kharif), prepayment, late fee - KCC up to Rs 1.6 lakh should have no processing fee. Loan amount - as per scale of finance for your crop (e.g., Rs 30,000 per acre for paddy), don't over-borrow. Collateral - up to Rs 1.6 lakh, no collateral should be asked as per RBI (collateral-free). Above that, what collateral - land, gold, guarantor? Risk if can't repay? Repayment - single after harvest or EMI? Due date? What if crop fails - restructuring available as per RBI? Is KCC revolving? Insurance - is crop insured under PMFBY? Sum insured? How to claim? CIBIL - will loan affect credit score? Documents - Aadhaar, land record? Compare PACS vs bank - PACS local and understands farmers. Read sanction letter, don't sign blank forms, ask Secretary to explain in your language. If loan rejected, bank must give reason in writing.",
+      "source_name": "RBI, NABARD, Financial Literacy Centres",
+      "source_url": "https://www.rbi.org.in",
+      "last_verified": "2026-09"
+    },
+    {
+      "id": "finlit-001",
+      "title": "RBI Financial Literacy Centres (FLCs)",
+      "summary": "Banks run Financial Literacy Centres, often at block level, to educate rural and underserved populations on savings, credit, insurance, and safe digital transactions.",
+      "topics_covered": [
+        "savings basics",
+        "responsible borrowing",
+        "digital payment safety",
+        "avoiding fraud"
+      ],
+      "source_name": "Reserve Bank of India",
+      "source_url": "https://www.rbi.org.in",
+      "last_verified": "2026-09"
+    },
+    {
+      "id": "finlit-002",
+      "title": "National Centre for Financial Education (NCFE)",
+      "summary": "NCFE implements the National Strategy for Financial Education and periodically conducts a National Financial Literacy Assessment; it produces multilingual content on saving, investing and insurance basics.",
+      "topics_covered": [
+        "financial planning",
+        "insurance basics",
+        "pension awareness",
+        "fraud prevention"
+      ],
+      "source_name": "NCFE",
+      "source_url": "https://www.ncfe.org.in",
+      "last_verified": "2026-09"
+    },
+    {
+      "id": "finlit-003",
+      "title": "NABARD Financial Literacy and Credit Counselling Centres (FLCCs)",
+      "summary": "NABARD supports rural financial literacy through FLCCs and farmer-club networks, with content tailored to agricultural credit, Kisan Credit Cards, and cooperative banking.",
+      "topics_covered": [
+        "Kisan Credit Card usage",
+        "cooperative credit basics",
+        "debt counselling"
+      ],
+      "source_name": "NABARD",
+      "source_url": "https://www.nabard.org",
+      "last_verified": "2026-09"
+    },
+    {
+      "id": "finlit-004",
+      "title": "Core financial literacy topics for the chatbot",
+      "summary": "A recommended baseline set of topics for the chatbot's financial literacy module, useful for rural/cooperative members specifically.",
+      "topics_covered": [
+        "How a Kisan Credit Card works and how to apply",
+        "Interest rates, EMIs and what 'overdue' means for a PACS loan",
+        "Basics of PMFBY premium vs subsidy",
+        "How to identify and avoid Ponzi/chit-fund style fraud schemes targeting cooperative members",
+        "Safe use of UPI/digital banking and how to spot phishing/OTP scams",
+        "Where to find your bank/PACS passbook entries and how to reconcile them"
+      ],
+      "source_name": "Compiled from RBI / NCFE / NABARD public guidance",
+      "source_url": "https://www.rbi.org.in",
+      "last_verified": "2026-09"
+    }
+  ],
+  "grievance_redressal": [
+    {
+      "id": "grievance-file-001",
+      "title": "How can I file a complaint against a cooperative society",
+      "summary": "Members can file complaint against cooperative society for mismanagement, fraud, election issues, service denial via Registrar and CPGRAMS.",
+      "key_points": [
+        "Identify Type: Is society multi-state (operates in >1 state, e.g., NAFED) or state-registered (most PACS, dairy, etc - operates in one state)? This decides where to complain.",
+        "For State-Registered Societies (most PACS): File written complaint to District Deputy Registrar / Assistant Registrar of Cooperative Societies of your district. Office usually at District Collectorate, Sahakar Bhavan, or District Cooperative Office. Mention - Society name, registration number, your membership number, nature of complaint (mismanagement, fraud, election issue, service denial), with documents and dates.",
+        "For Multi-State Societies: File complaint to Central Registrar of Cooperative Societies (CRCS), Ministry of Cooperation, New Delhi - via email or post, or to Cooperative Ombudsman (for deposits, shares, elections grievances) under MSCS Amendment 2023.",
+        "CPGRAMS Online (Easiest for all): Visit pgportal.gov.in → Click 'Lodge Public Grievance' → Register/login with mobile → Select Ministry/Department - For state societies, select your State Government → Department of Cooperation; For multi-state, select Ministry of Cooperation → Describe complaint with society name, district, membership number, attach documents → Submit → You get Registration ID (e.g., GOVCO/E/2024/...) to track.",
+        "What to Include: Your name, address, mobile, Aadhaar (optional), society name and registration number, your membership number and share certificate copy, detailed complaint with dates, names of office bearers involved, supporting documents (receipts, letters, photos), what action you expect.",
+        "Process: Deputy Registrar/Central Registrar examines complaint, may order inquiry under Section 23/65, inspection of books, call for explanation from society, and if violation found - can issue directions, order surcharge to recover loss, supersede committee and appoint Administrator, or order winding up in extreme cases.",
+        "Timeline: As per citizen charter, grievance redressal target is around 21-30 days for CPGRAMS, inquiry may take 2-3 months.",
+        "Appeal: If not satisfied with Deputy Registrar order, appeal to State Cooperative Tribunal (for state societies) or Central Tribunal (for multi-state) within 2 months, then High Court.",
+        "Helpline: CPGRAMS helpline DARPG 1964 for help in filing.",
+        "Tips: Always keep written complaint with date and acknowledgement, keep membership proof, keep copies of all correspondence."
+      ],
+      "friendly_answer": "You can file complaint against cooperative society! First check - is it multi-state (operates in more than one state like NAFED) or state-registered (most PACS - operates in one state)? For state PACS, file written complaint to District Deputy Registrar of Cooperative Societies (office at Collectorate or Sahakar Bhavan) - mention society name, registration number, your membership number, complaint details with documents. For multi-state, complain to Central Registrar of Cooperative Societies (CRCS), Ministry of Cooperation, Delhi, or to Cooperative Ombudsman for deposits/shares/elections issues. Easiest for all is online CPGRAMS: Go to pgportal.gov.in → Lodge Public Grievance → Login with mobile → Select State Government → Department of Cooperation (for state societies) or Ministry of Cooperation (for multi-state) → Describe complaint with society name, district, membership number, attach documents → Submit → You get Registration ID to track. Include your name, address, mobile, membership proof, detailed complaint with dates, supporting documents. Registrar will order inquiry, inspect books, and can take action - directions, recover loss from committee (surcharge), remove committee and appoint Administrator, or wind up in extreme cases. Timeline around 21-30 days for CPGRAMS, inquiry 2-3 months. If not satisfied, appeal to Cooperative Tribunal within 2 months. Helpline 1964 for help. Always keep written complaint with acknowledgement and membership proof.",
+      "source_name": "State Cooperative Acts, MSCS Act 2023, CPGRAMS",
+      "source_url": "https://pgportal.gov.in",
+      "last_verified": "2026-09"
+    },
+    {
+      "id": "grievance-pacs-002",
+      "title": "Where should I report a problem with PACS",
+      "summary": "For PACS problems, report to PACS Secretary, then Managing Committee, then DCCB, then Deputy Registrar, then CPGRAMS.",
+      "key_points": [
+        "Level 1 - PACS Secretary: First approach PACS Secretary at PACS office during working hours (usually 10am-5pm). Explain problem verbally and give written complaint with date, ask for written acknowledgement. Most problems (loan delay, input stock) resolved here in 7 days.",
+        "Level 2 - Managing Committee President: If Secretary doesn't resolve in 7-15 days, give written complaint to President/Chairman of Managing Committee. You can request to present issue in next committee meeting (usually monthly).",
+        "Level 3 - District Central Cooperative Bank (DCCB): For loan, KCC, credit-related issues - contact DCCB Branch Manager or Nodal Officer of your block. PACS is linked to DCCB, so DCCB can direct PACS. Provide PACS name, your membership number, loan application date, amount.",
+        "Level 4 - District Deputy Registrar / Assistant Registrar of Cooperative Societies: For serious issues - membership denial, election issues, governance, fraud, or if Level 1-3 not resolved - file written complaint to Deputy Registrar of your district. Office at District Collectorate or Sahakar Bhavan. They can order inquiry under Section 23/65, inspect PACS books.",
+        "Level 5 - State Registrar of Cooperative Societies (RCS): If district level doesn't resolve in 30-60 days, escalate to State RCS - contact from state_cooperative_registrars directory or state cooperation department website.",
+        "Level 6 - CPGRAMS Online: File at pgportal.gov.in → Lodge Grievance → Select your State Government → Department of Cooperation → Mention PACS name, village, district, membership number, problem with dates → Submit → Get ID to track. This goes to Deputy Registrar/RCS and is monitored centrally.",
+        "For Banking Services via PACS (micro-ATM): If PACS acts as Banking Correspondent and you have banking transaction issue (cash not received, etc), also complain to respective bank's Nodal Officer (bank name displayed at PACS) and to Banking Ombudsman via RBI CMS portal cms.rbi.org.in.",
+        "For PMFBY Insurance via PACS: If insurance enrollment or claim issue, call Krishi Rakshak Helpline 14447 with receipt/policy number, or file grievance at pmfby.gov.in.",
+        "What to Keep: Membership number, share certificate, loan application receipt with date, input purchase bills, photos of problem (e.g., poor quality seeds), written complaints with acknowledgement, names of staff met, dates.",
+        "Timeline: PACS should resolve in 15-30 days; Deputy Registrar inquiry in 2-3 months."
+      ],
+      "friendly_answer": "If you have problem with PACS, follow these steps! Level 1: Talk to PACS Secretary at office, give written complaint with date, take acknowledgement - most problems solved in 7 days. Level 2: If not resolved in 7-15 days, complain to President of Managing Committee in writing. Level 3: For loan/KCC issues, contact District Central Cooperative Bank (DCCB) Branch Manager - PACS is linked to DCCB, provide PACS name, membership number, loan date. Level 4: For serious issues like membership denial, fraud, or if Level 1-3 not resolved, file written complaint to District Deputy Registrar of Cooperative Societies (office at Collectorate) - they can order inquiry and inspect PACS books. Level 5: If district doesn't resolve in 30-60 days, go to State Registrar of Cooperative Societies. Level 6: File online at pgportal.gov.in (CPGRAMS) - select State Government → Department of Cooperation, mention PACS name, village, district, membership number, problem - you get ID to track. For banking via micro-ATM, also complain to bank's Nodal Officer and Banking Ombudsman at cms.rbi.org.in. For PMFBY insurance via PACS, call 14447. Always keep membership number, receipts, bills, photos, written complaints with dates and staff names. PACS should resolve in 15-30 days.",
+      "source_name": "State Cooperative Acts, RBI, PMFBY",
+      "source_url": "https://pgportal.gov.in",
+      "last_verified": "2026-09"
+    },
+    {
+      "id": "grievance-dispute-003",
+      "title": "What is the procedure for resolving a cooperative society dispute",
+      "summary": "Cooperative disputes are resolved through Cooperative Court/Tribunal under Section 70/84 of State Acts, not regular civil court.",
+      "key_points": [
+        "What is Dispute: Dispute includes - membership admission/rejection, election disputes, Managing Committee removal, loan recovery, surcharge (recovery of loss from committee), employee disputes, business transactions between society and member.",
+        "Where to File: File dispute under Section 70 (in many State Acts) or Section 84 (in MSCS Act) before Cooperative Court / Cooperative Tribunal / Assistant Registrar (as notified by state). Not in regular civil court - cooperative disputes have special forum.",
+        "How to File: Write dispute application (like plaint) with - Your name and membership details, Opposite party (society/committee/member), Facts with dates, Relief sought, Supporting documents (share certificate, loan agreement, meeting minutes, etc), Pay court fee as per state rules (usually nominal Rs 50-200).",
+        "Limitation: File within 2 months for election disputes from declaration of results, and generally within 3-5 years for other disputes as per Limitation Act, but check state Act - some have 3 years from cause of action.",
+        "Process: Court issues notice to opposite party, both parties present evidence, witnesses, documents, arguments. Court may order mediation/conciliation first in some states.",
+        "Orders: Court can order - Admission of member, set aside election, removal of committee, recovery of loan, surcharge to recover loss, compensation, etc.",
+        "Appeal: Appeal to State Cooperative Tribunal (for state societies) or Central Tribunal (for multi-state) within 2 months of order, then to High Court on points of law.",
+        "Alternative - Ombudsman: For multi-state societies, for grievances related to deposits, shares, elections, you can also approach Cooperative Ombudsman under MSCS Amendment 2023 for time-bound resolution (90 days).",
+        "Mediation: Many states now have Cooperative Mediation Cells for faster, amicable resolution without long court process - ask Deputy Registrar about mediation.",
+        "Legal Aid: If you cannot afford lawyer, contact District Legal Services Authority (DLSA) for free legal aid - they have panel lawyers for cooperative disputes.",
+        "Tips: Keep all documents - membership proof, receipts, meeting notices, correspondence. File dispute with clear dates and relief sought. Attend hearings regularly."
+      ],
+      "friendly_answer": "Cooperative disputes are resolved in special Cooperative Court, not regular civil court! Dispute includes membership issues, election disputes, committee removal, loan recovery, loss recovery from committee. Where to file: File under Section 70 of State Cooperative Act (or Section 84 for multi-state) before Cooperative Court/Tribunal or Assistant Registrar as per your state. How to file: Write application with your name and membership details, opposite party (society), facts with dates, what you want (relief), attach documents like share certificate, loan agreement, meeting minutes, pay small court fee Rs 50-200. File within 2 months for election disputes, generally 3-5 years for others. Process: Court issues notice to opposite party, both present evidence and arguments, may try mediation first. Court can order admission of member, set aside election, removal of committee, loan recovery, compensation. Appeal to State Cooperative Tribunal within 2 months, then High Court. For multi-state societies, you can also approach Cooperative Ombudsman for deposits/shares/elections issues for resolution in 90 days. Many states have mediation cells for faster solution - ask Deputy Registrar. If you can't afford lawyer, contact District Legal Services Authority for free legal aid. Keep all documents and attend hearings regularly.",
+      "source_name": "State Cooperative Societies Acts, MSCS Act",
+      "source_url": "https://www.cooperation.gov.in",
+      "last_verified": "2026-09"
+    },
+    {
+      "id": "grievance-loanreject-004",
+      "title": "What should I do if my loan application is rejected without proper explanation",
+      "summary": "If loan application rejected without proper reason, bank/PACS must give reason in writing as per RBI, and you have right to appeal.",
+      "key_points": [
+        "Right to Reason: As per RBI guidelines, if your loan application (including KCC, crop loan) is rejected, bank/PACS/DCCB must give reason in writing. They cannot reject without explanation.",
+        "Common Reasons for Rejection: Low CIBIL score due to previous default, incomplete documents (land record not updated, Aadhaar not linked), already defaulter of other bank, land not in your name and no tenancy proof, loan amount more than scale of finance, NPA account, or PACS/DCCB has no funds (should still give reason).",
+        "Step 1 - Ask for Written Reason: Immediately ask PACS Secretary or Bank Branch Manager for rejection letter with specific reason in writing, with date and seal. If they refuse, give written request and take acknowledgement.",
+        "Step 2 - Rectify Issue: If reason is - CIBIL low due to old default, repay old dues and get No Dues Certificate; Documents incomplete, provide updated land record, Aadhaar linkage; Land not in name, provide tenancy agreement or Panchayat certificate; Amount high, apply for lower amount as per scale of finance.",
+        "Step 3 - Reapply: After rectifying, reapply with corrected documents and previous rejection letter. For KCC up to Rs 1.6 lakh, RBI says no collateral should be asked - if rejected for collateral, point out RBI circular.",
+        "Step 4 - Approach DCCB: If PACS rejects, approach DCCB Branch Manager or Nodal Officer with your application and PACS rejection reason - DCCB can review and direct PACS or sanction directly in some cases.",
+        "Step 5 - Banking Ombudsman: If bank/PACS still rejects without valid reason or doesn't give reason in writing, file complaint with Banking Ombudsman via RBI CMS portal cms.rbi.org.in or at RBI office. Banking Ombudsman handles complaints about loan rejection without reason, non-observance of RBI guidelines.",
+        "Step 6 - CPGRAMS: File grievance at pgportal.gov.in → Select Department of Financial Services (for banks) or State Government → Department of Cooperation (for PACS) → Mention loan application date, amount, rejection without reason, attach application copy.",
+        "Step 7 - Deputy Registrar: For PACS loan rejection without reason, also complain to District Deputy Registrar of Cooperative Societies - they can inquire and direct PACS to follow RBI guidelines.",
+        "RBI Guidelines: As per RBI, banks should - Give acknowledgement for loan application, Dispose application within 2-4 weeks, Give reason in writing if rejected, Not discriminate, Follow scale of finance.",
+        "Tips: Always keep loan application copy with date and acknowledgement, keep CIBIL report (check free once a year at cibil.com), keep land records updated, maintain good repayment history."
+      ],
+      "friendly_answer": "If your loan application rejected without proper explanation, you have rights! As per RBI, bank/PACS must give reason in writing - cannot reject without explanation. Common reasons: Low CIBIL due to old default, incomplete documents (land record not updated, Aadhaar not linked), already defaulter, land not in your name without tenancy proof, amount more than scale of finance. Step 1: Ask PACS Secretary or Bank Manager for rejection letter with specific reason in writing with date and seal. If they refuse, give written request and take acknowledgement. Step 2: Rectify issue - if CIBIL low, repay old dues and get No Dues Certificate; if documents incomplete, provide updated land record, Aadhaar linkage; if land not in name, provide tenancy agreement or Panchayat certificate; if amount high, apply for lower amount as per scale (e.g., Rs 30,000 per acre for paddy). Step 3: Reapply with corrected documents. For KCC up to Rs 1.6 lakh, no collateral should be asked as per RBI - if rejected for collateral, point out RBI circular. Step 4: If PACS rejects, approach District Central Cooperative Bank (DCCB) Branch Manager with application and rejection reason - DCCB can review. Step 5: If still rejected without valid reason, file complaint with Banking Ombudsman at cms.rbi.org.in. Step 6: File at pgportal.gov.in (CPGRAMS) - select Department of Financial Services for banks or State Cooperation for PACS. Step 7: For PACS, also complain to District Deputy Registrar. RBI says banks should give acknowledgement, dispose in 2-4 weeks, give reason in writing if rejected. Always keep application copy with acknowledgement, check CIBIL free once a year, keep land records updated.",
+      "source_name": "RBI Master Directions, Banking Ombudsman Scheme",
+      "source_url": "https://www.rbi.org.in",
+      "last_verified": "2026-09"
+    },
+    {
+      "id": "grievance-track-005",
+      "title": "How can I track the status of my grievance",
+      "summary": "You can track grievance status via CPGRAMS portal, helpline, or respective department portal using registration ID.",
+      "key_points": [
+        "CPGRAMS Grievance: If you filed at pgportal.gov.in, you got Registration ID like GOVCO/E/2024/12345. Track at pgportal.gov.in → View Status → Enter Registration ID + mobile/email + captcha → Shows current status, action taken, officer assigned, expected timeline. You also get SMS/email updates on registered mobile/email.",
+        "PMFBY Insurance Grievance/Claim: If you reported crop loss via Crop Insurance App or 14447, you got Ticket Number. Track at pmfby.gov.in → Farmer Corner → Track Application or Claim Status → Enter Receipt/Policy/Ticket Number, or call 14447 with ticket number, or via Crop Insurance App → My Policies → Claim Status.",
+        "Banking Ombudsman Complaint: If filed at cms.rbi.org.in (RBI Complaint Management System), you get Complaint Number. Track at cms.rbi.org.in → Track Complaint → Enter Complaint Number + mobile.",
+        "State Registrar / Deputy Registrar Complaint: If filed written complaint to Deputy Registrar/RCS, note inward number/date from acknowledgement. Track by visiting office with acknowledgement or calling office phone (from state_cooperative_registrars directory) with inward number.",
+        "PACS Level Complaint: If complained to PACS Secretary/President, track by visiting PACS office with acknowledgement copy and asking for action taken in Managing Committee meeting minutes.",
+        "DCCB Complaint: If complained to DCCB, track via DCCB Branch Manager with complaint copy and date.",
+        "Timeline: CPGRAMS target is 21-30 days, with SMS/email at each stage; PMFBY claim survey within 10 days, claim settlement 2-3 months; Banking Ombudsman 30 days; Deputy Registrar inquiry 2-3 months.",
+        "If No Update: If status not updated beyond timeline, you can send reminder via same portal (CPGRAMS has reminder option), or call helpline - CPGRAMS 1964, PMFBY 14447, RBI 14448, or visit office with ID.",
+        "Escalation: If not satisfied with resolution, CPGRAMS allows appeal to Nodal Appellate Authority within 30 days of closure; PMFBY allows escalation to District Level Monitoring Committee; Banking Ombudsman allows appeal to Appellate Authority.",
+        "Tips: Always keep Registration ID/Ticket Number/Complaint Number safe - take photo, save SMS. Keep mobile active for SMS alerts. Check status weekly."
+      ],
+      "friendly_answer": "You can track grievance status easily! If you filed at pgportal.gov.in (CPGRAMS), you got Registration ID like GOVCO/E/2024/12345. Go to pgportal.gov.in → View Status → Enter Registration ID + mobile + captcha → Shows current status, action taken, officer, timeline. You also get SMS/email updates. For PMFBY insurance claim, if you reported loss via App or 14447, you got Ticket Number - track at pmfby.gov.in → Farmer Corner → Claim Status → Enter ticket number, or call 14447, or via Crop Insurance App → My Policies. For Banking Ombudsman complaint filed at cms.rbi.org.in, you get Complaint Number - track at same portal → Track Complaint. For complaint to Deputy Registrar/RCS, note inward number from acknowledgement, track by visiting office or calling with inward number (from registrars directory). For PACS complaint, visit office with acknowledgement and ask for action in committee meeting minutes. Timeline: CPGRAMS 21-30 days, PMFBY survey 10 days, claim 2-3 months, Banking Ombudsman 30 days, Deputy Registrar 2-3 months. If no update beyond timeline, send reminder via portal or call helpline - CPGRAMS 1964, PMFBY 14447, RBI 14448. If not satisfied, you can appeal - CPGRAMS allows appeal to Nodal Appellate Authority within 30 days, PMFBY to District Level Monitoring Committee. Always keep Registration ID safe - take photo, keep mobile active for SMS, check weekly.",
+      "source_name": "CPGRAMS, PMFBY, RBI CMS",
+      "source_url": "https://pgportal.gov.in",
+      "last_verified": "2026-09"
+    },
+    {
+      "id": "grievance-escalate-006",
+      "title": "Who should I contact if my complaint is not resolved",
+      "summary": "If complaint not resolved at lower level, escalate to higher authorities - Nodal Officer, Appellate Authority, Tribunal, and finally High Court.",
+      "key_points": [
+        "For PACS/State Cooperative Society Complaint: Level 1 - PACS Secretary (7 days) → Level 2 - Managing Committee President (15 days) → Level 3 - DCCB Branch Manager (for loan) (15 days) → Level 4 - District Deputy Registrar (30-60 days, can order inquiry) → Level 5 - State Registrar of Cooperative Societies (RCS) (60-90 days) → Level 6 - CPGRAMS Appeal to Nodal Appellate Authority (30 days after closure) → Level 7 - State Cooperative Tribunal (appeal within 2 months) → Level 8 - High Court (on points of law).",
+        "For Multi-State Cooperative Society: Level 1 - Society Secretary → Level 2 - Central Registrar of Cooperative Societies (CRCS), Ministry of Cooperation, New Delhi → Level 3 - Cooperative Ombudsman (for deposits, shares, elections - 90 days resolution) → Level 4 - Central Cooperative Tribunal → Level 5 - High Court.",
+        "For PMFBY Crop Insurance: Level 1 - Insurance Company via 14447/App (survey in 10 days) → Level 2 - District Level Monitoring Committee (Collector, Agriculture Officer, Insurance Company) → Level 3 - State Level Grievance Cell → Level 4 - Central Grievance Cell at Ministry of Agriculture → Level 5 - CPGRAMS (Ministry of Agriculture).",
+        "For Banking/Loan Rejection: Level 1 - Bank Branch Manager/PACS Secretary → Level 2 - DCCB Nodal Officer / Bank Zonal Office → Level 3 - Banking Ombudsman via cms.rbi.org.in (30 days) → Level 4 - Appellate Authority at RBI (30 days after Ombudsman) → Level 5 - CPGRAMS (Department of Financial Services).",
+        "For CPGRAMS Grievance Not Resolved: If you filed at pgportal.gov.in and not satisfied with resolution, you can file appeal within 30 days of closure - Go to pgportal.gov.in → View Status → Click 'Appeal' → Select reason for appeal → Submit → Goes to Nodal Appellate Authority (senior officer) of concerned department.",
+        "Helplines for Escalation: CPGRAMS - 1964 (DARPG helpline), PMFBY - 14447, RBI Banking Ombudsman - 14448, Central Registrar - 011-23381177, Ministry of Cooperation - 011-23381002.",
+        "Legal Aid: If you cannot afford lawyer for Tribunal/High Court, contact District Legal Services Authority (DLSA) at District Court - they provide free legal aid and panel lawyers for cooperative, banking, insurance disputes.",
+        "Documentation for Escalation: Keep all previous complaints with dates, acknowledgement numbers, responses received, Registration IDs, ticket numbers, and clearly mention what action you expect and why previous resolution not satisfactory.",
+        "Tips: Always escalate step by step - don't jump to High Court directly. Give each level reasonable time (15-30 days) before escalating. Keep written record of all escalations with dates."
+      ],
+      "friendly_answer": "If your complaint not resolved, escalate step by step! For PACS/state society: Start with PACS Secretary (7 days) → Managing Committee President (15 days) → DCCB Branch Manager for loan issues (15 days) → District Deputy Registrar (30-60 days, can order inquiry) → State Registrar of Cooperative Societies (60-90 days) → CPGRAMS Appeal to Nodal Appellate Authority within 30 days of closure → State Cooperative Tribunal (appeal within 2 months) → High Court. For multi-state society: Society Secretary → Central Registrar (CRCS), Ministry of Cooperation, Delhi → Cooperative Ombudsman for deposits/shares/elections (90 days) → Central Tribunal → High Court. For PMFBY crop insurance: Insurance Company via 14447 (survey 10 days) → District Level Monitoring Committee (Collector, Agri Officer) → State Grievance Cell → Central Cell at Ministry of Agriculture → CPGRAMS. For banking/loan rejection: Branch Manager → DCCB Nodal Officer/Zonal Office → Banking Ombudsman at cms.rbi.org.in (30 days) → Appellate Authority at RBI → CPGRAMS (Dept of Financial Services). For CPGRAMS not resolved, you can appeal within 30 days of closure at pgportal.gov.in → View Status → Appeal → Goes to senior officer. Helplines: CPGRAMS 1964, PMFBY 14447, RBI 14448, Central Registrar 011-23381177. If you can't afford lawyer for Tribunal/High Court, contact District Legal Services Authority (DLSA) at District Court for free legal aid. Keep all previous complaints with dates, IDs, responses, and clearly mention why previous resolution not satisfactory. Always escalate step by step, give each level 15-30 days.",
+      "source_name": "CPGRAMS, RBI Banking Ombudsman, PMFBY, Cooperative Acts",
+      "source_url": "https://pgportal.gov.in",
+      "last_verified": "2026-09"
+    },
+    {
+      "id": "grievance-001",
+      "title": "CPGRAMS — Centralized Public Grievance Redress and Monitoring System",
+      "summary": "A single online portal connected to all central ministries/departments and states, available 24x7, where any citizen can lodge a grievance against a government service, including cooperative and agriculture-related departments.",
+      "how_to_use": [
+        "Visit pgportal.gov.in → 'Grievance' → 'Lodge Public Grievance'.",
+        "Track status anytime using the unique registration ID issued at submission.",
+        "If unsatisfied with resolution, an appeal can be filed with the Nodal Appellate Authority.",
+        "Also accessible via a standalone mobile app and through UMANG."
+      ],
+      "timelines": "Grievance redressal timelines have been progressively tightened; recent guidance targets around 21 days, with feedback sent to the citizen by SMS/email.",
+      "helpline": "DARPG helpline: 1964",
+      "source_name": "DARPG / pgportal.gov.in",
+      "source_url": "https://pgportal.gov.in",
+      "last_verified": "2026-09"
+    },
+    {
+      "id": "grievance-002",
+      "title": "Grievances against multi-state cooperative societies",
+      "summary": "Complaints about a multi-state cooperative society (e.g., disputed elections, mismanaged deposits) can be raised with the Central Registrar of Cooperative Societies (CRCS) under the Ministry of Cooperation.",
+      "how_to_use": [
+        "The 2023 MSCS Act amendment introduced a Cooperative Ombudsman mechanism intended for time-bound resolution of such member complaints.",
+        "Complaints can also be routed through CPGRAMS under the Ministry of Cooperation."
+      ],
+      "source_name": "Ministry of Cooperation",
+      "source_url": "https://www.cooperation.gov.in",
+      "last_verified": "2026-09"
+    },
+    {
+      "id": "grievance-003",
+      "title": "Grievances against state-registered cooperatives (most PACS)",
+      "summary": "For PACS and other state-registered cooperative societies, complaints go to the District Registrar of Cooperative Societies, under the state's Registrar of Cooperative Societies (RCS) office.",
+      "how_to_use": [
+        "A chatbot should ask for the user's state and district to direct them to the correct RCS office contact.",
+        "Many states also allow such grievances to be filed through their own state CPGRAMS-linked portal."
+      ],
+      "source_name": "State Cooperation Departments",
+      "source_url": "https://www.cooperation.gov.in",
+      "last_verified": "2026-09"
+    },
+    {
+      "id": "grievance-004",
+      "title": "PMFBY-specific grievance/claim disputes",
+      "summary": "Disputes over crop insurance claims (e.g., delayed or denied payout) can be escalated through dedicated crop-insurance channels rather than general CPGRAMS.",
+      "how_to_use": [
+        "Krishi Rakshak Helpline: 14447 for loss reporting and claim queries.",
+        "District Level Monitoring Committee and State-level grievance cells handle unresolved PMFBY disputes.",
+        "Always keep the enrollment Receipt Number / Policy ID and any loss-reporting ticket number for reference."
+      ],
+      "source_name": "PMFBY Operational Guidelines",
+      "source_url": "https://pmfby.gov.in",
+      "last_verified": "2026-09"
+    },
+    {
+      "id": "grievance-005",
+      "title": "Grievances against cooperative banks / financial institutions",
+      "summary": "The Department of Financial Services (Ministry of Finance) handles grievances relating to cooperative banks, RBI-regulated entities, and insurance companies.",
+      "how_to_use": [
+        "File via CPGRAMS (pgportal.gov.in), which routes the complaint to DFS.",
+        "RBI's own Complaint Management System (CMS) and the Banking Ombudsman scheme are alternate channels for banking-specific disputes.",
+        "Postal complaints can also be sent directly to DFS, Ministry of Finance, New Delhi."
+      ],
+      "source_name": "Department of Financial Services",
+      "source_url": "https://www.financialservices.gov.in",
+      "last_verified": "2026-09"
+    }
+  ],
+  "crop_insurance_other_schemes": [
+    {
+      "id": "insure-001",
+      "title": "Weather Based Crop Insurance Scheme (WBCIS)",
+      "summary": "An alternative to yield-based PMFBY that pays out based on adverse weather parameters (rainfall, temperature, humidity) measured at notified weather stations, rather than waiting for actual crop-cutting yield data.",
+      "key_points": [
+        "Used in some states/seasons alongside or instead of PMFBY depending on state notification.",
+        "Faster payouts than yield-based assessment since it doesn't require crop-cutting experiments."
+      ],
+      "source_name": "PMFBY / Ministry of Agriculture",
+      "source_url": "https://pmfby.gov.in",
+      "last_verified": "2026-09"
+    },
+    {
+      "id": "insure-002",
+      "title": "Restructured Weather Based Crop Insurance Scheme (RWBCIS)",
+      "summary": "A refined version of WBCIS with revised trigger parameters, run in parallel with PMFBY under the same National Crop Insurance Portal framework.",
+      "source_name": "PMFBY / Ministry of Agriculture",
+      "source_url": "https://pmfby.gov.in",
+      "last_verified": "2026-09"
+    },
+    {
+      "id": "insure-wbcis-001",
+      "title": "Weather Based Crop Insurance Scheme (WBCIS)",
+      "summary": "Alternative to PMFBY that pays based on adverse weather parameters measured at weather stations, not yield loss.",
+      "key_points": [
+        "Pays out based on rainfall, temperature, humidity, wind speed measured at notified weather stations.",
+        "Faster payouts than yield-based since no crop-cutting experiments needed.",
+        "Used in some states/seasons alongside or instead of PMFBY as per state notification."
+      ],
+      "source_name": "PMFBY / Ministry of Agriculture",
+      "source_url": "https://pmfby.gov.in",
+      "last_verified": "2026-09"
+    }
+  ],
+  "financial_literacy_extra": [
+    {
+      "id": "finlit-kcc-001",
+      "title": "Kisan Credit Card explained for financial literacy",
+      "summary": "KCC is credit line for farmers for crop and allied needs, with low interest and insurance cover.",
+      "key_points": [
+        "Provides timely credit for crop production, post-harvest, consumption, working capital for allied activities.",
+        "Up to Rs 3 lakh at 7% interest, 3% subvention for prompt repayment (effective 4%), collateral-free up to Rs 1.6 lakh.",
+        "RuPay card for withdrawals via micro-ATM at PACS, auto-enrolled in PMFBY crop insurance."
+      ],
+      "source_name": "NABARD, Ministry of Cooperation",
+      "source_url": "https://www.nabard.org",
+      "last_verified": "2026-09"
+    }
+  ],
+  "national_cooperative_federations": [
+    {
+      "id": "fed-001",
+      "name": "National Cooperative Union of India (NCUI)",
+      "role": "Apex national-level federation representing and advocating for the cooperative movement across sectors.",
+      "source_url": "https://ncui.coop"
+    },
+    {
+      "id": "fed-002",
+      "name": "National Cooperative Development Corporation (NCDC)",
+      "role": "Statutory financial and developmental institution devoted exclusively to the cooperative sector; funds and promotes projects in agri-processing, marketing, storage, and now runs Sahakar Mitra.",
+      "source_url": "https://www.ncdc.in"
+    },
+    {
+      "id": "fed-003",
+      "name": "National Agricultural Cooperative Marketing Federation of India (NAFED)",
+      "role": "Apex marketing federation for agricultural cooperatives; handles procurement and price support operations for several crops.",
+      "source_url": "https://nafed-india.com"
+    },
+    {
+      "id": "fed-004",
+      "name": "National Cooperative Consumers' Federation of India (NCCF)",
+      "role": "Apex body for consumer cooperatives, involved in retail distribution including price-stabilization sales.",
+      "source_url": "https://www.nccf-india.com"
+    },
+    {
+      "id": "fed-005",
+      "name": "National Cooperative Exports Limited (NCEL)",
+      "role": "Newer multi-state cooperative promoting exports of agricultural and allied products from the cooperative sector.",
+      "source_url": "https://www.cooperation.gov.in"
+    },
+    {
+      "id": "fed-006",
+      "name": "National Cooperative Organics Limited (NCOL)",
+      "role": "Promotes certification, branding, and marketing of organic products from cooperatives, including PACS/FPOs.",
+      "source_url": "https://www.cooperation.gov.in"
+    },
+    {
+      "id": "fed-007",
+      "name": "National Urban Cooperative Finance and Development Corporation (NUCFDC)",
+      "role": "Umbrella organization for Urban Cooperative Banks (UCBs), inaugurated 2 March 2024, to strengthen the urban cooperative banking sector.",
+      "source_url": "https://www.cooperation.gov.in"
+    },
+    {
+      "id": "fed-008",
+      "name": "National Dairy Development Board (NDDB)",
+      "role": "Apex body promoting dairy cooperatives (the 'Amul model'); works with NCDC on new dairy cooperative formation.",
+      "source_url": "https://www.nddb.coop"
+    }
+  ],
+  "glossary": [
+    {
+      "term": "PACS",
+      "definition": "Primary Agricultural Credit Society — the grassroots-level farmer credit cooperative."
+    },
+    {
+      "term": "DCCB",
+      "definition": "District Central Cooperative Bank — the mid-tier bank that PACS are linked to."
+    },
+    {
+      "term": "RCS",
+      "definition": "Registrar of Cooperative Societies — the state government authority overseeing cooperatives in that state."
+    },
+    {
+      "term": "CRCS",
+      "definition": "Central Registrar of Cooperative Societies — the central authority overseeing multi-state cooperative societies."
+    },
+    {
+      "term": "MSCS",
+      "definition": "Multi-State Cooperative Society — a cooperative operating in more than one state, governed by the MSCS Act 2002."
+    },
+    {
+      "term": "KCC",
+      "definition": "Kisan Credit Card — a credit line for farmers covering crop production and allied needs."
+    },
+    {
+      "term": "PMFBY",
+      "definition": "Pradhan Mantri Fasal Bima Yojana — the government's main crop insurance scheme."
+    },
+    {
+      "term": "NCIP",
+      "definition": "National Crop Insurance Portal (pmfby.gov.in) — the official portal for PMFBY enrollment and claims."
+    },
+    {
+      "term": "WBCIS",
+      "definition": "Weather Based Crop Insurance Scheme — insurance triggered by adverse weather readings rather than yield loss."
+    },
+    {
+      "term": "CPGRAMS",
+      "definition": "Centralized Public Grievance Redress and Monitoring System — the central government's grievance portal."
+    },
+    {
+      "term": "CSC",
+      "definition": "Common Service Centre — a village-level access point for government e-services, increasingly hosted at PACS."
+    },
+    {
+      "term": "NABARD",
+      "definition": "National Bank for Agriculture and Rural Development — the apex development bank for agriculture and rural credit."
+    },
+    {
+      "term": "FPO",
+      "definition": "Farmer Producer Organization — a farmer-owned collective for input purchase, aggregation, and marketing, often promoted via PACS/NCDC."
+    },
+    {
+      "term": "Sahakar-se-Samriddhi",
+      "definition": "The guiding vision phrase ('Prosperity through Cooperation') behind the National Cooperation Policy 2025."
+    }
+  ],
+  "helplines_quick_reference": [
+    {
+      "purpose": "General public grievance against any central/state government department",
+      "channel": "CPGRAMS portal",
+      "contact": "pgportal.gov.in / DARPG helpline 1964"
+    },
+    {
+      "purpose": "Crop loss reporting / PMFBY claim query",
+      "channel": "Krishi Rakshak Helpline",
+      "contact": "14447"
+    },
+    {
+      "purpose": "PMFBY application/claim status check",
+      "channel": "National Crop Insurance Portal, Farmer Corner",
+      "contact": "pmfby.gov.in"
+    },
+    {
+      "purpose": "Grievance re: cooperative bank, RBI-regulated entity, or insurer",
+      "channel": "CPGRAMS -> routed to Dept. of Financial Services; or RBI CMS / Banking Ombudsman",
+      "contact": "pgportal.gov.in"
+    },
+    {
+      "purpose": "Grievance re: a multi-state cooperative society",
+      "channel": "Central Registrar of Cooperative Societies (CRCS) / Cooperative Ombudsman",
+      "contact": "crcs.gov.in"
+    },
+    {
+      "purpose": "Grievance re: a state-registered cooperative (most PACS)",
+      "channel": "State/District Registrar of Cooperative Societies",
+      "contact": "see state_cooperative_registrars section"
+    }
+  ],
+  "state_cooperative_registrars": {
+    "_note": "Official directory sourced directly from the Ministry of Cooperation's Central Registrar of Cooperative Societies (CRCS) portal — the primary government source, not a third-party aggregator. Covers all states plus 6 Union Territories. Still verify phone/email before production use, as government office contacts are updated periodically; portal is the safest live link to point users to for anything county-office contact info may have missed.",
+    "entries": [
+      {
+        "state": "Andhra Pradesh",
+        "office": "Commissioner & Registrar of Cooperative Societies",
+        "address": "5th Floor, Gruhakalpa, Mojam Jahi Road, Hyderabad-500001, Andhra Pradesh",
+        "phone": "040-24613043",
+        "email": "ccandress@ap.gov.in"
+      },
+      {
+        "state": "Arunachal Pradesh",
+        "office": "Registrar of Cooperative Societies",
+        "address": "Sahkarita Bhawan, Court Street, D-Sector, Naharlagun-791110",
+        "phone": "0360-2244319",
+        "email": "cooparun@gmail.com"
+      },
+      {
+        "state": "Assam",
+        "office": "Registrar of Cooperative Societies",
+        "address": "Khanapara, Guwahati-781022",
+        "phone": "0361-2359936",
+        "email": "rcs@rcsassam.org"
+      },
+      {
+        "state": "Bihar",
+        "office": "Registrar, Cooperative Societies",
+        "address": "2nd Floor, Vikas Bhawan, New Secretariat, Patna-800015",
+        "phone": "0612-2215884",
+        "email": "rcsbihar1@gmail.com"
+      },
+      {
+        "state": "Chhattisgarh",
+        "office": "Registrar of Cooperative Societies",
+        "address": "Block B, 2nd & 3rd Floor, Indrawati Bhawan, Naya Raipur-492001",
+        "phone": "0771-2511921",
+        "email": "rcs.coop@nic.in"
+      },
+      {
+        "state": "Goa",
+        "office": "Registrar of Cooperative Societies",
+        "address": "Sahakar Sankul, 4th & 5th Floor, EDC Complex, Patto, Panaji",
+        "phone": "0832-2437134",
+        "email": "reg-orcs.goa@nic.in"
+      },
+      {
+        "state": "Gujarat",
+        "office": "Registrar of Cooperative Societies",
+        "address": "Block 10, 1st Floor, Dr. Jivraj Mehta Bhavan, Gandhinagar-382010",
+        "phone": "079-23253868",
+        "email": "rcs@gujarat.gov.in"
+      },
+      {
+        "state": "Haryana",
+        "office": "Registrar of Cooperative Societies",
+        "address": "Bays 27-30, Sector 2, Sahakarita Bhawan, Panchkula-134109",
+        "phone": "0172-2585023",
+        "email": "cooperatives@hry.nic.in"
+      },
+      {
+        "state": "Himachal Pradesh",
+        "office": "Registrar of Cooperative Societies",
+        "address": "25 SDA Complex, Sahkaar Bhavan, Kasumpti, Shimla-171009",
+        "phone": "0177-2620970",
+        "email": "rcs-hp@nic.in"
+      },
+      {
+        "state": "Jammu & Kashmir",
+        "office": "Registrar of Cooperative Societies",
+        "address": "Jawahar Nagar, Srinagar (summer) / Rajinder Nagar, Jammu (winter)",
+        "phone": "0194-2490327 / 0191-2597859",
+        "email": "rcsjnk@gmail.com"
+      },
+      {
+        "state": "Jharkhand",
+        "office": "Registrar, Cooperative Societies",
+        "address": "Engineer's Hostel No. 02, Near Dhurwa Golchakkar, Dhurwa, Ranchi-834004",
+        "phone": "0651-2400490",
+        "email": "jharkhand.coopregistrar@gmail.com"
+      },
+      {
+        "state": "Karnataka",
+        "office": "Registrar of Cooperative Societies",
+        "address": "No. 1, Ali Asker Road, Bengaluru-560052",
+        "phone": "080-22252036",
+        "email": "rcs-ka@nic.in"
+      },
+      {
+        "state": "Kerala",
+        "office": "Registrar of Co-operative Societies",
+        "address": "NSS Building, Behind Govt. Secretariat, Thiruvananthapuram-695001",
+        "phone": "0471-2331982",
+        "email": "keralarcs@coop.kerala.gov.in"
+      },
+      {
+        "state": "Madhya Pradesh",
+        "office": "Registrar Cooperative Societies",
+        "address": "Ground Floor, Vindhyachal Bhawan, Arera Hills, Bhopal-462004",
+        "phone": "0755-2551513",
+        "email": "rcs_mp@yahoo.co.in"
+      },
+      {
+        "state": "Maharashtra",
+        "office": "Commissioner for Cooperation & Registrar of Cooperative Societies",
+        "address": "2nd Floor, New Central Building, Ambedkar Wellesly Rd, Pune-411001",
+        "phone": "020-26122846",
+        "email": "commcoop@rediffmail.gov.in"
+      },
+      {
+        "state": "Manipur",
+        "office": "Registrar of Cooperative Societies",
+        "address": "Cooperation Complex, Lamphelpat, Imphal-795004",
+        "phone": "0385-2310770",
+        "email": "registrar.coop-mn@gov.in"
+      },
+      {
+        "state": "Meghalaya",
+        "office": "Registrar of Cooperative Societies",
+        "address": "New Administrative Building, Lower Lachumiere, Shillong-793001",
+        "phone": "0364-2210132",
+        "email": "jrcs.estt@gmail.com"
+      },
+      {
+        "state": "Mizoram",
+        "office": "Registrar of Cooperative Societies",
+        "address": "Babutlang, Aizawl-796001",
+        "phone": "0364-2210132",
+        "email": "cooperationdept@gmail.com"
+      },
+      {
+        "state": "Nagaland",
+        "office": "Registrar of Cooperative Societies",
+        "address": "Kohima-797001",
+        "phone": "0370-2241608",
+        "email": "nagaland16tpc@gmail.com"
+      },
+      {
+        "state": "Odisha",
+        "office": "Registrar of Cooperative Societies",
+        "address": "Head of Department Building, Bhubaneswar-751001",
+        "phone": "0674-2401224",
+        "email": "rcs@ori.nic.in"
+      },
+      {
+        "state": "Punjab",
+        "office": "Registrar, Cooperative Societies",
+        "address": "17 Bays Building, Sector 17, Chandigarh-160017",
+        "phone": "0172-5046808",
+        "email": "rcspunjab@gmail.com"
+      },
+      {
+        "state": "Rajasthan",
+        "office": "Registrar of Cooperative Societies",
+        "address": "Nehru Sahakar Bhawan, 22 Godown, Bhawani Singh Road, Jaipur-302001",
+        "phone": "0141-2740737",
+        "email": "reg.coop@rajasthan.gov.in"
+      },
+      {
+        "state": "Sikkim",
+        "office": "Registrar, Cooperative Societies",
+        "address": "Sahakari Bhawan, Tadong, Gangtok-737102",
+        "phone": "03592-231878",
+        "email": "coop_sikkim@yahoo.com"
+      },
+      {
+        "state": "Tamil Nadu",
+        "office": "Registrar of Cooperative Societies",
+        "address": "170 Periyar EVR High Road, Kilpauk, Chennai-600010",
+        "phone": "044-28252425",
+        "email": "rcs@tn.nic.in"
+      },
+      {
+        "state": "Telangana",
+        "office": "Registrar of Cooperative Societies",
+        "address": "Gruha Kalpa Building, M J Road, Nampally, Hyderabad-500001",
+        "phone": "040-24613041 (fax)",
+        "email": "tsccandres@gmail.com"
+      },
+      {
+        "state": "Tripura",
+        "office": "Registrar of Cooperative Societies",
+        "address": "Palace Compound, North Gate, Agartala-799001",
+        "phone": "0381-2323765",
+        "email": "commcoop@rediffmail.com"
+      },
+      {
+        "state": "Uttar Pradesh",
+        "office": "Registrar of Cooperative Societies",
+        "address": "14 Vidhan Sabha Marg, Lucknow-226001",
+        "phone": "0522-2622267",
+        "email": "comm.coop.up@gmail.com"
+      },
+      {
+        "state": "Uttarakhand",
+        "office": "Addl. Secretary Cooperation & Registrar of Cooperative Societies",
+        "address": "108, Old Nehru Colony, Dehradun-248001",
+        "phone": "0135-2669722",
+        "email": "drfscddn@gmail.com"
+      },
+      {
+        "state": "West Bengal",
+        "office": "Registrar of Cooperative Societies",
+        "address": "New Secretariat Building, 4th Floor, 1 K.S. Roy Road, Kolkata-700001",
+        "phone": "033-22486271",
+        "email": "coopwbdte@gmail.com"
+      },
+      {
+        "state": "Puducherry (UT)",
+        "office": "Registrar of Cooperative Societies",
+        "address": "V.V.P. Nagar, Thattanchavady, Puducherry-605009",
+        "phone": "0413-2272007",
+        "email": "rcs.pon@nic.in"
+      },
+      {
+        "state": "Lakshadweep (UT)",
+        "office": "Registrar of Cooperative Societies i/c",
+        "address": "UT of Lakshadweep Admin, Kavaratti-682555",
+        "phone": "04896-262935",
+        "email": "ik-coops@hub.nic.in"
+      },
+      {
+        "state": "Andaman & Nicobar Islands (UT)",
+        "office": "Registrar of Cooperative Societies",
+        "address": "P.O. Junglighat, VIP Road, Port Blair-744103",
+        "email": "rcs.and@nic.in"
+      },
+      {
+        "state": "Delhi (NCT)",
+        "office": "Registrar of Cooperative Societies",
+        "address": "Parliament Street, New Delhi-110001",
+        "phone": "011-23742806",
+        "email": "rcoop@nic.in"
+      },
+      {
+        "state": "Daman & Diu (UT)",
+        "office": "Registrar of Cooperative Societies",
+        "address": "Moti Daman, Daman & Diu",
+        "phone": "0260-254698",
+        "email": "fs-dmn-dd@nic.in"
+      },
+      {
+        "state": "Chandigarh (UT)",
+        "office": "Registrar of Cooperative Societies",
+        "address": "Old Estate Building, Sector 17, Chandigarh",
+        "phone": "0172-2709000",
+        "email": "dc-chd@nic.in"
+      }
+    ],
+    "source_name": "Central Registrar of Cooperative Societies (CRCS), Ministry of Cooperation, Government of India",
+    "source_url": "https://crcs.gov.in/state_registrar",
+    "last_verified": "2026-09"
+  }
+}
